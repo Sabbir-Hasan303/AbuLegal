@@ -1,3 +1,304 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  --primary: 215 60% 20%;
+  --primary-foreground: 210 40% 98%;
+
+  /* Updated secondary color to match the gold logo */
+  --secondary: 43 74% 49%;
+  --secondary-foreground: 222 47% 11%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 43 74% 49%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}
+
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 font-serif;
+}
+
+.section-subtitle {
+  @apply text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-12;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.service-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-scale border border-border;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  @apply shadow-lg border-secondary;
+}
+
+.attorney-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale;
+  transition: all 0.3s ease;
+}
+
+.attorney-card:hover {
+  @apply shadow-lg;
+}
+
+.testimonial-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-border;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  @apply shadow-lg border-secondary;
+}
+
+/* Custom styles for the attorneys carousel */
+.attorneys-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.attorneys-carousel .slick-track {
+  display: flex !important;
+  padding: 20px 0;
+}
+
+.attorneys-carousel .slick-slide {
+  height: inherit !important;
+  display: flex !important;
+  padding-bottom: 10px;
+}
+
+.attorneys-carousel .slick-slide > div {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.attorneys-carousel .slick-dots {
+  bottom: -10px;
+}
+
+.attorneys-carousel .slick-dots li button:before {
+  color: hsl(var(--secondary));
+  opacity: 0.25;
+  font-size: 8px;
+}
+
+.attorneys-carousel .slick-dots li.slick-active button:before {
+  color: hsl(var(--secondary));
+  opacity: 1;
+}
+
+.attorneys-carousel .slick-prev,
+.attorneys-carousel .slick-next {
+  z-index: 10;
+}
+
+.attorneys-carousel {
+  margin: 0 -12px;
+  padding: 0 30px;
+}
+
+.attorney-card-wrapper {
+  height: 100%;
+  padding-bottom: 10px;
+}
+
+.attorney-card-inner {
+  height: 100%;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.attorney-card-inner:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-5px);
+}
+
+.attorney-image-container {
+  height: 280px;
+}
+
+/* Custom styles for the testimonials carousel */
+.testimonials-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-carousel .slick-track {
+  display: flex !important;
+  padding: 20px 0;
+}
+
+.testimonials-carousel .slick-slide {
+  height: inherit !important;
+  display: flex !important;
+  padding-bottom: 10px;
+}
+
+.testimonials-carousel .slick-slide > div {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.testimonials-carousel .slick-dots {
+  bottom: -10px;
+}
+
+.testimonials-carousel .slick-dots li button:before {
+  color: hsl(var(--primary));
+  opacity: 0.25;
+  font-size: 8px;
+}
+
+.testimonials-carousel .slick-dots li.slick-active button:before {
+  color: hsl(var(--primary));
+  opacity: 1;
+}
+
+.testimonials-carousel .slick-prev,
+.testimonials-carousel .slick-next {
+  z-index: 10;
+}
+
+.testimonials-carousel {
+  margin: 0 -12px;
+  padding: 0 30px;
+}
+
+.testimonial-card-wrapper {
+  height: 100%;
+  padding-bottom: 10px;
+}
+
+.testimonial-card-inner {
+  height: 100%;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card-inner:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-5px);
+}
+
+@media (max-width: 640px) {
+  .attorneys-carousel,
+  .testimonials-carousel {
+    padding: 0;
+  }
+
+  .attorney-image-container {
+    height: 240px;
+  }
+}
