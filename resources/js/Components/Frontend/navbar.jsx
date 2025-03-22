@@ -38,11 +38,11 @@ export default function Navbar() {
           <div className="flex items-center space-x-8">
             <div className="flex items-center">
               <Phone className="h-5 w-5 mr-2 text-secondary" />
-              <span className="text-base font-medium">+61 2 1234 5678</span>
+              <a href="tel:+0285403701" className="text-base font-medium">+02 8540 3701</a>
             </div>
             <div className="flex items-center">
               <Mail className="h-5 w-5 mr-2 text-secondary" />
-              <span className="text-base font-medium">info@abulegal.com.au</span>
+              <a href="mailto:abus@lawyer.com" className="text-base font-medium">abus@lawyer.com</a>
             </div>
             <div className="flex items-center">
               <Clock className="h-5 w-5 mr-2 text-secondary" />

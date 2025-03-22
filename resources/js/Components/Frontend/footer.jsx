@@ -119,13 +119,19 @@ export default function Footer() {
               <Input
                 type="email"
                 placeholder="Your email"
-                className="bg-primary-foreground/10 border-primary-foreground/20 text-white placeholder:text-primary-foreground/50"
+                className="bg-primary-foreground/10 border-primary-foreground/20 text-white placeholder:text-primary-foreground/50 cursor-not-allowed opacity-50"
+                disabled
               />
-              <Button type="submit" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+              <Button
+                type="submit"
+                className="bg-secondary/50 hover:bg-secondary/50 text-secondary-foreground cursor-not-allowed"
+                disabled
+              >
                 <ArrowRight className="h-4 w-4" />
                 <span className="sr-only">Subscribe</span>
               </Button>
             </div>
+            <p className="text-xs text-primary-foreground/50 mt-2">Newsletter subscription currently disabled</p>
           </div>
         </div>
 
