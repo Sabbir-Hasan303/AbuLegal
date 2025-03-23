@@ -4,17 +4,20 @@ import { useState, useEffect } from "react"
 import { Menu, X, Phone, Mail, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { usePage, Link } from "@inertiajs/react"
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
-  { name: "Contact", href: "#contact" },
+  { name: "Contact", href: "/contact" },
 ]
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { url } = usePage()
+  const isHomePage = url === "/"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,43 +56,57 @@ export default function Navbar() {
       </div>
 
       {/* Main Navbar */}
+      {console.log(isScrolled, isHomePage)}
       <header
         className={cn(
           "fixed top-0 w-full z-50 transition-all duration-500",
-          isScrolled
-            ? "bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]"
-            : "bg-transparent translate-y-0",
+          isHomePage
+            ? isScrolled
+              ? "bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]"
+              : "bg-transparent translate-y-0"
+            : isScrolled
+              ? "bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]"
+              : "bg-black/95 dark:bg-gray-900/95 translate-y-0"
         )}
       >
         <div className="container mx-auto px-4">
           <div className="flex h-20 items-center justify-between">
             <div className="flex items-center">
-              <a href="/" className="flex items-center">
+              <Link href="/" className="flex items-center">
                 <img
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Abu%20Legal%20Logo2-Photoroom-Q77BJKVpjQf66LR9Qtrduxtszpna6B.png"
                   alt="Abu Legal Logo"
                   className="h-10 md:h-12"
                 />
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-1">
               {navLinks.map((link) => (
                 <div key={link.name} className="relative group">
-                  <a
-                    href={link.href}
-                    className="px-4 py-2 text-base font-medium text-white hover:text-secondary rounded-md transition-colors"
-                  >
-                    {link.name}
-                  </a>
+                  {link.href.startsWith('#') ? (
+                    <a
+                      href={link.href}
+                      className="px-4 py-2 text-base font-medium text-white hover:text-secondary rounded-md transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="px-4 py-2 text-base font-medium text-white hover:text-secondary rounded-md transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </div>
               ))}
             </nav>
 
             <div className="hidden md:block">
               <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground" asChild>
-                <a href="#contact">Free Consultation</a>
+                <Link href="/contact">Free Consultation</Link>
               </Button>
             </div>
 
@@ -118,18 +135,28 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900">
             {navLinks.map((link) => (
               <div key={link.name}>
-                <a
-                  href={link.href}
-                  className="block px-3 py-2 text-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
+                {link.href.startsWith('#') ? (
+                  <a
+                    href={link.href}
+                    className="block px-3 py-2 text-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="block px-3 py-2 text-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                )}
               </div>
             ))}
             <div className="pt-4">
               <Button className="w-full bg-primary hover:bg-primary/90 text-white" asChild>
-                <a href="#contact">Free Consultation</a>
+                <Link href="/contact">Free Consultation</Link>
               </Button>
             </div>
           </div>
