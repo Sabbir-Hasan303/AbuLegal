@@ -19,6 +19,12 @@ export default function Navbar() {
   const { url } = usePage()
   const isHomePage = url === "/"
 
+  // Function to check if a link is active
+  const isLinkActive = (href) => {
+    if (href.startsWith('#')) return false
+    return url === href
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
@@ -95,7 +101,12 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="px-4 py-2 text-base font-medium text-white hover:text-secondary rounded-md transition-colors"
+                      className={cn(
+                        "px-4 py-2 text-base font-medium rounded-md transition-colors",
+                        isLinkActive(link.href)
+                          ? "text-secondary font-semibold"
+                          : "text-white hover:text-secondary"
+                      )}
                     >
                       {link.name}
                     </Link>
@@ -105,7 +116,15 @@ export default function Navbar() {
             </nav>
 
             <div className="hidden md:block">
-              <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground" asChild>
+              <Button
+                className={cn(
+                  "hover:bg-secondary/90 text-secondary-foreground",
+                  isLinkActive('/contact')
+                    ? "bg-secondary"
+                    : "bg-secondary/80"
+                )}
+                asChild
+              >
                 <Link href="/contact">Free Consultation</Link>
               </Button>
             </div>
@@ -146,7 +165,12 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={link.href}
-                    className="block px-3 py-2 text-lg font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                    className={cn(
+                      "block px-3 py-2 text-lg font-medium rounded-md",
+                      isLinkActive(link.href)
+                        ? "text-primary dark:text-primary font-semibold bg-gray-100 dark:bg-gray-800"
+                        : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    )}
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
@@ -155,7 +179,15 @@ export default function Navbar() {
               </div>
             ))}
             <div className="pt-4">
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white" asChild>
+              <Button
+                className={cn(
+                  "w-full hover:bg-primary/90 text-white",
+                  isLinkActive('/contact')
+                    ? "bg-primary"
+                    : "bg-primary/80"
+                )}
+                asChild
+              >
                 <Link href="/contact">Free Consultation</Link>
               </Button>
             </div>
