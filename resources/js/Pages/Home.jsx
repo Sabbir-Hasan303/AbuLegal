@@ -21,7 +21,7 @@ export default function Home() {
         <AttorneysSection />
         {/*<CaseStudiesSection />*/}
         <TestimonialsSection />
-        {/*<PricingSection />*/}
+        {/* <PricingSection /> */}
         <CtaSection />
         <FaqSection />
         {/*<ContactSection />*/}

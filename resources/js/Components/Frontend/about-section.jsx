@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react"
 import { CheckCircle, Award, Users, Scale } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Link } from "@inertiajs/react"
 
 export default function AboutSection() {
   const sectionRef = useRef(null)
@@ -108,7 +109,9 @@ export default function AboutSection() {
               </div>
             </div>
 
-            <Button className="mt-6 bg-primary hover:bg-primary/90 text-white">Learn More About Us</Button>
+            <Link href="/about">
+              <Button className="mt-6 bg-primary hover:bg-primary/90 text-white">Learn More About Us</Button>
+            </Link>
           </div>
         </div>
 

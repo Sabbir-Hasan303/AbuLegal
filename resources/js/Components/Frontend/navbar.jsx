@@ -8,7 +8,7 @@ import { usePage, Link } from "@inertiajs/react"
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About", href: "#about" },
+  { name: "About", href: "/about" },
   { name: "Services", href: "#services" },
   { name: "Contact", href: "/contact" },
 ]
@@ -18,6 +18,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const { url } = usePage()
   const isHomePage = url === "/"
+  const isAboutPage = url === "/about"
 
   // Function to check if a link is active
   const isLinkActive = (href) => {
@@ -62,11 +63,10 @@ export default function Navbar() {
       </div>
 
       {/* Main Navbar */}
-      {console.log(isScrolled, isHomePage)}
       <header
         className={cn(
           "fixed top-0 w-full z-50 transition-all duration-500",
-          isHomePage
+          isHomePage || isAboutPage
             ? isScrolled
               ? "bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]"
               : "bg-transparent translate-y-0"
