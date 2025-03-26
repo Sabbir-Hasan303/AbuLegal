@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <a href="/" className="inline-block mb-4">
               <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Abu%20Legal%20Logo2-Photoroom-Q77BJKVpjQf66LR9Qtrduxtszpna6B.png"
+                src="images/logo/logo.png"
                 alt="Abu Legal Logo"
                 className="h-14"
               />

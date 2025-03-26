@@ -48,7 +48,7 @@ export default function HeroBanner() {
             experienced team will guide you through every step of your legal journey.
           </p>
           <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground group" asChild>
-            <a href="#contact">
+            <a href="/contact">
               Free Consultation
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>

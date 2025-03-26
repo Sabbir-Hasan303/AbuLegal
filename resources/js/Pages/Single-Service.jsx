@@ -3,6 +3,7 @@ import Layout from '@/Layouts/layout'
 import ServiceBanner from '@/Components/Frontend/services/single-service/service-banner'
 import ServiceContent from '@/Components/Frontend/services/single-service/service-content'
 import ServiceSidebar from '@/Components/Frontend/services/single-service/service-sidebar'
+import { Head } from '@inertiajs/react'
 
 const services = [
     {
@@ -84,6 +85,7 @@ export default function SingleService ({ params }) {
 
     return (
         <Layout>
+            <Head title={service.title} />
             <div className='flex flex-col'>
                 <ServiceBanner service={service} />
                 <div className='relative z-40 bg-white dark:bg-gray-900'>

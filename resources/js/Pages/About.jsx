@@ -7,10 +7,11 @@ import AboutMission from '@/components/frontend/about/about-mission'
 import AboutClients from '@/components/frontend/about/about-clients'
 import AboutContact from '@/components/frontend/about/about-contact'
 import AboutCTA from '@/components/frontend/about/about-cta'
-
+import { Head } from '@inertiajs/react'
 export default function About() {
   return (
     <Layout>
+        <Head title='About' />
         <AboutHero />
         <AboutHistory />
         <AboutFounder />
