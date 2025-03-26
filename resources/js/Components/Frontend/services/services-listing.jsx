@@ -315,21 +315,30 @@ export default function ServicesListing () {
                                         </div>
 
                                         {/* Content */}
-                                        <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-3'>
-                                            {service.title}
-                                        </h3>
+                                        {/* <Link href={`/services/${service.slug}`}>
+                                            <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-3'>
+                                                {service.title}
+                                            </h3>
+                                        </Link> */}
+                                        <Link href={`/services/partner-visa`}>
+                                            <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-3'>
+                                                {service.title}
+                                            </h3>
+                                        </Link>
                                         <p className='text-gray-600 dark:text-gray-300 text-sm mb-4 flex-grow'>
                                             {service.description}
                                         </p>
 
                                         {/* Button */}
-                                        <Button
-                                            className='bg-primary hover:bg-primary/90 text-white group w-full mt-auto'
-                                            size='sm'
+                                        <Link href={`/services/partner-visa`}>
+                                            <Button
+                                                className='bg-primary hover:bg-primary/90 text-white group w-full mt-auto'
+                                                size='sm'
                                         >
                                             Learn More
-                                            <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
-                                        </Button>
+                                                <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
                             )

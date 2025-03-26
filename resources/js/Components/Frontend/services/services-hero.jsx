@@ -65,9 +65,9 @@ export default function ServicesHero () {
                                     <span className='text-white mr-2'>
                                         {category.name}
                                     </span>
-                                    <span className='bg-secondary text-secondary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center'>
+                                    {/* <span className='bg-secondary text-secondary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center'>
                                         {category.count}
-                                    </span>
+                                    </span> */}
                                 </div>
                             ))}
                         </div>

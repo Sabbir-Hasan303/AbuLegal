@@ -17,9 +17,7 @@ export default function Navbar () {
     const [isOpen, setIsOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
     const { url } = usePage()
-    const isHomePage = url === '/'
-    const isAboutPage = url === '/about'
-    const isServicesPage = url === '/services'
+    const isContactPage = url === '/contact'
 
     // Function to check if a link is active
     const isLinkActive = href => {
@@ -81,13 +79,13 @@ export default function Navbar () {
             <header
                 className={cn(
                     'fixed top-0 w-full z-50 transition-all duration-500',
-                    isHomePage || isAboutPage || isServicesPage
+                    isContactPage
                         ? isScrolled
                             ? 'bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]'
-                            : 'bg-transparent translate-y-0'
+                            : 'bg-black/95 dark:bg-gray-900/95 translate-y-0'
                         : isScrolled
                         ? 'bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]'
-                        : 'bg-black/95 dark:bg-gray-900/95 translate-y-0'
+                        : 'bg-transparent translate-y-0'
                 )}
             >
                 <div className='container mx-auto px-4'>

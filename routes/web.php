@@ -26,6 +26,12 @@ Route::get('/services', function () {
     return Inertia::render('Services');
 });
 
+Route::get('/services/{slug}', function ($slug) {
+    return Inertia::render('Single-Service', [
+        'params' => ['slug' => $slug]
+    ]);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

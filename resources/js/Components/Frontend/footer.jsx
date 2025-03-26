@@ -139,14 +139,14 @@ export default function Footer() {
           <p className="text-primary-foreground/70 text-sm mb-4 md:mb-0">
             © {new Date().getFullYear()} Abu Legal. All rights reserved.
           </p>
-          <div className="flex space-x-4 text-sm text-primary-foreground/70">
+          {/* <div className="flex space-x-4 text-sm text-primary-foreground/70">
             <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
             <a href="#" className="hover:text-white transition-colors">
               Terms of Service
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
