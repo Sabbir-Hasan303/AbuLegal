@@ -19,6 +19,6 @@ export default defineConfig({
         },
     },
     optimizeDeps: {
-        include: ['slick-carousel'],
+        include: ['slick-carousel', '@inertiajs/react'],
     },
 });

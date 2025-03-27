@@ -33,8 +33,16 @@ Route::get('/services/{slug}', function ($slug) {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard/services', function () {
+    return Inertia::render('Dashboard/Services/ServicesList');
+})->middleware(['auth', 'verified'])->name('services.list');
+
+Route::get('/dashboard/services/add', function () {
+    return Inertia::render('Dashboard/Services/AddService');
+})->middleware(['auth', 'verified'])->name('services.add');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
