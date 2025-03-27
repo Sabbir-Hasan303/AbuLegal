@@ -18,6 +18,7 @@ export default function Navbar () {
     const [isScrolled, setIsScrolled] = useState(false)
     const { url } = usePage()
     const isContactPage = url === '/contact'
+    const user = usePage().props.auth.user
 
     // Function to check if a link is active
     const isLinkActive = href => {
@@ -128,18 +129,39 @@ export default function Navbar () {
                             ))}
                         </nav>
 
-                        <div className='hidden md:block'>
-                            <Button
-                                className={cn(
-                                    'hover:bg-secondary/90 text-secondary-foreground',
-                                    isLinkActive('/contact')
-                                        ? 'bg-secondary'
-                                        : 'bg-secondary/80'
-                                )}
-                                asChild
-                            >
-                                <Link href='/contact'>Free Consultation</Link>
-                            </Button>
+                        <div className='flex items-center space-x-4'>
+                            {/* if authenticated then show dashboard button */}
+                            {user && (
+                                <div className='hidden md:block'>
+                                    <Button
+                                        className={cn(
+                                            'hover:bg-secondary/90 text-secondary-foreground',
+                                            isLinkActive('/dashboard')
+                                                ? 'bg-secondary'
+                                                : 'bg-secondary/80'
+                                        )}
+                                        asChild
+                                    >
+                                        <Link href='/dashboard'>Dashboard</Link>
+                                    </Button>
+                                </div>
+                            )}
+
+                            <div className='hidden md:block'>
+                                <Button
+                                    className={cn(
+                                        'hover:bg-secondary/90 text-secondary-foreground',
+                                        isLinkActive('/contact')
+                                            ? 'bg-secondary'
+                                            : 'bg-secondary/80'
+                                    )}
+                                    asChild
+                                >
+                                    <Link href='/contact'>
+                                        Free Consultation
+                                    </Link>
+                                </Button>
+                            </div>
                         </div>
 
                         {/* Mobile menu button */}

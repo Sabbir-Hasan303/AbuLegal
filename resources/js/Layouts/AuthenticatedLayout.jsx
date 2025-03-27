@@ -37,7 +37,7 @@ export default function AuthenticatedLayout({ children }) {
       >
         {/* Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-6 lg:px-10">
-          <div className="hidden lg:flex lg:flex-1">
+          {/* <div className="hidden lg:flex lg:flex-1">
             <form className="w-full max-w-[400px]">
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -48,7 +48,7 @@ export default function AuthenticatedLayout({ children }) {
                 />
               </div>
             </form>
-          </div>
+          </div> */}
 
           <div className="hidden lg:flex flex-1 items-center justify-end gap-4">
             <DropdownMenu>

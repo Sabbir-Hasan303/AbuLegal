@@ -134,20 +134,22 @@ export default function Sidebar({ onCollapsedChange }) {
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div
+            <div
             className={cn(
               "flex items-center h-16 px-4 border-b transition-all duration-300",
               collapsed ? "justify-center" : "justify-between",
             )}
           >
-            {!collapsed && (
-              <div className="flex items-center gap-2">
-                <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
-              </div>
-            )}
+            <Link href="/">
+              {!collapsed && (
+                <div className="flex items-center gap-2">
+                  <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
+                </div>
+              )}
             {collapsed && (
               <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
             )}
+            </Link>
             <Button variant="ghost" size="icon" className="hidden lg:flex" onClick={handleCollapseToggle}>
               <ChevronRight
                 className={cn("h-4 w-4 transition-transform duration-300", collapsed ? "rotate-180" : "")}
