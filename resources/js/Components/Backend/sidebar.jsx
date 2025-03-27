@@ -64,7 +64,7 @@ const menuItems = [
   },
 ]
 
-export default function Sidebar() {
+export default function Sidebar({ onCollapsedChange }) {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [expandedItems, setExpandedItems] = useState({})
@@ -91,12 +91,24 @@ export default function Sidebar() {
     setExpandedItems(newExpandedItems)
   }, [url])
 
+  // Notify parent component when collapsed state changes
+  useEffect(() => {
+    if (onCollapsedChange) {
+      onCollapsedChange(collapsed)
+    }
+  }, [collapsed, onCollapsedChange])
+
   // Toggle submenu expansion
   const toggleSubmenu = (title) => {
     setExpandedItems((prev) => ({
       ...prev,
       [title]: !prev[title],
     }))
+  }
+
+  // Handle sidebar collapse toggle
+  const handleCollapseToggle = () => {
+    setCollapsed(!collapsed)
   }
 
   return (
@@ -106,7 +118,7 @@ export default function Sidebar() {
 
       {/* Mobile Toggle Button */}
       <button
-        className="fixed top-4 left-4 z-50 lg:hidden bg-primary text-primary-foreground p-2 rounded-md"
+        className="fixed top-4 right-4 z-50 lg:hidden bg-primary text-primary-foreground p-2 rounded-md"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
         {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -130,18 +142,13 @@ export default function Sidebar() {
           >
             {!collapsed && (
               <div className="flex items-center gap-2">
-                <div className="bg-primary text-primary-foreground w-8 h-8 rounded-md flex items-center justify-center font-bold">
-                  AL
-                </div>
-                <span className="font-bold text-lg">Abu Legal</span>
+                <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
               </div>
             )}
             {collapsed && (
-              <div className="bg-primary text-primary-foreground w-10 h-10 rounded-md flex items-center justify-center font-bold">
-                AL
-              </div>
+              <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
             )}
-            <Button variant="ghost" size="icon" className="hidden lg:flex" onClick={() => setCollapsed(!collapsed)}>
+            <Button variant="ghost" size="icon" className="hidden lg:flex" onClick={handleCollapseToggle}>
               <ChevronRight
                 className={cn("h-4 w-4 transition-transform duration-300", collapsed ? "rotate-180" : "")}
               />
@@ -273,19 +280,19 @@ export default function Sidebar() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
+                <Link href={route('profile.edit')}>
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </DropdownMenuItem>
+                </Link>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </DropdownMenuItem>
+                <Link href={route('logout')} method="post" className="cursor-pointer w-full">
+                  <DropdownMenuItem>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Log out
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

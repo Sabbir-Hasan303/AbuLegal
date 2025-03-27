@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@inertiajs/react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -21,9 +21,8 @@ const getServiceById = (id) => {
   }
 }
 
-export default function EditServicePage({ params }) {
-  // In a real application, you would fetch the service data based on the ID
-  const service = getServiceById(params.id)
+export default function EditServicePage({ id }) {
+  const service = getServiceById(id)
 
   return (
     <div className="space-y-6">
