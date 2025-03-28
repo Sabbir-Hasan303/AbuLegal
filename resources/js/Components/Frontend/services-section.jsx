@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
-import { ArrowRight, Home, Globe, Shield } from "lucide-react"
+import { ArrowRight, Home, Globe, Shield, File } from "lucide-react"
+import { Link } from "@inertiajs/react"
 
 // This would typically come from an API or CMS in a real application
 const services = [
@@ -68,6 +69,17 @@ const services = [
       { title: "Appeals", description: "Representation for criminal conviction and sentence appeals." },
     ],
   },
+  {
+    id: "4",
+    title: "Commercial Litigation",
+    icon: File,
+    items: [
+      { title: "Contract Disputes", description: "Representation for disputes arising from commercial contracts." },
+      { title: "Business Disputes", description: "Representation for disputes arising from business relationships." },
+      { title: "Bankruptcy", description: "Representation for bankruptcy and insolvency matters." },
+      { title: "Insurance Claims", description: "Representation for insurance claims and disputes." },
+    ],
+  },
 ]
 
 export default function ServicesSection() {
@@ -109,7 +121,7 @@ export default function ServicesSection() {
 
         <div ref={(el) => (elementsRef.current[1] = el)} className="opacity-0 mt-12">
           <Tabs defaultValue="immigration" value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-1 md:grid-cols-3 gap-2 bg-transparent h-auto">
+            <TabsList className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 bg-transparent h-auto">
               {services.map((service) => {
                 const ServiceIcon = service.icon
                 return (
@@ -152,9 +164,11 @@ export default function ServicesSection() {
                 </div>
 
                 <div className="mt-8 text-center">
-                  <Button className="bg-primary hover:bg-primary/90 text-white">
-                    View All {service.title} Services
-                  </Button>
+                  <Link href="/services">
+                    <Button className="bg-primary hover:bg-primary/90 text-white">
+                      View All Services
+                    </Button>
+                  </Link>
                 </div>
               </TabsContent>
             ))}

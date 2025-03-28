@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard/services', function () {return Inertia::render('Dashboard/Services/ServicesList');})->name('services.list');
 
-    Route::get('/dashboard/services/add', function () {return Inertia::render('Dashboard/Services/AddService');})->name('services.add');
+    Route::get('/dashboard/services/add', [ServiceController::class, 'create'])->name('services.add');
 
     Route::get('/dashboard/services/edit/{id}', function ($id) {
         return Inertia::render('Dashboard/Services/EditService', [
