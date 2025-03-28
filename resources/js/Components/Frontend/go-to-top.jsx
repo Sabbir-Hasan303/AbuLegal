@@ -32,7 +32,7 @@ export default function GoToTop() {
   return (
     <Button
       className={cn(
-        "fixed bottom-6 right-6 z-50 p-3 rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg transition-all duration-300",
+        "fixed bottom-20 right-8 z-50 p-3 rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg transition-all duration-300",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
       )}
       onClick={scrollToTop}

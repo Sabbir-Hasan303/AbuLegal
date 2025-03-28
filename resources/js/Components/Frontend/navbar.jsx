@@ -92,7 +92,7 @@ export default function Navbar () {
                         <div className='flex items-center'>
                             <Link href='/' className='flex items-center'>
                                 <img
-                                    src='images/logo/logo.png'
+                                    src='/images/logo/logo.png'
                                     alt='Abu Legal Logo'
                                     className='h-10 md:h-12'
                                 />

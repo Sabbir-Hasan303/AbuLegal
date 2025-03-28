@@ -142,10 +142,10 @@ export default function ContactSection() {
                   <Phone className="h-5 w-5 text-secondary mr-4 mt-1" />
                   <div>
                     <h4 className="font-medium">Phone</h4>
-                    <p className="text-muted-foreground">02 8540 3701 (Phone)</p>
-                    <p className="text-muted-foreground">0403 343 814 (Mobile)</p>
-                    <p className="text-muted-foreground">0403 343 814 (WhatsApp)</p>
-                    <p className="text-muted-foreground">02 9475 0037 (FAX)</p>
+                    <a href="tel:+61285403701" className="text-muted-foreground hover:text-primary">02 8540 3701 (Phone)</a> <br />
+                    <a href="tel:+61403343814" className="text-muted-foreground hover:text-primary">0403 343 814 (Mobile)</a> <br />
+                    <a href="https://wa.me/+61403343814" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">0403 343 814 (WhatsApp)</a>
+                    <p className="text-muted-foreground hover:text-primary">02 9475 0037 (FAX)</p>
                   </div>
                 </div>
 
@@ -153,7 +153,7 @@ export default function ContactSection() {
                   <Mail className="h-5 w-5 text-secondary mr-4 mt-1" />
                   <div>
                     <h4 className="font-medium">Email</h4>
-                    <p className="text-muted-foreground">abus@lawyer.com</p>
+                    <a href="mailto:abus@lawyer.com" className="text-muted-foreground hover:text-primary">abus@lawyer.com</a>
                   </div>
                 </div>
 

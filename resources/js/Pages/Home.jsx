@@ -5,6 +5,7 @@ import AttorneysSection from '@/components/frontend/attorneys-section'
 import TestimonialsSection from '@/components/frontend/testimonials-section'
 import FaqSection from '@/components/frontend/faq-section'
 import CtaSection from '@/components/frontend/cta-section'
+// import WhatsAppButton from '@/components/frontend/whatsapp-button'
 import Layout from '@/Layouts/layout'
 import { Head } from '@inertiajs/react'
 
@@ -22,6 +23,7 @@ export default function Home () {
                     <CtaSection />
                     <FaqSection />
                 </div>
+                {/* <WhatsAppButton /> */}
             </div>
         </Layout>
     )
