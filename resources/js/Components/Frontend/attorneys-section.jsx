@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Facebook, Twitter, Linkedin, Mail, ChevronLeft, ChevronRight, Quote } from "lucide-react"

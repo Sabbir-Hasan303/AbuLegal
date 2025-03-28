@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect } from "react"
 import { Target, Users, Shield, Globe } from "lucide-react"
 

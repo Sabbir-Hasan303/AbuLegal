@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect } from "react"
 import { Building, Users, Globe, Briefcase } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"

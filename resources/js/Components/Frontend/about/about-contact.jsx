@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect } from "react"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, Calendar } from "lucide-react"
