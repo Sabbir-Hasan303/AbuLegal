@@ -10,7 +10,7 @@ class Service extends Model
         'title',
         'slug',
         'banner',
-        'category_id',
+        'category',
         'short_description',
         'description',
         'status',
@@ -18,6 +18,6 @@ class Service extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category');
     }
 }

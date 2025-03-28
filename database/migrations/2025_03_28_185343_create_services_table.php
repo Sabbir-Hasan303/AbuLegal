@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('banner');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category')->constrained('categories');
             $table->text('short_description');
             $table->text('description');
             $table->enum('status', ['active', 'draft'])->default('active');

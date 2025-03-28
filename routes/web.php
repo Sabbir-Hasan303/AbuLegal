@@ -40,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/services', function () {return Inertia::render('Dashboard/Services/ServicesList');})->name('services.list');
 
     Route::get('/dashboard/services/add', [ServiceController::class, 'create'])->name('services.add');
+    Route::post('/dashboard/services/add', [ServiceController::class, 'store'])->name('services.store');
 
     Route::get('/dashboard/services/edit/{id}', function ($id) {
         return Inertia::render('Dashboard/Services/EditService', [

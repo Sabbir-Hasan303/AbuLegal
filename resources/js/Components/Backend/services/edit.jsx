@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, Upload, X } from "lucide-react"
+import TinyMCE from '@/Components/Backend/tinymce'
+import { useState } from 'react'
 
 // This would normally come from a database
 const getServiceById = (id) => {
@@ -23,6 +25,7 @@ const getServiceById = (id) => {
 
 export default function EditServicePage({ id }) {
   const service = getServiceById(id)
+  const [description, setDescription] = useState(service.description)
 
   return (
     <div className="space-y-6">
@@ -76,7 +79,12 @@ export default function EditServicePage({ id }) {
 
           <div className="space-y-2">
             <Label htmlFor="description">Full Description</Label>
-            <Textarea id="description" defaultValue={service.description} className="min-h-[200px]" />
+            <TinyMCE
+              field={{
+                value: description,
+                onChange: (content) => setDescription(content)
+              }}
+            />
           </div>
 
           <div className="space-y-2">

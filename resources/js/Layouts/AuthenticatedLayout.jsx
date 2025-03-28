@@ -68,7 +68,7 @@ export default function AuthenticatedLayout({ children }) {
         </header>
 
         {/* Main Content */}
-        <main className="p-6 lg:p-10 animate-fadeIn">{children}</main>
+        <main className="p-4 lg:p-10 animate-fadeIn">{children}</main>
       </div>
     </div>
   )
