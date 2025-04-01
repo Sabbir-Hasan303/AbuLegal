@@ -48,8 +48,12 @@ export default function AddServicePage () {
             onSuccess: () => {
                 toast.success('Service created successfully')
             },
-            onError: () => {
-                toast.error('Failed to create service')
+            onError: (errors) => {
+                if (errors.error) {
+                    toast.error(errors.error)
+                } else {
+                    toast.error('Please check the form for errors')
+                }
             }
         })
     }

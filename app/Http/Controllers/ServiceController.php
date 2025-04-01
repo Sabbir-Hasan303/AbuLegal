@@ -38,48 +38,53 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'required|exists:categories,id',
-            'short_description' => 'required|string|max:150',
-            'description' => 'required|string',
-            'status' => 'required|in:active,draft',
-            'banner' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ], [
-            'title.required' => 'The service title is required.',
-            'category.required' => 'Please select a category.',
-            'category.exists' => 'The selected category is invalid.',
-            'short_description.required' => 'The short description is required.',
-            'short_description.max' => 'The short description must not exceed 150 characters.',
-            'description.required' => 'The full description is required.',
-            'status.required' => 'Please select a status.',
-            'status.in' => 'The selected status is invalid.',
-            'banner.required' => 'A banner image is required.',
-            'banner.image' => 'The banner must be an image file.',
-            'banner.mimes' => 'The banner must be a file of type: jpeg, png, jpg, gif.',
-            'banner.max' => 'The banner must not be larger than 2MB.'
-        ]);
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'category' => 'required|exists:categories,id',
+                'short_description' => 'required|string|max:150',
+                'description' => 'required|string',
+                'status' => 'required|in:active,draft',
+                'banner' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ], [
+                'title.required' => 'The service title is required.',
+                'category.required' => 'Please select a category.',
+                'category.exists' => 'The selected category is invalid.',
+                'short_description.required' => 'The short description is required.',
+                'short_description.max' => 'The short description must not exceed 150 characters.',
+                'description.required' => 'The full description is required.',
+                'status.required' => 'Please select a status.',
+                'status.in' => 'The selected status is invalid.',
+                'banner.required' => 'A banner image is required.',
+                'banner.image' => 'The banner must be an image file.',
+                'banner.mimes' => 'The banner must be a file of type: jpeg, png, jpg, gif.',
+                'banner.max' => 'The banner must not be larger than 2MB.'
+            ]);
 
-        $service = new Service();
-        $service->title = $request->title;
-        $service->slug = str()->slug($request->title);
-        $service->category = $request->category;
-        $service->short_description = $request->short_description;
-        $service->description = $request->description;
-        $service->status = $request->status;
+            $service = new Service();
+            $service->title = $request->title;
+            $service->slug = str()->slug($request->title);
+            $service->category = $request->category;
+            $service->short_description = $request->short_description;
+            $service->description = $request->description;
+            $service->status = $request->status;
 
-        if ($request->hasFile('banner')) {
-            $banner = $request->file('banner');
-            $filename = time() . '_' . $banner->getClientOriginalName();
-            Storage::disk('public')->put('services/' . $filename, file_get_contents($banner));
-            $imageLink = 'storage/services/' . $filename;
-            $service->banner = $imageLink;
+            if ($request->hasFile('banner')) {
+                $banner = $request->file('banner');
+                $filename = time() . '_' . $banner->getClientOriginalName();
+                Storage::disk('public')->put('services/' . $filename, file_get_contents($banner));
+                $imageLink = 'storage/services/' . $filename;
+                $service->banner = $imageLink;
+            }
+
+            $service->save();
+
+            return redirect()->route('services.list')->with('success', 'Service created successfully.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while creating the service. Please try again.')->withInput();
         }
-
-        $service->save();
-
-        return redirect()->route('services.list')->with('success', 'Service created successfully.');
     }
 
     /**
