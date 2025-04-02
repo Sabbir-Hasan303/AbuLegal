@@ -37,16 +37,12 @@ Route::get('/services/{slug}', function ($slug) {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {return Inertia::render('Dashboard/Dashboard');})->name('dashboard');
 
+    // services
     Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('services.list');
-
     Route::get('/dashboard/services/add', [ServiceController::class, 'create'])->name('services.add');
     Route::post('/dashboard/services/add', [ServiceController::class, 'store'])->name('services.store');
-
-    Route::get('/dashboard/services/edit/{id}', function ($id) {
-        return Inertia::render('Dashboard/Services/EditService', [
-            'id' => $id
-        ]);
-    })->name('services.edit');
+    Route::get('/dashboard/services/edit/{slug}', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::post('/dashboard/services/edit/{slug}', [ServiceController::class, 'update'])->name('services.update');
 
     Route::get('/dashboard/services/delete/{id}', function ($id) {
         return Inertia::render('Dashboard/Services/DeleteService', [
