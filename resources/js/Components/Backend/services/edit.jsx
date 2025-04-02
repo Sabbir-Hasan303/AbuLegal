@@ -9,6 +9,7 @@ import { ArrowLeft, Upload, X } from "lucide-react"
 import TinyMCE from '@/Components/Backend/tinymce'
 import ImageUpload from '@/Components/Backend/ImageUpload'
 import { useState, useRef } from 'react'
+import { toast } from 'react-hot-toast'
 
 export default function EditServicePage({ service, categories }) {
   const [description, setDescription] = useState(service.description)
@@ -34,6 +35,14 @@ export default function EditServicePage({ service, categories }) {
         // Reset file input after successful submission
         if (fileInputRef.current) {
           fileInputRef.current.value = ''
+        }
+        toast.success('Service updated successfully')
+      },
+      onError: (errors) => {
+        if (errors.error) {
+          toast.error(errors.error)
+        } else {
+          toast.error('Please check the form for errors')
         }
       }
     })
