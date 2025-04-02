@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, Upload, X } from "lucide-react"
 import TinyMCE from '@/Components/Backend/tinymce'
+import ImageUpload from '@/Components/Backend/ImageUpload'
 import { useState, useRef } from 'react'
 
 export default function EditServicePage({ service, categories }) {
@@ -38,10 +39,8 @@ export default function EditServicePage({ service, categories }) {
     })
   }
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setData('banner', e.target.files[0])
-    }
+  const handleImageChange = (file) => {
+    setData('banner', file)
   }
 
   return (
@@ -81,14 +80,14 @@ export default function EditServicePage({ service, categories }) {
                 <Label htmlFor="category">Category</Label>
                 <Select
                   value={data.category}
-                  onValueChange={(value) => setData('category', value)}
+                  onValueChange={(value) => setData('category', parseInt(value))}
                 >
                   <SelectTrigger id="category" className={errors.category ? 'border-red-500' : ''}>
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
+                      <SelectItem key={category.id} value={parseInt(category.id)}>
                         {category.name}
                       </SelectItem>
                     ))}
@@ -126,47 +125,12 @@ export default function EditServicePage({ service, categories }) {
 
             <div className="space-y-2">
               <Label htmlFor="banner">Banner Image</Label>
-              <div className="space-y-4">
-                <div className="relative w-full max-w-md">
-                  <img
-                    src={`${domain}/${service.banner}`}
-                    alt={service.title}
-                    className="h-40 w-full object-cover rounded-lg border"
-                  />
-                  {/* <Button
-                    type="button"
-                    variant="destructive"
-                    size="icon"
-                    className="absolute top-2 right-2 h-8 w-8 rounded-full"
-                    onClick={() => setData('banner', null)}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button> */}
-                </div>
-
-                <div className="flex items-center justify-center w-full">
-                  <label
-                    htmlFor="banner-upload"
-                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <Upload className="w-8 h-8 mb-3 text-muted-foreground" />
-                      <p className="mb-2 text-sm text-muted-foreground">
-                        <span className="font-semibold">Click to upload</span> or drag and drop
-                      </p>
-                      <p className="text-xs text-muted-foreground">SVG, PNG, JPG or GIF (MAX. 2MB)</p>
-                    </div>
-                    <input
-                      id="banner-upload"
-                      type="file"
-                      className="hidden"
-                      onChange={handleFileChange}
-                      ref={fileInputRef}
-                    />
-                  </label>
-                </div>
-                {errors.banner && <p className="text-sm text-red-500">{errors.banner}</p>}
-              </div>
+              <ImageUpload
+                onImageChange={handleImageChange}
+                currentImage={`${domain}/${service.banner}`}
+                maxSize={2}
+              />
+              {errors.banner && <p className="text-sm text-red-500">{errors.banner}</p>}
             </div>
 
             <div className="space-y-2">

@@ -43,20 +43,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/services/add', [ServiceController::class, 'store'])->name('services.store');
     Route::get('/dashboard/services/edit/{slug}', [ServiceController::class, 'edit'])->name('services.edit');
     Route::post('/dashboard/services/edit/{slug}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
-    Route::get('/dashboard/services/delete/{id}', function ($id) {
-        return Inertia::render('Dashboard/Services/DeleteService', [
-            'id' => $id
-        ]);
-    })->name('services.delete');
 
     Route::get('/dashboard/contact', function () {return Inertia::render('Dashboard/ContactList');})->name('contact.list');
-
     Route::get('/dashboard/faq', function () {return Inertia::render('Dashboard/Faq');})->name('faq');
-});
 
-
-Route::middleware('auth')->group(function () {
+    // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

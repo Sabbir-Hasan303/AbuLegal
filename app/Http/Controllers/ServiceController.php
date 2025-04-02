@@ -180,8 +180,24 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy($id)
     {
-        //
+        try {
+            $service = Service::findOrFail($id);
+
+            // Delete the banner image if it exists
+            if ($service->banner) {
+                $bannerPath = str_replace('storage/', '', $service->banner);
+                if (Storage::disk('public')->exists($bannerPath)) {
+                    Storage::disk('public')->delete($bannerPath);
+                }
+            }
+
+            $service->delete();
+
+            return redirect()->route('services.list')->with('success', 'Service deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while deleting the service. Please try again.');
+        }
     }
 }

@@ -9,11 +9,21 @@ import { Plus, Search, Edit, Trash2, ArrowUpDown } from "lucide-react"
 import { router } from '@inertiajs/react'
 import { useState, useEffect } from 'react'
 import debounce from 'lodash/debounce'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle
+} from "@/components/ui/dialog"
 
 export default function ServicesPage({ services, filters }) {
     const domain = window.location.origin;
     const [searchQuery, setSearchQuery] = useState(filters?.search || '');
     const [status, setStatus] = useState(filters?.status || 'all');
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [serviceToDelete, setServiceToDelete] = useState(null);
 
     // Debounced search function
     const debouncedSearch = debounce((query) => {
@@ -62,6 +72,24 @@ export default function ServicesPage({ services, filters }) {
                 preserveScroll: true,
             }
         );
+    };
+
+    // Handle delete confirmation
+    const handleDeleteClick = (service) => {
+        setServiceToDelete(service);
+        setDeleteDialogOpen(true);
+    };
+
+    // Handle delete confirmation
+    const handleDeleteConfirm = () => {
+        if (serviceToDelete) {
+            router.delete(route('services.destroy', serviceToDelete.id), {
+                onSuccess: () => {
+                    setDeleteDialogOpen(false);
+                    setServiceToDelete(null);
+                },
+            });
+        }
     };
 
     // Cleanup debounce on unmount
@@ -176,7 +204,12 @@ export default function ServicesPage({ services, filters }) {
                                                         <span className="sr-only">Edit</span>
                                                     </Button>
                                                 </Link>
-                                                <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-8 w-8 text-destructive"
+                                                    onClick={() => handleDeleteClick(service)}
+                                                >
                                                     <Trash2 className="h-4 w-4" />
                                                     <span className="sr-only">Delete</span>
                                                 </Button>
@@ -232,6 +265,26 @@ export default function ServicesPage({ services, filters }) {
                     )}
                 </CardContent>
             </Card>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Delete Service</DialogTitle>
+                        <DialogDescription>
+                            Are you sure you want to delete "{serviceToDelete?.title}"? This action cannot be undone.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="destructive" onClick={handleDeleteConfirm}>
+                            Delete
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }
