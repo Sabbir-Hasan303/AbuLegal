@@ -48,7 +48,8 @@ export default function ServicesPage({ services, filters }) {
         router.get(
             route('services.list'),
             {
-                ...filters,
+                search: searchQuery,
+                status: status,
                 ...newFilters,
                 page: 1 // Reset to first page when filters change
             },

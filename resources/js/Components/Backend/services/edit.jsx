@@ -5,14 +5,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowLeft, Upload, X } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import TinyMCE from '@/Components/Backend/tinymce'
 import ImageUpload from '@/Components/Backend/ImageUpload'
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { toast } from 'react-hot-toast'
 
 export default function EditServicePage({ service, categories }) {
-  const [description, setDescription] = useState(service.description)
   const fileInputRef = useRef(null)
 
   // get full domain

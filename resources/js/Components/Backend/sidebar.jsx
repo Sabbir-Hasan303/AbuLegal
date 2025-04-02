@@ -70,10 +70,14 @@ export default function Sidebar({ onCollapsedChange }) {
 
   // Check if the current path matches the menu item
   const isActive = (href, exact = false) => {
+    // Remove query parameters from current URL
+    const currentPath = url.split('?')[0]
+    const targetPath = href.split('?')[0]
+
     if (exact) {
-      return url === href
+      return currentPath === targetPath
     }
-    return url.startsWith(href)
+    return currentPath.startsWith(targetPath)
   }
 
   // Initialize expanded items based on active path
