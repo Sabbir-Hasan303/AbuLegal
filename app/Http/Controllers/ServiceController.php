@@ -96,9 +96,11 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Service $service)
+    public function show($slug)
     {
-        //
+        return Inertia::render('Single-Service', [
+            'params' => ['slug' => $slug]
+        ]);
     }
 
     /**

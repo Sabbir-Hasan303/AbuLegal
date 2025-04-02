@@ -27,11 +27,7 @@ Route::get('/services', function () {
     return Inertia::render('Services');
 });
 
-Route::get('/services/{slug}', function ($slug) {
-    return Inertia::render('Single-Service', [
-        'params' => ['slug' => $slug]
-    ]);
-});
+Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 
 // middleware group
 Route::middleware(['auth', 'verified'])->group(function () {
