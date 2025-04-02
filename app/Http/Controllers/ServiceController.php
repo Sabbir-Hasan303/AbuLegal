@@ -13,12 +13,18 @@ class ServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::all()->with('category');
+        $filters = $request->only(['search', 'status']);
 
-        return Inertia::render('services/list', [
-            'services' => $services
+        $services = Service::with('category')
+            ->filter($filters)
+            ->paginate(2)
+            ->withQueryString();
+
+        return Inertia::render('Dashboard/Services/ServicesList', [
+            'services' => $services,
+            'filters' => $filters
         ]);
     }
 

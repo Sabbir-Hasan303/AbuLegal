@@ -37,7 +37,7 @@ Route::get('/services/{slug}', function ($slug) {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {return Inertia::render('Dashboard/Dashboard');})->name('dashboard');
 
-    Route::get('/dashboard/services', function () {return Inertia::render('Dashboard/Services/ServicesList');})->name('services.list');
+    Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('services.list');
 
     Route::get('/dashboard/services/add', [ServiceController::class, 'create'])->name('services.add');
     Route::post('/dashboard/services/add', [ServiceController::class, 'store'])->name('services.store');
