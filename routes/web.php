@@ -23,9 +23,7 @@ Route::get('/about', function () {
     return Inertia::render('About');
 });
 
-Route::get('/services', function () {
-    return Inertia::render('Services');
-});
+Route::get('/services', [ServiceController::class, 'getServices'])->name('services.all');
 
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 

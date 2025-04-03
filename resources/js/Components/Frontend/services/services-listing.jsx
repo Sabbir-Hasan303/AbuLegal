@@ -14,118 +14,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { Link } from '@inertiajs/react'
 
-// Service data
-const services = [
-    {
-        id: 1,
-        title: 'Visa Applications',
-        category: 'Migration Law',
-        icon: Globe,
-        description:
-            'Expert assistance with all types of visa applications including work, student, family, and humanitarian visas.',
-        image: 'https://images.pexels.com/photos/5699516/pexels-photo-5699516.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 2,
-        title: 'Citizenship Applications',
-        category: 'Migration Law',
-        icon: Globe,
-        description:
-            'Comprehensive guidance through the Australian citizenship application and test process.',
-        image: 'https://images.pexels.com/photos/4427616/pexels-photo-4427616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 3,
-        title: 'Migration Appeals',
-        category: 'Migration Law',
-        icon: Globe,
-        description:
-            'Professional representation for visa refusals and cancellations at the Administrative Appeals Tribunal.',
-        image: 'https://images.pexels.com/photos/5668859/pexels-photo-5668859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 4,
-        title: 'Divorce & Separation',
-        category: 'Family Law',
-        icon: Home,
-        description:
-            'Compassionate legal assistance with divorce applications and separation agreements.',
-        image: 'https://images.pexels.com/photos/5699459/pexels-photo-5699459.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 5,
-        title: 'Child Custody',
-        category: 'Family Law',
-        icon: Home,
-        description:
-            'Dedicated representation in child custody and parenting arrangement disputes.',
-        image: 'https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 6,
-        title: 'Property Settlement',
-        category: 'Family Law',
-        icon: Home,
-        description:
-            'Expert advice on fair division of assets and financial settlements in family law matters.',
-        image: 'https://images.pexels.com/photos/5699437/pexels-photo-5699437.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 7,
-        title: 'Criminal Defense',
-        category: 'Criminal Law',
-        icon: Shield,
-        description:
-            'Strong representation for all criminal matters from minor offenses to serious crimes.',
-        image: 'https://images.pexels.com/photos/5668481/pexels-photo-5668481.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 8,
-        title: 'Traffic Offenses',
-        category: 'Criminal Law',
-        icon: Shield,
-        description:
-            'Specialized defense for driving under influence, speeding, and other traffic violations.',
-        image: 'https://images.pexels.com/photos/5699482/pexels-photo-5699482.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 9,
-        title: 'Commercial Contracts',
-        category: 'Commercial Litigation',
-        icon: Briefcase,
-        description:
-            'Drafting, reviewing, and negotiating commercial contracts to protect your business interests.',
-        image: 'https://images.pexels.com/photos/5699479/pexels-photo-5699479.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 10,
-        title: 'Business Disputes',
-        category: 'Commercial Litigation',
-        icon: Briefcase,
-        description:
-            'Resolution of business disputes through negotiation, mediation, or litigation when necessary.',
-        image: 'https://images.pexels.com/photos/5699458/pexels-photo-5699458.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 11,
-        title: 'Debt Recovery',
-        category: 'Commercial Litigation',
-        icon: Briefcase,
-        description:
-            'Effective strategies for recovering debts owed to your business.',
-        image: 'https://images.pexels.com/photos/5699457/pexels-photo-5699457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-        id: 12,
-        title: 'Employment Law',
-        category: 'Commercial Litigation',
-        icon: Briefcase,
-        description:
-            'Advice and representation on employment contracts, disputes, and workplace issues.',
-        image: 'https://images.pexels.com/photos/5699455/pexels-photo-5699455.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    }
-]
-
 // Category colors and icons
 const categoryStyles = {
     'Migration Law': {
@@ -158,7 +46,7 @@ const categoryStyles = {
     }
 }
 
-export default function ServicesListing () {
+export default function ServicesListing ({ services, categories }) {
     const [selectedCategory, setSelectedCategory] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [activeService, setActiveService] = useState(null)
@@ -192,21 +80,16 @@ export default function ServicesListing () {
     // Filter services based on selected category and search query
     const filteredServices = services.filter(service => {
         const categoryMatch =
-            selectedCategory === 'all' || service.category === selectedCategory
+            selectedCategory === 'all' || service.category.name === selectedCategory
         const searchMatch =
             searchQuery === '' ||
             service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            service.description
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase())
+            service.description.toLowerCase().includes(searchQuery.toLowerCase())
         return categoryMatch && searchMatch
     })
 
     // Get unique categories
-    const categories = [
-        'all',
-        ...new Set(services.map(service => service.category))
-    ]
+    const categoryList = ['all', ...categories.map(cat => cat.name)]
 
     return (
         <section
@@ -246,7 +129,7 @@ export default function ServicesListing () {
                             </div>
                             <div className='flex-1 w-full md:w-auto'>
                                 <div className='flex flex-wrap gap-2 justify-center md:justify-end'>
-                                    {categories.map(category => (
+                                    {categoryList.map(category => (
                                         <Badge
                                             key={category}
                                             variant={
@@ -286,7 +169,7 @@ export default function ServicesListing () {
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
                         {filteredServices.map(service => {
                             const categoryStyle =
-                                categoryStyles[service.category]
+                                categoryStyles[service.category.name]
                             const ServiceIcon = categoryStyle.icon
 
                             return (
@@ -308,32 +191,27 @@ export default function ServicesListing () {
                                                 )}
                                             >
                                                 <ServiceIcon className='h-3.5 w-3.5 mr-1' />
-                                                {service.category}
+                                                {service.category.name}
                                             </Badge>
                                         </div>
 
                                         {/* Content */}
-                                        {/* <Link href={`/services/${service.slug}`}>
-                                            <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-3'>
-                                                {service.title}
-                                            </h3>
-                                        </Link> */}
-                                        <Link href={`/services/partner-visa`}>
+                                        <Link href={`/services/${service.slug}`}>
                                             <h3 className='text-xl font-bold text-gray-900 dark:text-white mb-3'>
                                                 {service.title}
                                             </h3>
                                         </Link>
                                         <p className='text-gray-600 dark:text-gray-300 text-sm mb-4 flex-grow'>
-                                            {service.description}
+                                            {service.short_description}
                                         </p>
 
                                         {/* Button */}
-                                        <Link href={`/services/partner-visa`}>
+                                        <Link href={`/services/${service.slug}`}>
                                             <Button
                                                 className='bg-primary hover:bg-primary/90 text-white group w-full mt-auto'
                                                 size='sm'
-                                        >
-                                            Learn More
+                                            >
+                                                Learn More
                                                 <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
                                             </Button>
                                         </Link>

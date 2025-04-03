@@ -28,6 +28,24 @@ class ServiceController extends Controller
         ]);
     }
 
+
+    public function getServices(Request $request)
+    {
+        $filters = $request->only(['search', 'status']);
+
+        $services = Service::with('category')
+            ->filter($filters)
+            ->get();
+
+        $categories = Category::all();
+
+        return Inertia::render('Services', [
+            'services' => $services,
+            'filters' => $filters,
+            'categories' => $categories
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

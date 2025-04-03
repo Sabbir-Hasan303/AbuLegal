@@ -5,12 +5,12 @@ import ServicesListing from '@/components/frontend/services/services-listing'
 import ServicesProcess from '@/components/frontend/services/services-process'
 import { Head } from '@inertiajs/react'
 
-export default function Services () {
+export default function Services ({ services, categories }) {
     return (
         <Layout>
             <Head title='Services' />
             <ServicesHero />
-            <ServicesListing />
+            <ServicesListing services={services} categories={categories} />
             <ServicesProcess />
         </Layout>
     )
