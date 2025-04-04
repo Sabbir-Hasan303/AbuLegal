@@ -1,19 +1,30 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     $categories = \App\Models\Category::with(['services' => function($query) {
+//         $query->where('status', 'active')
+//              ->take(4);
+//     }])->whereHas('services', function($query) {
+//         $query->where('status', 'active');
+//     })->get();
+
+//     return Inertia::render('Home', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//         'serviceCategories' => $categories
+//     ]);
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/contact', function () {
     return Inertia::render('Contact');
@@ -22,6 +33,8 @@ Route::get('/contact', function () {
 Route::get('/about', function () {
     return Inertia::render('About');
 });
+
+Route::get('/main-services', [HomeController::class, 'getMainServices'])->name('services.main');
 
 Route::get('/services', [ServiceController::class, 'getServices'])->name('services.all');
 

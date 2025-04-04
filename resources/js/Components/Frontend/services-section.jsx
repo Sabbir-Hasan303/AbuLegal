@@ -4,86 +4,18 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { ArrowRight, Home, Globe, Shield, File } from "lucide-react"
-import { Link } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 
-// This would typically come from an API or CMS in a real application
-const services = [
-  {
-    id: "1",
-    title: "Migration Law",
-    icon: Globe,
-    items: [
-      {
-        title: "Visa Applications",
-        description:
-          "Assistance with all types of visa applications including work, student, family, and humanitarian visas.",
-      },
-      {
-        title: "Citizenship",
-        description: "Guidance through the Australian citizenship application and test process.",
-      },
-      {
-        title: "Appeals",
-        description: "Representation for visa refusals and cancellations at the Administrative Appeals Tribunal.",
-      },
-      {
-        title: "Business Migration",
-        description: "Specialized services for business owners and investors seeking to migrate to Australia.",
-      },
-    ],
-  },
-  {
-    id: "2",
-    title: "Family Law",
-    icon: Home,
-    items: [
-      {
-        title: "Divorce & Separation",
-        description: "Legal assistance with divorce applications and separation agreements.",
-      },
-      { title: "Child Custody", description: "Representation in child custody and parenting arrangement disputes." },
-      {
-        title: "Property Settlement",
-        description: "Expert advice on fair division of assets and financial settlements.",
-      },
-      {
-        title: "Domestic Violence",
-        description: "Emergency assistance and representation for domestic violence cases.",
-      },
-    ],
-  },
-  {
-    id: "3",
-    title: "Criminal Law",
-    icon: Shield,
-    items: [
-      {
-        title: "Criminal Defense",
-        description: "Representation for all criminal matters from minor offenses to serious crimes.",
-      },
-      {
-        title: "Traffic Offenses",
-        description: "Defense for driving under influence, speeding, and other traffic violations.",
-      },
-      { title: "Bail Applications", description: "Assistance with bail applications and conditions." },
-      { title: "Appeals", description: "Representation for criminal conviction and sentence appeals." },
-    ],
-  },
-  {
-    id: "4",
-    title: "Commercial Litigation",
-    icon: File,
-    items: [
-      { title: "Contract Disputes", description: "Representation for disputes arising from commercial contracts." },
-      { title: "Business Disputes", description: "Representation for disputes arising from business relationships." },
-      { title: "Bankruptcy", description: "Representation for bankruptcy and insolvency matters." },
-      { title: "Insurance Claims", description: "Representation for insurance claims and disputes." },
-    ],
-  },
-]
+const icons = {
+  "Migration Law": Globe,
+  "Family Law": Home,
+  "Criminal Law": Shield,
+  "Commercial Litigation": File,
+}
 
 export default function ServicesSection() {
-  const [activeTab, setActiveTab] = useState("1")
+  const { serviceCategories } = usePage().props
+  const [activeTab, setActiveTab] = useState(serviceCategories[0]?.id.toString() || "")
   const sectionRef = useRef(null)
   const elementsRef = useRef([])
 
@@ -111,6 +43,10 @@ export default function ServicesSection() {
     }
   }, [])
 
+  if (!serviceCategories.length) {
+    return null
+  }
+
   return (
     <section id="services" ref={sectionRef} className="section-padding bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
@@ -120,14 +56,14 @@ export default function ServicesSection() {
         </div>
 
         <div ref={(el) => (elementsRef.current[1] = el)} className="opacity-0 mt-12">
-          <Tabs defaultValue="immigration" value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 bg-transparent h-auto">
-              {services.map((service) => {
-                const ServiceIcon = service.icon
+          <Tabs defaultValue={activeTab} value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-transparent h-auto">
+              {serviceCategories.map((category) => {
+                const ServiceIcon = icons[category.name] || File
                 return (
                   <TabsTrigger
-                    key={service.id}
-                    value={service.id}
+                    key={category.id}
+                    value={category.id.toString()}
                     className={cn(
                       "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground",
                       "h-auto py-3 px-4 flex items-center gap-2 text-left",
@@ -137,34 +73,36 @@ export default function ServicesSection() {
                   >
                     <ServiceIcon className="h-5 w-5 flex-shrink-0" />
                     <div>
-                      <div className="font-medium">{service.title}</div>
+                      <div className="font-medium">{category.name}</div>
                     </div>
                   </TabsTrigger>
                 )
               })}
             </TabsList>
 
-            {services.map((service) => (
-              <TabsContent key={service.id} value={service.id} className="mt-6">
+            {serviceCategories.map((category) => (
+              <TabsContent key={category.id} value={category.id.toString()} className="mt-6">
                 <div className="grid md:grid-cols-2 gap-6">
-                  {service.items.map((item, index) => (
-                    <Card key={index} className="service-card">
+                  {category.services.map((service) => (
+                    <Card key={service.id} className="service-card">
                       <CardHeader>
-                        <CardTitle>{item.title}</CardTitle>
-                        <CardDescription>{item.description}</CardDescription>
+                        <CardTitle>{service.title}</CardTitle>
+                        <CardDescription>{service.short_description}</CardDescription>
                       </CardHeader>
                       <CardFooter>
-                        <Button variant="ghost" className="p-0 hover:bg-transparent hover:text-primary group">
-                          Learn More
-                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </Button>
+                        <Link href={`/services/${service.slug}`}>
+                          <Button variant="ghost" className="p-0 hover:bg-transparent hover:text-primary group">
+                            Learn More
+                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          </Button>
+                        </Link>
                       </CardFooter>
                     </Card>
                   ))}
                 </div>
 
                 <div className="mt-8 text-center">
-                  <Link href="/services">
+                  <Link href={`/services`}>
                     <Button className="bg-primary hover:bg-primary/90 text-white">
                       View All Services
                     </Button>
