@@ -116,8 +116,25 @@ class ServiceController extends Controller
      */
     public function show($slug)
     {
+        // dd($slug);
+        $service = Service::where('slug', $slug)
+            ->with('category')
+            ->firstOrFail();
+        // dd($service);
+
+        // Get related services from the same category
+        $relatedServices = Service::where('category', $service->category)
+            ->where('id', '!=', $service->id)
+            ->where('status', 'active')
+            ->select('title', 'slug')
+            ->take(5)
+            ->get();
+
+        // dd($relatedServices, $service);
+
         return Inertia::render('Single-Service', [
-            'params' => ['slug' => $slug]
+            'service' => $service,
+            'relatedServices' => $relatedServices
         ]);
     }
 

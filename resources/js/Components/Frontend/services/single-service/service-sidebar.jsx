@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Phone, Mail, Calendar, ArrowRight } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
-export default function ServiceSidebar ({ service }) {
+export default function ServiceSidebar ({ service, relatedServices }) {
     const sidebarRef = useRef(null)
     const elementsRef = useRef([])
 
@@ -44,7 +44,7 @@ export default function ServiceSidebar ({ service }) {
                 </CardHeader>
                 <CardContent className='p-6 space-y-4'>
                     <p className='text-gray-600 dark:text-gray-300'>
-                        Speak with our {service.category} specialists for
+                        Speak with our {service.category.name} specialists for
                         personalized advice on your situation.
                     </p>
 
@@ -74,17 +74,17 @@ export default function ServiceSidebar ({ service }) {
             </Card>
 
             {/* Related Services */}
-            <Card
-                ref={el => (elementsRef.current[1] = el)}
-                className='opacity-0'
-            >
-                <CardHeader className='pb-3'>
-                    <CardTitle>Related Services</CardTitle>
-                </CardHeader>
-                <CardContent className='p-6 pt-0'>
-                    <ul className='space-y-3'>
-                        {service.relatedServices.map(
-                            (relatedService, index) => (
+            {relatedServices && relatedServices.length > 0 && (
+                <Card
+                    ref={el => (elementsRef.current[1] = el)}
+                    className='opacity-0'
+                >
+                    <CardHeader className='pb-3'>
+                        <CardTitle>Related Services</CardTitle>
+                    </CardHeader>
+                    <CardContent className='p-6 pt-0'>
+                        <ul className='space-y-3'>
+                            {relatedServices.map((relatedService, index) => (
                                 <li key={index}>
                                     <Link
                                         href={`/services/${relatedService.slug}`}
@@ -94,11 +94,11 @@ export default function ServiceSidebar ({ service }) {
                                         {relatedService.title}
                                     </Link>
                                 </li>
-                            )
-                        )}
-                    </ul>
-                </CardContent>
-            </Card>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+            )}
         </div>
     )
 }

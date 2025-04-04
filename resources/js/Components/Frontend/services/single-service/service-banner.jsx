@@ -7,6 +7,9 @@ import { Link } from '@inertiajs/react'
 export default function ServiceBanner ({ service }) {
     const [scrollY, setScrollY] = useState(0)
 
+    // get full domain url
+    const fullUrl = window.location.origin
+
     useEffect(() => {
         const handleScroll = () => {
             setScrollY(window.scrollY)
@@ -22,7 +25,7 @@ export default function ServiceBanner ({ service }) {
             <div className='absolute inset-0 z-0'>
                 <div className='absolute inset-0 bg-black/60 z-10' />
                 <img
-                    src={service.bannerImage || '/placeholder.svg'}
+                    src={`${fullUrl}/${service.banner}`}
                     alt={service.title}
                     className='w-full h-full object-cover'
                 />
@@ -59,7 +62,7 @@ export default function ServiceBanner ({ service }) {
                         </div>
 
                         <Badge className='bg-secondary text-secondary-foreground mb-4 self-start'>
-                            {service.category}
+                            {service.category.name}
                         </Badge>
 
                         <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 font-serif'>
