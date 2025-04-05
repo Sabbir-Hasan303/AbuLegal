@@ -89,7 +89,7 @@ export default function AboutContact() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-700 dark:text-gray-300">abus@lawyer.com</p>
+                  <p className="text-gray-700 dark:text-gray-300">abu@abuleagal.com</p>
                 </CardContent>
               </Card>
 

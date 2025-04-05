@@ -62,22 +62,14 @@ export default function AboutSection() {
             </h3>
 
             <p className="text-gray-700 dark:text-gray-300">
-              Mr Abu Siddque was admitted as a Solicitor and Barrister in Australia in 2006. Mr Siddque established this
-              legal practice as a Commercial and Immigration law firm in Sydney CBD in 2012. With our team of
-              experienced attorneys, we specialize in immigration, migration, family, and criminal law.
-            </p>
-
-            <p className="text-gray-700 dark:text-gray-300">
-              Our mission is to provide accessible, high-quality legal representation to individuals, families, and
-              businesses. We pride ourselves on our client-centered approach, ensuring that each case receives the
-              attention and expertise it deserves.
+            ABU Legal Pty Ltd is an Australian-owned law firm delivering practical, client-focused legal solutions with integrity and professionalism. We offer tailored services across Immigration Law, Family Law, Commercial Litigation, and Criminal Law, as well as dispute resolution, employment law, and regulatory compliance. Our dedicated team is committed to building lasting client relationships and achieving the best possible outcomes through clear, strategic advice and strong representation.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mt-6">
               <div className="flex items-start">
                 <CheckCircle className="h-5 w-5 text-secondary mr-2 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-medium">Expert Attorneys</h4>
+                  <h4 className="font-medium">Expert Lawers</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Highly qualified specialists</p>
                 </div>
               </div>
@@ -85,7 +77,7 @@ export default function AboutSection() {
               <div className="flex items-start">
                 <CheckCircle className="h-5 w-5 text-secondary mr-2 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-medium">Personalized Service</h4>
+                  <h4 className="font-medium">Personalised Services</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Tailored to your needs</p>
                 </div>
               </div>

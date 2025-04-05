@@ -58,10 +58,10 @@ export default function Navbar () {
                         <div className='flex items-center'>
                             <Mail className='h-5 w-5 mr-2 text-secondary' />
                             <a
-                                href='mailto:abus@lawyer.com'
+                                href='mailto:abu@abuleagal.com'
                                 className='text-base font-medium'
                             >
-                                abus@lawyer.com
+                                abu@abuleagal.com
                             </a>
                         </div>
                         <div className='flex items-center'>
@@ -156,7 +156,7 @@ export default function Navbar () {
                                     asChild
                                 >
                                     <Link href='/contact'>
-                                        Free Consultation
+                                        For Consultation
                                     </Link>
                                 </Button>
                             </div>
@@ -225,7 +225,7 @@ export default function Navbar () {
                                 )}
                                 asChild
                             >
-                                <Link href='/contact'>Free Consultation</Link>
+                                <Link href='/contact'>For Consultation</Link>
                             </Button>
                         </div>
                     </div>

@@ -112,8 +112,8 @@ export default function AboutFounder() {
                       <h4 className="font-bold mb-2">Education</h4>
                       <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                         <li>Master of Laws (Legal Practice), Bond University</li>
-                        <li>Master of Laws (Honours), University of Dhaka</li>
-                        <li>Bachelor of Law, University of Dhaka</li>
+                        <li>Master of Laws, University of Dhaka</li>
+                        <li>Bachelor of Law (Honours), University of Dhaka</li>
                       </ul>
                     </div>
                   </div>

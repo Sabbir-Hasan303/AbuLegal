@@ -56,20 +56,19 @@ export default function AboutHistory() {
             <h3 className="text-2xl md:text-3xl font-bold text-primary font-serif">Established in Sydney CBD</h3>
 
             <p className="text-gray-700 dark:text-gray-300">
-              Mr. Abu Siddque was admitted as a Solicitor and Barrister in Australia in 2006. He established this legal
-              practice as a commercial and immigration law firm in Sydney CBD in 2012. Before founding Abu Legal, he
-              worked in various reputed law firms across Sydney, NSW, and Gold Coast, QLD.
+            At ABU Legal Pty Ltd, we are committed to delivering practical, strategic, and client-focused legal solutions. As a proudly Australian-owned law firm, we bring integrity, professionalism, and deep industry knowledge to every matter we handle.
             </p>
 
             <p className="text-gray-700 dark:text-gray-300">
-              Mr. Siddque is highly skilled and oversees business, employment, and migration services. Over the past
-              five years, we have supported numerous companies and individuals.
+            At ABU Legal Pty Ltd, we place great importance on building long-term relationships with our clients. Our team of experienced legal professionals is committed to understanding the unique needs of every client—whether individual, corporate, or government. We offer tailored legal services across a diverse range of practice areas, including Immigration Law, Family Law, Commercial Litigation, and Criminal Law. Additionally, we have successfully assisted clients with dispute resolution, employment law matters, and regulatory compliance, including representation before NCAT and the Administrative Review Tribunal (ART).
             </p>
 
             <p className="text-gray-700 dark:text-gray-300">
-              Conveniently located near Town Hall Train Station and the Bus terminal, our firm is dedicated to
-              "Committed to Service with Difference," fostering long-term relationships with our clients, including
-              reputable Australian businesses and individuals.
+            Our mission is to make legal support accessible, understandable, and effective. We pride ourselves on our responsiveness, attention to detail, and unwavering commitment to achieving the best possible outcomes for our clients.
+            </p>
+
+            <p className="text-gray-700 dark:text-gray-300">
+            Whether you're navigating complex legal challenges or seeking proactive advice to safeguard your interests, ABU Legal Pty Ltd is here to support you every step of the way.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mt-6">

@@ -107,6 +107,11 @@ export default function Footer() {
                   Criminal Law
                 </a>
               </li>
+              <li>
+                <a href="#commercial-litigation" className="text-primary-foreground/80 hover:text-white transition-colors">
+                  Commercial Litigation
+                </a>
+              </li>
             </ul>
           </div>
 

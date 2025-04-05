@@ -79,7 +79,7 @@ export default function ServiceBanner ({ service }) {
                                     size='lg'
                                     className='bg-secondary hover:bg-secondary/90 text-secondary-foreground group'
                                 >
-                                    Free Consultation
+                                    For Consultation
                                     <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
                                 </Button>
                             </Link>
