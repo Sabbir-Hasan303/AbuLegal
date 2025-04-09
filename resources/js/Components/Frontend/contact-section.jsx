@@ -6,11 +6,21 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react"
+import { useForm } from "@inertiajs/react"
+import { toast } from "react-hot-toast"
 
 export default function ContactSection() {
   const [formSubmitted, setFormSubmitted] = useState(false)
   const sectionRef = useRef(null)
   const elementsRef = useRef([])
+  const { data, setData, post, processing, errors } = useForm({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,8 +49,29 @@ export default function ContactSection() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // In a real application, you would handle form submission here
-    setFormSubmitted(true)
 
+    post(route('contact.store'), {
+      onSuccess: () => {
+        toast.success('Message sent successfully')
+        setData({
+          first_name: '',
+          last_name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        })
+      },
+      onError: (errors) => {
+        if (errors.error) {
+          toast.error(errors.error)
+        } else {
+          toast.error('Please check the form for errors')
+        }
+      }
+    })
+
+    setFormSubmitted(true)
     // Reset form after 3 seconds
     setTimeout(() => {
       setFormSubmitted(false)
@@ -70,20 +101,21 @@ export default function ContactSection() {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="first-name">First name</Label>
-                        <Input id="first-name" placeholder="First Name" required />
+                        <Input id="first-name" placeholder="First Name" required value={data.first_name} onChange={(e) => setData('first_name', e.target.value)} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="last-name">Last name</Label>
-                        <Input id="last-name" placeholder="Last Name" required />
+                        <Input id="last-name" placeholder="Last Name" required value={data.last_name} onChange={(e) => setData('last_name', e.target.value)} />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="xyz@example.com" required />
+                      <Input id="email" type="email" placeholder="xyz@example.com" required value={data.email} onChange={(e) => setData('email', e.target.value)} />
                     </div>
+                    {/* Phone */}
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="+61 4XX XXX XXX" />
+                      <Input id="phone" type="tel" placeholder="+61 4XX XXX XXX" required value={data.phone} onChange={(e) => setData('phone', e.target.value)} />
                     </div>
                     {/*<div className="space-y-2">
                       <Label htmlFor="service">Service Needed</Label>
@@ -99,6 +131,11 @@ export default function ContactSection() {
                         </SelectContent>
                       </Select>
                     </div>*/}
+                    {/* Subject */}
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Subject</Label>
+                      <Input id="subject" type="text" placeholder="Subject" required value={data.subject} onChange={(e) => setData('subject', e.target.value)} />
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">Message</Label>
                       <Textarea
@@ -106,6 +143,8 @@ export default function ContactSection() {
                         placeholder="Please provide details about your legal matter..."
                         className="min-h-[120px]"
                         required
+                        value={data.message}
+                        onChange={(e) => setData('message', e.target.value)}
                       />
                     </div>
                   </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
@@ -26,10 +27,8 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/contact', function () {
-    return Inertia::render('Contact');
-});
-
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/about', function () {
     return Inertia::render('About');
 });
@@ -53,7 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
 
-    Route::get('/dashboard/contact', function () {return Inertia::render('Dashboard/ContactList');})->name('contact.list');
+    Route::get('/dashboard/contact', [ContactController::class, 'getContacts'])->name('contact.list');
+    Route::patch('/dashboard/contact/{contact}/status', [ContactController::class, 'updateStatus'])->name('contact.update.status');
     Route::get('/dashboard/faq', function () {return Inertia::render('Dashboard/Faq');})->name('faq');
 
     // profile

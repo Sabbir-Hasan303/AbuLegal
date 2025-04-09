@@ -15,63 +15,29 @@ import {
 } from "@/components/ui/dialog"
 import { Eye, Search, ArrowUpDown } from "lucide-react"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-
-// Sample contact data
-const contactsData = [
-  {
-    id: 1,
-    name: "John Smith",
-    email: "john.smith@example.com",
-    phone: "+61 412 345 678",
-    subject: "Immigration Consultation",
-    status: "New",
-    date: "2023-06-15",
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    email: "sarah.j@example.com",
-    phone: "+61 423 456 789",
-    subject: "Family Law Inquiry",
-    status: "Replied",
-    date: "2023-06-14",
-  },
-  {
-    id: 3,
-    name: "Michael Wong",
-    email: "m.wong@example.com",
-    phone: "+61 434 567 890",
-    subject: "Criminal Case Consultation",
-    status: "New",
-    date: "2023-06-13",
-  },
-  {
-    id: 4,
-    name: "Emily Davis",
-    email: "emily.d@example.com",
-    phone: "+61 445 678 901",
-    subject: "Visa Application Help",
-    status: "Replied",
-    date: "2023-06-12",
-  },
-  {
-    id: 5,
-    name: "Robert Chen",
-    email: "robert.c@example.com",
-    phone: "+61 456 789 012",
-    subject: "Citizenship Application",
-    status: "New",
-    date: "2023-06-11",
-  },
-]
+import { useForm } from "@inertiajs/react"
+import { toast } from "react-hot-toast"
 
 // Status badge colors
 const statusColors = {
-  New: "bg-blue-500",
-  Replied: "bg-green-500",
+  new: "bg-blue-500",
+  replied: "bg-green-500",
 }
 
-export default function ContactList() {
+export default function ContactList({ contacts }) {
+  const { patch } = useForm()
+
+  const handleStatusUpdate = (contactId) => {
+    patch(route('contact.update.status', contactId), {
+      onSuccess: () => {
+        toast.success('Status updated successfully')
+      },
+      onError: () => {
+        toast.error('Failed to update status')
+      }
+    })
+  }
+
   return (
     <AuthenticatedLayout>
     <div className="space-y-6">
@@ -127,12 +93,12 @@ export default function ContactList() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {contactsData.map((contact) => (
+              {contacts.map((contact) => (
                 <TableRow key={contact.id}>
                   <TableCell className="font-medium">{contact.id}</TableCell>
                   <TableCell>
                     <div>
-                      <div className="font-medium">{contact.name}</div>
+                      <div className="font-medium">{contact.first_name} {contact.last_name}</div>
                       <div className="text-sm text-muted-foreground">{contact.email}</div>
                     </div>
                   </TableCell>
@@ -142,7 +108,7 @@ export default function ContactList() {
                       {contact.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>{contact.date}</TableCell>
+                  <TableCell>{new Date(contact.created_at).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                     <Dialog>
                       <DialogTrigger asChild>
@@ -159,7 +125,7 @@ export default function ContactList() {
                         <div className="space-y-4 py-4">
                           <div className="grid grid-cols-4 gap-4">
                             <div className="font-medium">Name:</div>
-                            <div className="col-span-3">{contact.name}</div>
+                            <div className="col-span-3">{contact.first_name} {contact.last_name}</div>
 
                             <div className="font-medium">Email:</div>
                             <div className="col-span-3">{contact.email}</div>
@@ -178,17 +144,20 @@ export default function ContactList() {
                             </div>
 
                             <div className="font-medium">Date:</div>
-                            <div className="col-span-3">{contact.date}</div>
+                            <div className="col-span-3">{new Date(contact.created_at).toLocaleDateString()}</div>
 
                             <div className="font-medium">Message:</div>
                             <div className="col-span-3">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus
-                              hendrerit arcu sed erat molestie vehicula.
+                              {contact.message}
                             </div>
                           </div>
                         </div>
                         <DialogFooter>
-                          <Button>Reply</Button>
+                          {contact.status === 'new' && (
+                            <Button onClick={() => handleStatusUpdate(contact.id)}>
+                              Mark as Replied
+                            </Button>
+                          )}
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>
