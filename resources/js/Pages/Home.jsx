@@ -2,6 +2,7 @@ import HeroBanner from '@/components/frontend/hero-banner'
 import AboutSection from '@/components/frontend/about-section'
 import ServicesSection from '@/components/frontend/services-section'
 import AttorneysSection from '@/components/frontend/attorneys-section'
+import SuccessStoriesSection from "@/components/frontend/success-stories"
 import TestimonialsSection from '@/components/frontend/testimonials-section'
 import FaqSection from '@/components/frontend/faq-section'
 import CtaSection from '@/components/frontend/cta-section'
@@ -18,6 +19,7 @@ export default function Home () {
                     <AboutSection />
                     <ServicesSection />
                     <AttorneysSection />
+                    <SuccessStoriesSection />
                     <TestimonialsSection />
                     <CtaSection />
                     <FaqSection />
