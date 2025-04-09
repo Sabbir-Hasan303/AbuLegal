@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+// import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, ArrowRight, Calendar, CheckCircle2, Clock, Lightbulb, Scale, Target, Trophy } from "lucide-react"
 
@@ -143,9 +143,9 @@ function SuccessStoriesSection() {
     <section id="success-stories" className="py-20 bg-gray-50 dark:bg-gray-800 overflow-hidden relative">
       {/* Background decorations */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl transform rotate-45"></div>
-        <div className="absolute top-1/2 -right-32 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-48 left-1/3 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute -top-24 left-1/4 w-64 h-64 bg-primary/5 rounded-full transform rotate-45"></div>
+        <div className="absolute top-1/2 -right-32 w-96 h-96 bg-secondary/5 rounded-full"></div>
+        <div className="absolute -bottom-48 left-1/3 w-80 h-80 bg-primary/5 rounded-full"></div>
       </div>
 
       <div className="container mx-auto px-4">
@@ -229,7 +229,7 @@ function SuccessStoriesSection() {
         </div>
 
         {/* Timeline Navigation (Desktop) */}
-        <div className="hidden md:block relative mb-8 z-10">
+        <div className=" relative mb-8 z-10">
           <div className="flex justify-end mb-2">
             <div className="flex space-x-2">
               <Button
@@ -291,7 +291,7 @@ function SuccessStoriesSection() {
         </div>
 
         {/* Mobile Grid View */}
-        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+        {/* <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
           {successStories.slice(0, visibleStories).map((story) => (
             <Card
               key={story.id}
@@ -317,7 +317,7 @@ function SuccessStoriesSection() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> */}
 
         {/* Load More Button (Mobile) */}
         {visibleStories < successStories.length && (
