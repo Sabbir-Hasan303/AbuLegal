@@ -172,14 +172,16 @@ export default function ServicesPage({ services, filters }) {
                                     <TableRow key={service.id} className="group">
                                         <TableCell className="font-medium">{service.id}</TableCell>
                                         <TableCell>
-                                            <div className="flex items-center gap-3">
-                                                <img
-                                                    src={`${domain}/${service.banner}`}
+                                            <Link href={`/services/${service.slug}`}>
+                                                <div className="flex items-center gap-3">
+                                                    <img
+                                                        src={`${domain}/${service.banner}`}
                                                     alt={service.title}
                                                     className="h-10 w-16 object-cover rounded-md"
                                                 />
-                                                <span className="font-medium">{service.title}</span>
-                                            </div>
+                                                    <span className="font-medium">{service.title}</span>
+                                                </div>
+                                            </Link>
                                         </TableCell>
                                         <TableCell className="hidden md:table-cell max-w-[300px] truncate">
                                             {service.short_description}
