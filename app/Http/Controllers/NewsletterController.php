@@ -4,16 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class NewsletterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $newsletters = Newsletter::all();
-        // return view('newsletters.index', compact('newsletters'));
+        $query = Newsletter::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where('email', 'like', "%{$search}%");
+        }
+
+        $newsletters = $query->latest()->paginate(10)->withQueryString();
+
+        return Inertia::render('Dashboard/NewsletterList', [
+            'newsletters' => $newsletters,
+            'filters' => $request->only(['search'])
+        ]);
     }
 
     /**

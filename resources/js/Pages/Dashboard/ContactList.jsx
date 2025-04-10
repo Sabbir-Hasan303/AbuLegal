@@ -151,9 +151,10 @@ export default function ContactList({ contacts, filters }) {
             </TableHeader>
             <TableBody>
               {contacts.data && contacts.data.length > 0 ? (
-                contacts.data.map((contact) => (
+                contacts.data.map((contact, index) => (
                   <TableRow key={contact.id}>
-                    <TableCell className="font-medium">{contact.id}</TableCell>
+                    {/* <TableCell className="font-medium">{contact.id}</TableCell> */}
+                    <TableCell className="font-medium">{index + 1}</TableCell>
                     <TableCell>
                       <div>
                         <div className="font-medium">{contact.first_name} {contact.last_name}</div>

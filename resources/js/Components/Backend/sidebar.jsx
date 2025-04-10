@@ -12,6 +12,7 @@ import {
   Settings,
   User,
   ChevronDown,
+  Mail,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -54,6 +55,11 @@ const menuItems = [
     title: "Contact",
     icon: MessageSquare,
     href: "/dashboard/contact",
+  },
+  {
+    title: "Newsletter",
+    icon: Mail,
+    href: "/dashboard/newsletter",
   },
   {
     title: "FAQ",

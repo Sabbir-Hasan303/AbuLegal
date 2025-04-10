@@ -29,15 +29,19 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// about
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
+// services
 Route::get('/main-services', [HomeController::class, 'getMainServices'])->name('services.main');
 Route::get('/services', [ServiceController::class, 'getServices'])->name('services.all');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 
-Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+// newsletter
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 // middleware group
@@ -55,6 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // contacts
     Route::get('/dashboard/contact', [ContactController::class, 'getContacts'])->name('contact.list');
     Route::patch('/dashboard/contact/{contact}/status', [ContactController::class, 'updateStatus'])->name('contact.update.status');
+
+    // newsletter
+    Route::get('/dashboard/newsletter', [NewsletterController::class, 'index'])->name('newsletter.list');
 
     // faq
     Route::get('/dashboard/faq', [FaqController::class, 'index'])->name('faq');
