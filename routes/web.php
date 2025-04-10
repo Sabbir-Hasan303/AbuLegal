@@ -29,14 +29,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/about', function () {
-    return Inertia::render('About');
-});
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::get('/main-services', [HomeController::class, 'getMainServices'])->name('services.main');
-
 Route::get('/services', [ServiceController::class, 'getServices'])->name('services.all');
-
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 
 // middleware group
@@ -51,9 +47,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/services/edit/{slug}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
-
+    // contacts
     Route::get('/dashboard/contact', [ContactController::class, 'getContacts'])->name('contact.list');
     Route::patch('/dashboard/contact/{contact}/status', [ContactController::class, 'updateStatus'])->name('contact.update.status');
+
+    // faq
     Route::get('/dashboard/faq', function () {return Inertia::render('Dashboard/Faq');})->name('faq');
 
     // profile

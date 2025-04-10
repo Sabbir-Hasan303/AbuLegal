@@ -38,4 +38,10 @@ class HomeController extends Controller
 
         return response()->json($services);
     }
+
+    // About Page
+    public function about()
+    {
+        return Inertia::render('About');
+    }
 }
