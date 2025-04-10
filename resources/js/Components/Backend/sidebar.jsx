@@ -52,6 +52,22 @@ const menuItems = [
     ],
   },
   {
+    title: "Attorneys",
+    icon: Briefcase,
+    href: "/dashboard/attorneys",
+    subItems: [
+      {
+        title: "All Attorneys",
+        href: "/dashboard/attorneys",
+        exact: true,
+      },
+      {
+        title: "Add Attorney",
+        href: "/dashboard/attorneys/add",
+      },
+    ],
+  },
+  {
     title: "Contact",
     icon: MessageSquare,
     href: "/dashboard/contact",

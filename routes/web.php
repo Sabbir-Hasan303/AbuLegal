@@ -9,6 +9,7 @@ use App\Http\Controllers\NewsletterController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AttorneyController;
 
 // Route::get('/', function () {
 //     $categories = \App\Models\Category::with(['services' => function($query) {
@@ -55,6 +56,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/services/edit/{slug}', [ServiceController::class, 'edit'])->name('services.edit');
     Route::post('/dashboard/services/edit/{slug}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
+
+    // attorneys
+    Route::get('/dashboard/attorneys', [AttorneyController::class, 'index'])->name('attorneys.list');
+    Route::get('/dashboard/attorneys/add', [AttorneyController::class, 'create'])->name('attorneys.add');
+    Route::post('/dashboard/attorneys/add', [AttorneyController::class, 'store'])->name('attorneys.store');
+    Route::get('/dashboard/attorneys/edit/{id}', [AttorneyController::class, 'edit'])->name('attorneys.edit');
+    Route::post('/dashboard/attorneys/edit/{id}', [AttorneyController::class, 'update'])->name('attorneys.update');
 
     // contacts
     Route::get('/dashboard/contact', [ContactController::class, 'getContacts'])->name('contact.list');
