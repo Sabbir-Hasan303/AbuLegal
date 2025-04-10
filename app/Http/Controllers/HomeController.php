@@ -9,6 +9,8 @@ use Inertia\Inertia;
 // use Illuminate\Foundation\Application;
 // use Illuminate\Support\Facades\PHP_VERSION;
 use App\Models\Service;
+use App\Models\Faq;
+
 class HomeController extends Controller
 {
     public function index()
@@ -20,12 +22,15 @@ class HomeController extends Controller
             $query->where('status', 'active');
         })->get();
 
+        $faqs = Faq::all();
+
         return Inertia::render('Home', [
             // 'canLogin' => Route::has('login'),
             // 'canRegister' => Route::has('register'),
             // 'laravelVersion' => Application::VERSION,
             // 'phpVersion' => PHP_VERSION,
-            'serviceCategories' => $categories
+            'serviceCategories' => $categories,
+            'faqs' => $faqs
         ]);
     }
 

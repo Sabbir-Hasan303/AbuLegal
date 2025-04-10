@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,9 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/main-services', [HomeController::class, 'getMainServices'])->name('services.main');
 Route::get('/services', [ServiceController::class, 'getServices'])->name('services.all');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 // middleware group
 Route::middleware(['auth', 'verified'])->group(function () {

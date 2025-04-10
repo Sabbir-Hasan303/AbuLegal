@@ -1,8 +1,31 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowRight } from "lucide-react"
-
+import { useForm } from "@inertiajs/react"
+import { toast } from "react-hot-toast"
 export default function Footer() {
+
+    // useForm
+    const { post, processing, errors, data, setData } = useForm({
+        email: ''
+    })
+
+    const handleSubscribe = () => {
+        post(route('newsletter.store'), {
+            onSuccess: () => {
+                toast.success('You have successfully subscribed to our newsletter')
+                setData('email', '')
+            },
+            onError: (errors) => {
+                if (errors.error) {
+                    toast.error(errors.error)
+                } else {
+                    toast.error('Something went wrong')
+                }
+            }
+        })
+    }
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
@@ -117,26 +140,34 @@ export default function Footer() {
 
           <div>
             <h3 className="text-lg font-medium mb-4 text-white">Newsletter</h3>
-            <p className="text-primary-foreground/80 mb-4">
-              Subscribe to our newsletter for legal updates, news, and insights.
-            </p>
+            <p className="text-primary-foreground/80 mb-4">Subscribe to our newsletter for legal updates, news, and insights.</p>
+
             <div className="flex space-x-2">
+                <div>
               <Input
                 type="email"
+                value={data.email}
+                onChange={e => setData('email', e.target.value)}
                 placeholder="Your email"
-                className="bg-primary-foreground/10 border-primary-foreground/20 text-white placeholder:text-primary-foreground/50 cursor-not-allowed opacity-50"
-                disabled
+                className="bg-primary-foreground/10 border-primary-foreground/20 text-white placeholder:text-primary-foreground/50"
+                error={errors.email}
+                required
               />
+              {errors.email && (
+                <p className="text-sm text-red-500">{errors.email}</p>
+              )}
+              </div>
               <Button
                 type="submit"
-                className="bg-secondary/50 hover:bg-secondary/50 text-secondary-foreground cursor-not-allowed"
-                disabled
+                className="bg-secondary/90 hover:bg-secondary/90 text-secondary-foreground"
+                onClick={handleSubscribe}
+                disabled={processing}
               >
+                {processing ? 'Subscribing...' : ''}
                 <ArrowRight className="h-4 w-4" />
-                <span className="sr-only">Subscribe</span>
+                {/* <span className="sr-only">Subscribe</span> */}
               </Button>
             </div>
-            <p className="text-xs text-primary-foreground/50 mt-2">Newsletter subscription currently disabled</p>
           </div>
         </div>
 
