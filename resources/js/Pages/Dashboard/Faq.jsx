@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
     Card,
     CardContent,
@@ -27,51 +27,105 @@ import {
 } from '@/components/ui/accordion'
 import { Plus, Edit, Trash2, Search, AlertTriangle } from 'lucide-react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-// Sample FAQ data
-const faqData = [
-    {
-        id: 1,
-        question: 'What visa options are available for skilled workers?',
-        answer: 'Australia offers several visa options for skilled workers, including the Skilled Independent Visa (subclass 189), Skilled Nominated Visa (subclass 190), and Skilled Work Regional Visa (subclass 491). Eligibility depends on factors such as age, English language proficiency, work experience, and occupation.'
-    },
-    {
-        id: 2,
-        question: 'How long does the partner visa process take?',
-        answer: 'The partner visa process typically takes between 12-24 months. Processing times vary depending on the complexity of your case, the completeness of your application, and current departmental workloads.'
-    },
-    {
-        id: 3,
-        question: 'How is property divided in a divorce?',
-        answer: 'In Australia, property division follows a four-step process: identifying and valuing all assets and liabilities, assessing contributions (financial and non-financial), considering future needs, and ensuring the outcome is just and equitable. There is no automatic 50/50 split.'
-    },
-    {
-        id: 4,
-        question: 'What factors determine child custody arrangements?',
-        answer: "Child custody (now called 'parenting arrangements') is determined based on the best interests of the child. Factors include the benefit of meaningful relationships with both parents, protection from harm, the child's views (depending on age and maturity), practical considerations, and parental capacity."
-    },
-    {
-        id: 5,
-        question: "What should I do if I'm arrested?",
-        answer: 'If arrested, you should: remain calm, exercise your right to silence, request to speak with a lawyer before answering questions, not resist arrest, and remember everything that happens. Contact a criminal defense lawyer as soon as possible.'
-    }
-]
+import { useForm, router } from '@inertiajs/react'
+import { toast } from 'react-hot-toast'
+import debounce from 'lodash/debounce'
 
-export default function FaqPage () {
-    const [searchTerm, setSearchTerm] = useState('')
+export default function FaqPage ({ faqs, filters }) {
+    const [searchTerm, setSearchTerm] = useState(filters?.search || '')
     const [addDialogOpen, setAddDialogOpen] = useState(false)
     const [editingFaq, setEditingFaq] = useState(null)
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+    const [faqToDelete, setFaqToDelete] = useState(null)
 
-    const filteredFaqs = faqData.filter(
-        faq =>
-            faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
+    // useForm for add
+    const { data, setData, post, processing, errors, reset } = useForm({
+        question: '',
+        answer: ''
+    })
+
+    // useForm for edit
+    const { data: editData, setData: setEditData, put, processing: editProcessing } = useForm({
+        question: '',
+        answer: ''
+    })
+
+    // Create a debounced search function
+    const debouncedSearch = useCallback(
+        debounce((value) => {
+            router.get(route('faq'), { search: value }, {
+                preserveState: true,
+                preserveScroll: true,
+            })
+        }, 300),
+        []
     )
 
-    const handleDelete = id => {
-        console.log(`Deleting FAQ with ID: ${id}`)
-        // In a real application, you would delete the FAQ from your database here
-        setDeleteDialogOpen(false)
+    // Handle search input changes
+    const handleSearch = (e) => {
+        const value = e.target.value
+        setSearchTerm(value)
+        debouncedSearch(value)
+    }
+
+    // Cleanup debounced function on unmount
+    useEffect(() => {
+        return () => {
+            debouncedSearch.cancel()
+        }
+    }, [debouncedSearch])
+
+    const handleSave = () => {
+        post(route('faq.store'), {
+            onSuccess: () => {
+                toast.success('FAQ created successfully')
+                setAddDialogOpen(false)
+                reset()
+            },
+            onError: (errors) => {
+                toast.error('Please check the form for errors')
+            }
+        })
+    }
+
+    const handleUpdate = (id) => {
+        put(route('faq.update', id), {
+            onSuccess: () => {
+                toast.success('FAQ updated successfully')
+                setEditingFaq(null)
+            },
+            onError: () => {
+                toast.error('Failed to update FAQ')
+            }
+        })
+    }
+
+    const handleDelete = (id) => {
+        router.delete(route('faq.destroy', id), {
+            onSuccess: () => {
+                toast.success('FAQ deleted successfully')
+                setDeleteDialogOpen(false)
+                setFaqToDelete(null)
+            },
+            onError: () => {
+                toast.error('Failed to delete FAQ')
+            }
+        })
+    }
+
+    // Handle edit dialog open
+    const handleEditOpen = (faq) => {
+        setEditingFaq(faq)
+        setEditData({
+            question: faq.question,
+            answer: faq.answer
+        })
+    }
+
+    // Handle delete dialog open
+    const handleDeleteOpen = (faq) => {
+        setFaqToDelete(faq)
+        setDeleteDialogOpen(true)
     }
 
     return (
@@ -108,6 +162,8 @@ export default function FaqPage () {
                                     <Input
                                         id='question'
                                         placeholder='e.g. What visa options are available?'
+                                        value={data.question}
+                                        onChange={e => setData('question', e.target.value)}
                                     />
                                 </div>
 
@@ -117,13 +173,15 @@ export default function FaqPage () {
                                         id='answer'
                                         placeholder='Provide a detailed answer...'
                                         className='min-h-[150px]'
+                                        value={data.answer}
+                                        onChange={e => setData('answer', e.target.value)}
                                     />
                                 </div>
                             </div>
 
                             <DialogFooter>
                                 <Button variant='outline' onClick={() => setAddDialogOpen(false)}>Cancel</Button>
-                                <Button>Save Question</Button>
+                                <Button onClick={handleSave}>Save Question</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -140,19 +198,17 @@ export default function FaqPage () {
                                     placeholder='Search questions...'
                                     className='pl-8'
                                     value={searchTerm}
-                                    onChange={e =>
-                                        setSearchTerm(e.target.value)
-                                    }
+                                    onChange={handleSearch}
                                 />
                             </div>
                         </div>
                         <CardDescription>
-                            {filteredFaqs.length} questions found
+                            {faqs.length} questions found
                         </CardDescription>
                     </CardHeader>
                     <CardContent className='p-0'>
                         <div className='divide-y'>
-                            {filteredFaqs.map(faq => (
+                            {faqs.map(faq => (
                                 <div key={faq.id} className='py-4 px-6'>
                                     <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2'>
                                         <h3 className='text-base font-medium'>
@@ -164,7 +220,7 @@ export default function FaqPage () {
                                                     <Button
                                                         variant='outline'
                                                         size='sm'
-                                                        onClick={() => setEditingFaq(faq)}
+                                                        onClick={() => handleEditOpen(faq)}
                                                     >
                                                         <Edit className='h-4 w-4 mr-2' />
                                                         Edit
@@ -172,42 +228,28 @@ export default function FaqPage () {
                                                 </DialogTrigger>
                                                 <DialogContent className='sm:max-w-[600px]'>
                                                     <DialogHeader>
-                                                        <DialogTitle>
-                                                            Edit FAQ
-                                                        </DialogTitle>
+                                                        <DialogTitle>Edit FAQ</DialogTitle>
                                                         <DialogDescription>
-                                                            Update this
-                                                            frequently asked
-                                                            question
+                                                            Update this frequently asked question
                                                         </DialogDescription>
                                                     </DialogHeader>
 
                                                     <div className='grid gap-4 py-4'>
                                                         <div className='grid gap-2'>
-                                                            <Label
-                                                                htmlFor={`edit-question-${faq.id}`}
-                                                            >
-                                                                Question
-                                                            </Label>
+                                                            <Label htmlFor={`edit-question-${faq.id}`}>Question</Label>
                                                             <Input
                                                                 id={`edit-question-${faq.id}`}
-                                                                defaultValue={
-                                                                    faq.question
-                                                                }
+                                                                value={editData.question}
+                                                                onChange={e => setEditData('question', e.target.value)}
                                                             />
                                                         </div>
 
                                                         <div className='grid gap-2'>
-                                                            <Label
-                                                                htmlFor={`edit-answer-${faq.id}`}
-                                                            >
-                                                                Answer
-                                                            </Label>
+                                                            <Label htmlFor={`edit-answer-${faq.id}`}>Answer</Label>
                                                             <Textarea
                                                                 id={`edit-answer-${faq.id}`}
-                                                                defaultValue={
-                                                                    faq.answer
-                                                                }
+                                                                value={editData.answer}
+                                                                onChange={e => setEditData('answer', e.target.value)}
                                                                 className='min-h-[150px]'
                                                             />
                                                         </div>
@@ -215,20 +257,20 @@ export default function FaqPage () {
 
                                                     <DialogFooter>
                                                         <Button variant='outline' onClick={() => setEditingFaq(null)}>Cancel</Button>
-                                                        <Button>
+                                                        <Button onClick={() => handleUpdate(faq.id)}>
                                                             Update Question
                                                         </Button>
                                                     </DialogFooter>
                                                 </DialogContent>
                                             </Dialog>
 
-                                            <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+                                            <Dialog open={deleteDialogOpen && faqToDelete?.id === faq.id} onOpenChange={setDeleteDialogOpen}>
                                                 <DialogTrigger asChild>
                                                     <Button
                                                         variant='outline'
                                                         size='sm'
                                                         className='text-destructive border-destructive hover:bg-destructive/10'
-                                                        onClick={() => setDeleteDialogOpen(true)}
+                                                        onClick={() => handleDeleteOpen(faq)}
                                                     >
                                                         <Trash2 className='h-4 w-4 mr-2' />
                                                         Delete
@@ -241,16 +283,13 @@ export default function FaqPage () {
                                                             Delete FAQ
                                                         </DialogTitle>
                                                         <DialogDescription>
-                                                            Are you sure you
-                                                            want to delete this
-                                                            FAQ? This action
-                                                            cannot be undone.
+                                                            Are you sure you want to delete this FAQ? This action cannot be undone.
                                                         </DialogDescription>
                                                     </DialogHeader>
 
                                                     <div className='mt-4 p-4 border rounded-md bg-muted/50'>
                                                         <div className='font-medium'>
-                                                            {faq.question}
+                                                            {faqToDelete?.question}
                                                         </div>
                                                     </div>
 
@@ -258,11 +297,7 @@ export default function FaqPage () {
                                                         <Button variant='outline' onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
                                                         <Button
                                                             variant='destructive'
-                                                            onClick={() =>
-                                                                handleDelete(
-                                                                    faq.id
-                                                                )
-                                                            }
+                                                            onClick={() => handleDelete(faqToDelete?.id)}
                                                         >
                                                             Delete
                                                         </Button>
@@ -293,7 +328,7 @@ export default function FaqPage () {
                             ))}
                         </div>
 
-                        {filteredFaqs.length === 0 && (
+                        {faqs.length === 0 && (
                             <div className='text-center py-10 px-6'>
                                 <p className='text-muted-foreground'>
                                     No questions found. Try a different search

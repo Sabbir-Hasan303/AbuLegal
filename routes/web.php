@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\FaqController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,7 +53,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/dashboard/contact/{contact}/status', [ContactController::class, 'updateStatus'])->name('contact.update.status');
 
     // faq
-    Route::get('/dashboard/faq', function () {return Inertia::render('Dashboard/Faq');})->name('faq');
+    Route::get('/dashboard/faq', [FaqController::class, 'index'])->name('faq');
+    Route::post('/dashboard/faq', [FaqController::class, 'store'])->name('faq.store');
+    Route::put('/dashboard/faq/{id}', [FaqController::class, 'update'])->name('faq.update');
+    Route::delete('/dashboard/faq/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
