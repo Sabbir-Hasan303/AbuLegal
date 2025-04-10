@@ -16,12 +16,31 @@ class ContactController extends Controller
         return Inertia::render('Contact');
     }
 
-    public function getContacts()
+    public function getContacts(Request $request)
     {
-        $contacts = Contact::all();
-        // dd($contacts);
+        $filters = $request->only(['search', 'status']);
+
+        $contacts = Contact::query()
+            ->when($filters['search'] ?? null, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('first_name', 'like', "%{$search}%")
+                        ->orWhere('last_name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('subject', 'like', "%{$search}%");
+                });
+            })
+            ->when($filters['status'] ?? null, function ($query, $status) {
+                if ($status !== 'all') {
+                    $query->where('status', $status);
+                }
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
         return Inertia::render('Dashboard/ContactList', [
-            'contacts' => $contacts
+            'contacts' => $contacts,
+            'filters' => $filters
         ]);
     }
 
