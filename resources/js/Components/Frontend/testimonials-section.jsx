@@ -242,7 +242,7 @@ export default function TestimonialsSection() {
                       <div className="flex items-center mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
                         <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4 border-2 border-secondary">
                           <img
-                            src={testimonial.image || "/placeholder.svg"}
+                            src={testimonial.image}
                             alt={testimonial.name}
                             className="w-full h-full object-cover"
                           />

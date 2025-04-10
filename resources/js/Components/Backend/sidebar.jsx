@@ -270,7 +270,7 @@ export default function Sidebar({ onCollapsedChange }) {
                   )}
                 >
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder.svg" alt="User" />
+                    <AvatarImage src="/images/icons/avatar.jpeg" alt="User" />
                     <AvatarFallback>AL</AvatarFallback>
                   </Avatar>
                   {!collapsed && (

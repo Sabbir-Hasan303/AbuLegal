@@ -230,7 +230,7 @@ export default function AttorneysSection() {
                     <div className="relative overflow-hidden attorney-image-container">
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
                       <img
-                        src={attorney.image || "/placeholder.svg"}
+                        src={attorney.image}
                         alt={attorney.name}
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                       />

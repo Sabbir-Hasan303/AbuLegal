@@ -179,7 +179,7 @@ function SuccessStoriesSection() {
                   {selectedStory.date}
                 </Badge>
                 <img
-                  src={selectedStory.image || "/placeholder.svg"}
+                  src={selectedStory.image}
                   alt={selectedStory.title}
                   className="w-full h-auto object-cover transition-all duration-500 hover:scale-105"
                 />
@@ -275,7 +275,7 @@ function SuccessStoriesSection() {
                       {story.category}
                     </Badge>
                     <img
-                      src={story.image || "/placeholder.svg"}
+                      src={story.image}
                       alt={story.title}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
@@ -306,7 +306,7 @@ function SuccessStoriesSection() {
                   {story.category}
                 </Badge>
                 <img
-                  src={story.image || "/placeholder.svg"}
+                  src={story.image}
                   alt={story.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
