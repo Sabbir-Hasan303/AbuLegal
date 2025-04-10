@@ -17,6 +17,7 @@ import {
     DialogHeader,
     DialogTitle
 } from "@/components/ui/dialog"
+import Pagination from "@/Components/Backend/Pagination"
 
 export default function ServicesPage({ services, filters }) {
     const domain = window.location.origin;
@@ -232,39 +233,10 @@ export default function ServicesPage({ services, filters }) {
 
                     {/* Pagination */}
                     {services.data && services.data.length > 0 && (
-                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4">
-                            <div className="text-sm text-muted-foreground order-2 sm:order-1">
-                                Showing {services.from} to {services.to} of {services.total} results
-                            </div>
-                            <div className="flex flex-wrap items-center justify-center gap-1 order-1 sm:order-2">
-                                {services.links.map((link, index) => {
-                                    // Skip the "Previous" and "Next" links
-                                    if (link.label === "&laquo; Previous" || link.label === "Next &raquo;") {
-                                        return null;
-                                    }
-
-                                    // Convert HTML entities to readable text
-                                    const pageNumber = link.label.replace(/&[^;]+;/g, '');
-
-                                    return (
-                                        <Button
-                                            key={index}
-                                            variant={link.active ? "default" : "outline"}
-                                            size="sm"
-                                            onClick={() => handlePageChange(link.url.split('page=')[1])}
-                                            disabled={!link.url}
-                                            className={`
-                                                min-w-[2rem] h-8 px-2
-                                                ${link.active ? "bg-primary text-primary-foreground" : ""}
-                                                ${!link.url ? "opacity-50 cursor-not-allowed" : ""}
-                                            `}
-                                        >
-                                            {pageNumber}
-                                        </Button>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                        <Pagination
+                            data={services}
+                            onPageChange={(page) => handlePageChange(page)}
+                        />
                     )}
                 </CardContent>
             </Card>

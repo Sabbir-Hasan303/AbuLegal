@@ -20,6 +20,7 @@ import { toast } from "react-hot-toast"
 import { useState, useEffect } from 'react'
 import debounce from 'lodash/debounce'
 import { router } from '@inertiajs/react'
+import Pagination from "@/Components/Backend/Pagination"
 
 // Status badge colors
 const statusColors = {
@@ -233,39 +234,10 @@ export default function ContactList({ contacts, filters }) {
 
           {/* Pagination */}
           {contacts.data && contacts.data.length > 0 && (
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4">
-              <div className="text-sm text-muted-foreground order-2 sm:order-1">
-                Showing {contacts.from} to {contacts.to} of {contacts.total} results
-              </div>
-              <div className="flex flex-wrap items-center justify-center gap-1 order-1 sm:order-2">
-                {contacts.links.map((link, index) => {
-                  // Skip the "Previous" and "Next" links
-                  if (link.label === "&laquo; Previous" || link.label === "Next &raquo;") {
-                    return null;
-                  }
-
-                  // Convert HTML entities to readable text
-                  const pageNumber = link.label.replace(/&[^;]+;/g, '');
-
-                  return (
-                    <Button
-                      key={index}
-                      variant={link.active ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => updateFilters({ page: link.url.split('page=')[1] })}
-                      disabled={!link.url}
-                      className={`
-                        min-w-[2rem] h-8 px-2
-                        ${link.active ? "bg-primary text-primary-foreground" : ""}
-                        ${!link.url ? "opacity-50 cursor-not-allowed" : ""}
-                      `}
-                    >
-                      {pageNumber}
-                    </Button>
-                  );
-                })}
-              </div>
-            </div>
+            <Pagination
+              data={contacts}
+              onPageChange={(page) => updateFilters({ page })}
+            />
           )}
         </CardContent>
       </Card>
