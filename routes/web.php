@@ -63,6 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/attorneys/add', [AttorneyController::class, 'store'])->name('attorneys.store');
     Route::get('/dashboard/attorneys/edit/{id}', [AttorneyController::class, 'edit'])->name('attorneys.edit');
     Route::post('/dashboard/attorneys/edit/{id}', [AttorneyController::class, 'update'])->name('attorneys.update');
+    Route::delete('/dashboard/attorneys/{id}', [AttorneyController::class, 'destroy'])->name('attorneys.destroy');
 
     // contacts
     Route::get('/dashboard/contact', [ContactController::class, 'getContacts'])->name('contact.list');

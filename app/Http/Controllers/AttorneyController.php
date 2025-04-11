@@ -136,8 +136,21 @@ class AttorneyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Attorney $attorney)
+    public function destroy($id)
     {
-        //
+        try {
+            $attorney = Attorney::findOrFail($id);
+
+            if ($attorney->getRawOriginal('image')) {
+                $imagePath = $attorney->getRawOriginal('image');
+                if (Storage::disk('public')->exists($imagePath)) {
+                    Storage::disk('public')->delete($imagePath);
+                }
+            }
+            $attorney->delete();
+            return redirect()->route('attorneys.list')->with('success', 'Attorney deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->route('attorneys.list')->with('error', 'Failed to delete attorney');
+        }
     }
 }

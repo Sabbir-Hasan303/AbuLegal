@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,8 +11,29 @@ import {
 } from "@/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Pencil, Trash2, Plus } from 'lucide-react'
+import { router } from '@inertiajs/react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 
 export default function AttorneysPage({ attorneys }) {
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [attorneyToDelete, setAttorneyToDelete] = useState(null)
+
+  const handleDeleteClick = (attorney) => {
+    setAttorneyToDelete(attorney)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleDeleteConfirm = () => {
+    if (attorneyToDelete) {
+    router.delete(route('attorneys.destroy', attorneyToDelete.id), {
+      onSuccess: () => {
+          setDeleteDialogOpen(false)
+          setAttorneyToDelete(null)
+        }
+      })
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -60,7 +81,7 @@ export default function AttorneysPage({ attorneys }) {
                             <span className="sr-only">Edit</span>
                           </Button>
                         </Link>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive" onClick={() => handleDeleteClick(attorney)}>
                           <Trash2 className="h-4 w-4" />
                           <span className="sr-only">Delete</span>
                         </Button>
@@ -79,6 +100,22 @@ export default function AttorneysPage({ attorneys }) {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Attorney</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete "{attorneyToDelete?.name}"? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+            <Button variant="destructive" onClick={handleDeleteConfirm}>Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
