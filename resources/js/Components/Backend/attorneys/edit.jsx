@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from "@/components/ui/badge"
-import { Check, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { toast } from 'react-hot-toast'
 import {
@@ -26,13 +26,27 @@ import {
 const roles = [
     "Immigration Law Specialist",
     "Family Law Attorney",
-    "Criminal Defense Lawyer"
+    "Criminal Defense Lawyer",
+    "Managing Partner",
+    "Property Law Specialist",
+    "Business Law Attorney"
 ]
 
 const specialties = [
     "Visa Applications",
     "Appeals",
     "Citizenship",
+    "Divorce",
+    "Child Custody",
+    "Property Settlement",
+    "Criminal Defense",
+    "Traffic Offenses",
+    "Strategic Leadership",
+    "Complex Cases",
+    "International Law",
+    "Property Transactions",
+    "Leasing",
+    "Conveyancing",
     "Business Formation",
     "Contracts",
     "Compliance"

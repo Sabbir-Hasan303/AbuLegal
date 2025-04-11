@@ -10,7 +10,7 @@ use Inertia\Inertia;
 // use Illuminate\Support\Facades\PHP_VERSION;
 use App\Models\Service;
 use App\Models\Faq;
-
+use App\Models\Attorney;
 class HomeController extends Controller
 {
     public function index()
@@ -24,13 +24,23 @@ class HomeController extends Controller
 
         $faqs = Faq::all();
 
+        $attorneys = Attorney::all();
+
+        $attorneys->each(function ($attorney) {
+            $attorney->specialties = json_decode($attorney->specialties);
+            $attorney->social_media = json_decode($attorney->social_media);
+        });
+
+        // dd($attorneys);
+
         return Inertia::render('Home', [
             // 'canLogin' => Route::has('login'),
             // 'canRegister' => Route::has('register'),
             // 'laravelVersion' => Application::VERSION,
             // 'phpVersion' => PHP_VERSION,
             'serviceCategories' => $categories,
-            'faqs' => $faqs
+            'faqs' => $faqs,
+            'attorneys' => $attorneys
         ]);
     }
 

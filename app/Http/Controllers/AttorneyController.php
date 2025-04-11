@@ -38,20 +38,20 @@ class AttorneyController extends Controller
     {
         // dd($request->all());
         try {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:attorneys',
                 'phone' => 'nullable',
                 'role' => 'required',
                 'specialties' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             ]);
 
             $attorney = new Attorney();
-            $attorney->name = $request->name;
-            $attorney->email = $request->email;
-            $attorney->phone = $request->phone;
-            $attorney->role = $request->role;
+            $attorney->name = $validated['name'];
+            $attorney->email = $validated['email'];
+            $attorney->phone = $validated['phone'];
+            $attorney->role = $validated['role'];
             $attorney->specialties = json_encode($request->specialties);
             $attorney->social_media = json_encode($request->social_media);
 
@@ -66,9 +66,10 @@ class AttorneyController extends Controller
             $attorney->save();
 
             return redirect()->route('attorneys.list')->with('success', 'Attorney created successfully');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
-            dd($e);
-            return redirect()->route('attorneys.add')->with('error', 'Failed to create attorney');
+            return back()->with('error', 'Failed to create attorney: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -98,26 +99,31 @@ class AttorneyController extends Controller
     {
         // dd($request->all());
         try {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:attorneys,email,' . $id,
                 'phone' => 'nullable',
                 'role' => 'required',
                 'specialties' => 'required|array',
                 'social_media' => 'required|array',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             ]);
 
             $attorney = Attorney::find($id);
-            $attorney->name = $request->name;
-            $attorney->email = $request->email;
-            $attorney->phone = $request->phone;
-            $attorney->role = $request->role;
+            $attorney->name = $validated['name'];
+            $attorney->email = $validated['email'];
+            $attorney->phone = $validated['phone'];
+            $attorney->role = $validated['role'];
             $attorney->specialties = json_encode($request->specialties);
             $attorney->social_media = json_encode($request->social_media);
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
+                // delete the old image
+                $oldImage = $attorney->getRawOriginal('image');
+                if (Storage::disk('public')->exists($oldImage)) {
+                    Storage::disk('public')->delete($oldImage);
+                }
                 $filename = time() . '_' . $image->getClientOriginalName();
                 Storage::disk('public')->put('attorneys/' . $filename, file_get_contents($image));
                 $imageLink = 'attorneys/' . $filename;
@@ -127,9 +133,10 @@ class AttorneyController extends Controller
             $attorney->save();
 
             return redirect()->route('attorneys.list')->with('success', 'Attorney updated successfully');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
-            dd($e);
-            return redirect()->route('attorneys.edit', $id)->with('error', 'Failed to update attorney');
+            return back()->with('error', 'Failed to update attorney: ' . $e->getMessage())->withInput();
         }
     }
 

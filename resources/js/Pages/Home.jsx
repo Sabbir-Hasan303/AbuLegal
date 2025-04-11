@@ -9,7 +9,7 @@ import CtaSection from '@/components/frontend/cta-section'
 import Layout from '@/Layouts/layout'
 import { Head } from '@inertiajs/react'
 
-export default function Home ({ faqs }) {
+export default function Home ({ faqs, attorneys }) {
     return (
         <Layout>
             <Head title='Home' />
@@ -18,7 +18,7 @@ export default function Home ({ faqs }) {
                 <div className='relative z-40 bg-white dark:bg-gray-900'>
                     <AboutSection />
                     <ServicesSection />
-                    <AttorneysSection />
+                    <AttorneysSection attorneys={attorneys} />
                     <SuccessStoriesSection />
                     <TestimonialsSection />
                     <CtaSection />
