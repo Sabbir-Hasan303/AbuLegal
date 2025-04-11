@@ -26,213 +26,188 @@
 // }
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { RefreshCw, Download, Users, Eye, Clock, MousePointer } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import { Button } from "@/components/ui/button"
+import { FileText, Users, Briefcase, Calendar, Mail, MessageSquare, Newspaper, Settings } from "lucide-react"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
+import { Link } from "@inertiajs/react"
 
-export default function DashboardPage() {
+export default function DashboardPage({ services, attorneys, contacts, newsletters }) {
   return (
     <AuthenticatedLayout>
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
-          <p className="text-muted-foreground">Monitor your website performance with Google Analytics integration</p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Select defaultValue="30days">
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select period" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="7days">Last 7 days</SelectItem>
-              <SelectItem value="30days">Last 30 days</SelectItem>
-              <SelectItem value="90days">Last 90 days</SelectItem>
-              <SelectItem value="12months">Last 12 months</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <div className="flex gap-2">
-            <Button variant="outline" size="icon">
-              <RefreshCw className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon">
-              <Download className="h-4 w-4" />
-            </Button>
+      <div className="space-y-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            <p className="text-muted-foreground">Welcome to your legal practice management system</p>
           </div>
         </div>
-      </div>
 
-      {/* Overview Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="overflow-hidden transition-all hover:shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Users</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">--</div>
-            <p className="text-xs text-muted-foreground">Waiting for Google Analytics data</p>
-          </CardContent>
-        </Card>
+        {/* Quick Stats */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Link href={route('services.list')}>
+            <Card className="overflow-hidden transition-all hover:shadow-md cursor-pointer">
+              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                <CardTitle className="text-sm font-medium">Services</CardTitle>
+                <Briefcase className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{services}</div>
+                <p className="text-xs text-muted-foreground">Total active services</p>
+              </CardContent>
+            </Card>
+          </Link>
 
-        <Card className="overflow-hidden transition-all hover:shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Page Views</CardTitle>
-            <Eye className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">--</div>
-            <p className="text-xs text-muted-foreground">Waiting for Google Analytics data</p>
-          </CardContent>
-        </Card>
+          <Link href={route('attorneys.list')}>
+            <Card className="overflow-hidden transition-all hover:shadow-md cursor-pointer">
+              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                <CardTitle className="text-sm font-medium">Attorneys</CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{attorneys}</div>
+                <p className="text-xs text-muted-foreground">Total attorneys</p>
+              </CardContent>
+            </Card>
+          </Link>
 
-        <Card className="overflow-hidden transition-all hover:shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Avg. Session Duration</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">--</div>
-            <p className="text-xs text-muted-foreground">Waiting for Google Analytics data</p>
-          </CardContent>
-        </Card>
+          <Link href={route('contact.list')}>
+            <Card className="overflow-hidden transition-all hover:shadow-md cursor-pointer">
+              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                <CardTitle className="text-sm font-medium">Contact Messages</CardTitle>
+                <MessageSquare className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{contacts}</div>
+                <p className="text-xs text-muted-foreground">New messages</p>
+              </CardContent>
+            </Card>
+          </Link>
 
-        <Card className="overflow-hidden transition-all hover:shadow-md">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-sm font-medium">Bounce Rate</CardTitle>
-            <MousePointer className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">--</div>
-            <p className="text-xs text-muted-foreground">Waiting for Google Analytics data</p>
-          </CardContent>
-        </Card>
-      </div>
+          <Link href={route('newsletter.list')}>
+            <Card className="overflow-hidden transition-all hover:shadow-md cursor-pointer">
+              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                <CardTitle className="text-sm font-medium">Newsletter</CardTitle>
+                <Newspaper className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{newsletters}</div>
+                <p className="text-xs text-muted-foreground">Total subscribers</p>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
 
-      {/* Analytics Tabs */}
-      <Tabs defaultValue="audience" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="audience">Audience</TabsTrigger>
-          <TabsTrigger value="acquisition">Acquisition</TabsTrigger>
-          <TabsTrigger value="behavior">Behavior</TabsTrigger>
-          <TabsTrigger value="conversions">Conversions</TabsTrigger>
-        </TabsList>
+        {/* Main Content Tabs */}
+        {/* <Tabs defaultValue="overview" className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="services">Services</TabsTrigger>
+            <TabsTrigger value="attorneys">Attorneys</TabsTrigger>
+            <TabsTrigger value="messages">Messages</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="audience" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Audience Overview</CardTitle>
-              <CardDescription>User metrics from Google Analytics</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[400px] flex items-center justify-center border rounded-md">
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-2">Google Analytics data will be displayed here</p>
-                  <p className="text-sm text-muted-foreground">Users, New Users, Sessions, etc.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid gap-4 md:grid-cols-2">
+          <TabsContent value="overview" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Demographics</CardTitle>
-                <CardDescription>Age and gender distribution</CardDescription>
+                <CardTitle>Recent Contact Messages</CardTitle>
+                <CardDescription>Latest messages from potential clients</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-[300px] flex items-center justify-center border rounded-md">
-                  <p className="text-muted-foreground">Demographics data placeholder</p>
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No recent messages to display</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Geo Location</CardTitle>
-                <CardDescription>User location by country/city</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-[300px] flex items-center justify-center border rounded-md">
-                  <p className="text-muted-foreground">Geo location data placeholder</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Active Services</CardTitle>
+                  <CardDescription>Your current service offerings</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[200px] flex items-center justify-center border rounded-md">
+                    <p className="text-muted-foreground">No active services to display</p>
+                  </div>
+                </CardContent>
+              </Card>
 
-        <TabsContent value="acquisition" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Acquisition Overview</CardTitle>
-              <CardDescription>Traffic sources and channels</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[400px] flex items-center justify-center border rounded-md">
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-2">Google Analytics acquisition data will be displayed here</p>
-                  <p className="text-sm text-muted-foreground">Traffic sources, channels, referrals, etc.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="behavior" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Behavior Overview</CardTitle>
-              <CardDescription>Page views and user engagement</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[400px] flex items-center justify-center border rounded-md">
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-2">Google Analytics behavior data will be displayed here</p>
-                  <p className="text-sm text-muted-foreground">Page views, time on page, bounce rate, etc.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="conversions" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Conversions Overview</CardTitle>
-              <CardDescription>Goal completions and conversion rates</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[400px] flex items-center justify-center border rounded-md">
-                <div className="text-center">
-                  <p className="text-muted-foreground mb-2">Google Analytics conversion data will be displayed here</p>
-                  <p className="text-sm text-muted-foreground">Goals, events, e-commerce, etc.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-
-      {/* Real-time Data */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Real-time Overview</CardTitle>
-          <CardDescription>Current active users and their activities</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px] flex items-center justify-center border rounded-md">
-            <div className="text-center">
-              <p className="text-muted-foreground mb-2">Google Analytics real-time data will be displayed here</p>
-              <p className="text-sm text-muted-foreground">Active users, pageviews, events, etc.</p>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Team Members</CardTitle>
+                  <CardDescription>Your legal team</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[200px] flex items-center justify-center border rounded-md">
+                    <p className="text-muted-foreground">No team members to display</p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </TabsContent>
+
+          <TabsContent value="services" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Services Management</CardTitle>
+                <CardDescription>Manage your legal services</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-end mb-4">
+                  <Link href={route('services.add')}>
+                    <Button>Add New Service</Button>
+                  </Link>
+                </div>
+                <div className="h-[400px] flex items-center justify-center border rounded-md">
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No services to display</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="attorneys" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Attorneys Management</CardTitle>
+                <CardDescription>Manage your legal team</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-end mb-4">
+                  <Link href={route('attorneys.add')}>
+                    <Button>Add New Attorney</Button>
+                  </Link>
+                </div>
+                <div className="h-[400px] flex items-center justify-center border rounded-md">
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No attorneys to display</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="messages" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Contact Messages</CardTitle>
+                <CardDescription>View and manage client inquiries</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[400px] flex items-center justify-center border rounded-md">
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No messages to display</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs> */}
+      </div>
     </AuthenticatedLayout>
   )
 }

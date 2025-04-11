@@ -10,6 +10,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AttorneyController;
+use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
 //     $categories = \App\Models\Category::with(['services' => function($query) {
@@ -47,7 +48,7 @@ Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsle
 
 // middleware group
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {return Inertia::render('Dashboard/Dashboard');})->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // services
     Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('services.list');

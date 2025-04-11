@@ -13,6 +13,7 @@ import {
   User,
   ChevronDown,
   Mail,
+  Users,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -53,7 +54,7 @@ const menuItems = [
   },
   {
     title: "Attorneys",
-    icon: Briefcase,
+    icon: Users,
     href: "/dashboard/attorneys",
     subItems: [
       {
