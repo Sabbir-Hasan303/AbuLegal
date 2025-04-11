@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Newsletter;
+use App\Mail\NewsletterThankYou;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class NewsletterController extends Controller
@@ -46,7 +48,11 @@ class NewsletterController extends Controller
             'email' => 'required|email|unique:newsletters',
         ]);
 
-        Newsletter::create($request->all());
+        $newsletter = Newsletter::create($request->all());
+
+        // Send thank you email
+        Mail::to($newsletter->email)->send(new NewsletterThankYou($newsletter->email));
+
         return redirect()->back()->with('success', 'You have successfully subscribed to our newsletter');
     }
 

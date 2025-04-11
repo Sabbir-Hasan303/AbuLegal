@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Mail\ContactFormNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ContactController extends Controller
@@ -72,6 +74,9 @@ class ContactController extends Controller
             $contact = Contact::create($request->all());
             $contact->status = 'new';
             $contact->save();
+
+            // Send notification email to admin
+            Mail::to('habid9138@gmail.com')->send(new ContactFormNotification($contact));
 
             return redirect()->route('contact.index')->with('success', 'Message sent successfully');
         } catch (\Exception $e) {
