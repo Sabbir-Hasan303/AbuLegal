@@ -59,7 +59,7 @@ class AttorneyController extends Controller
                 $image = $request->file('image');
                 $filename = time() . '_' . $image->getClientOriginalName();
                 Storage::disk('public')->put('attorneys/' . $filename, file_get_contents($image));
-                $imageLink = 'storage/attorneys/' . $filename;
+                $imageLink = 'attorneys/' . $filename;
                 $attorney->image = $imageLink;
             }
 
@@ -83,17 +83,54 @@ class AttorneyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Attorney $attorney)
+    public function edit($id)
     {
-        //
+        $attorney = Attorney::find($id);
+        $attorney->specialties = json_decode($attorney->specialties);
+        $attorney->social_media = json_decode($attorney->social_media);
+        return Inertia::render('Dashboard/Attorneys/EditAttorney', ['attorney' => $attorney]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Attorney $attorney)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:attorneys,email,' . $id,
+                'phone' => 'nullable',
+                'role' => 'required',
+                'specialties' => 'required|array',
+                'social_media' => 'required|array',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $attorney = Attorney::find($id);
+            $attorney->name = $request->name;
+            $attorney->email = $request->email;
+            $attorney->phone = $request->phone;
+            $attorney->role = $request->role;
+            $attorney->specialties = json_encode($request->specialties);
+            $attorney->social_media = json_encode($request->social_media);
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $filename = time() . '_' . $image->getClientOriginalName();
+                Storage::disk('public')->put('attorneys/' . $filename, file_get_contents($image));
+                $imageLink = 'attorneys/' . $filename;
+                $attorney->image = $imageLink;
+            }
+
+            $attorney->save();
+
+            return redirect()->route('attorneys.list')->with('success', 'Attorney updated successfully');
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->route('attorneys.edit', $id)->with('error', 'Failed to update attorney');
+        }
     }
 
     /**
