@@ -8,6 +8,8 @@ export default function GoToTop() {
 
   // Show button when page is scrolled down
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
         setIsVisible(true)
@@ -16,13 +18,16 @@ export default function GoToTop() {
       }
     }
 
-    window.addEventListener("scroll", toggleVisibility)
+    // Set initial visibility state
+    toggleVisibility();
 
+    window.addEventListener("scroll", toggleVisibility)
     return () => window.removeEventListener("scroll", toggleVisibility)
   }, [])
 
   // Scroll to top smoothly
   const scrollToTop = () => {
+    if (typeof window === 'undefined') return;
     window.scrollTo({
       top: 0,
       behavior: "smooth",

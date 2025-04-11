@@ -6,14 +6,24 @@ import { Link } from '@inertiajs/react'
 
 export default function ServiceBanner ({ service }) {
     const [scrollY, setScrollY] = useState(0)
-
-    // get full domain url
-    const fullUrl = window.location.origin
+    const [fullUrl, setFullUrl] = useState('')
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrollY(window.scrollY)
+        if (typeof window === 'undefined') return;
+        setFullUrl(window.location.origin)
+    }, [])
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const handleScroll = (event) => {
+            if (typeof window !== 'undefined') {
+                setScrollY(window.scrollY)
+            }
         }
+
+        // Set initial scroll state
+        handleScroll();
 
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)

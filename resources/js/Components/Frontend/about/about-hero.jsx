@@ -7,8 +7,10 @@ export default function AboutHero() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
+    const handleScroll = (event) => {
+      if (typeof window !== 'undefined') {
+        setScrollY(window.scrollY)
+      }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -35,7 +37,7 @@ export default function AboutHero() {
           opacity: Math.max(0, 1 - scrollY / 700),
         }}
       >
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center mt-14 md:mt-0">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-serif max-w-4xl mx-auto">
             About Abu Legal
           </h1>

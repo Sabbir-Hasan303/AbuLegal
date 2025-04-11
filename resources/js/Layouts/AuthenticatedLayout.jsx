@@ -19,6 +19,7 @@ export default function AuthenticatedLayout({ children }) {
 
   // This prevents hydration errors with animations
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     setMounted(true)
   }, [])
 

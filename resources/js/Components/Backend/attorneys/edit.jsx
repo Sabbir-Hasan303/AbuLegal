@@ -69,8 +69,7 @@ export default function EditAttorneyPage({ attorney }) {
         role: attorney.role,
         specialties: attorney.specialties || [],
         social_media: attorney.social_media || [],
-        image: null,
-        _token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+        image: null
     })
 
     const handleSubmit = (e) => {

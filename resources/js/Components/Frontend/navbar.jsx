@@ -25,9 +25,16 @@ export default function Navbar () {
     }
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 100)
+        if (typeof window === 'undefined') return;
+
+        const handleScroll = (event) => {
+            if (typeof window !== 'undefined') {
+                setIsScrolled(window.scrollY > 100)
+            }
         }
+
+        // Set initial scroll state
+        handleScroll();
 
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)

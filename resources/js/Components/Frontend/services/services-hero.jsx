@@ -7,8 +7,10 @@ export default function ServicesHero () {
     const [scrollY, setScrollY] = useState(0)
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrollY(window.scrollY)
+        const handleScroll = (event) => {
+            if (typeof window !== 'undefined') {
+                setScrollY(window.scrollY)
+            }
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })

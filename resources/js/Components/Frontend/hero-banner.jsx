@@ -6,9 +6,16 @@ export default function HeroBanner() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
+    if (typeof window === 'undefined') return;
+
+    const handleScroll = (event) => {
+      if (typeof window !== 'undefined') {
+        setScrollY(window.scrollY)
+      }
     }
+
+    // Set initial scroll state
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)

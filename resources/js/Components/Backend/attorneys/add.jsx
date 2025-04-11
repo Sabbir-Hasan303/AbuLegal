@@ -70,7 +70,6 @@ export default function AddAttorneyPage() {
         specialties: [],
         social_media: [],
         image: null,
-        _token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
     })
 
     const handleSubmit = (e) => {
