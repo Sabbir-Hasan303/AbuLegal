@@ -14,6 +14,7 @@ import {
   ChevronDown,
   Mail,
   Users,
+  Star,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -82,6 +83,11 @@ const menuItems = [
     title: "FAQ",
     icon: HelpCircle,
     href: "/dashboard/faq",
+  },
+  {
+    title: "Google Reviews",
+    icon: Star,
+    href: "/dashboard/google-reviews",
   },
 ]
 

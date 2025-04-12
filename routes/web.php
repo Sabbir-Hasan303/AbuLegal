@@ -50,6 +50,10 @@ Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsle
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Google Reviews
+    Route::get('/dashboard/google-reviews', [DashboardController::class, 'showReviews'])->name('google-reviews');
+    Route::post('/dashboard/google-reviews/upload', [DashboardController::class, 'uploadReviews'])->name('google-reviews.upload');
+
     // services
     Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('services.list');
     Route::get('/dashboard/services/add', [ServiceController::class, 'create'])->name('services.add');

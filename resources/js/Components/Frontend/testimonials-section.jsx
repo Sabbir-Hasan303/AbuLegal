@@ -6,63 +6,6 @@ import Slider from "react-slick"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const testimonials = [
-  {
-    id: 1,
-    name: "James Wilson",
-    location: "Sydney",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    rating: 5,
-    text: "Abu Legal helped me with my partner visa application. Their attention to detail and knowledge of immigration law was impressive. Thanks to their expertise, my visa was approved without any issues.",
-    service: "Immigration Law",
-  },
-  {
-    id: 2,
-    name: "Emma Thompson",
-    location: "Melbourne",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    rating: 5,
-    text: "Going through a divorce is never easy, but the team at Abu Legal made the process as smooth as possible. They were compassionate, professional, and fought for my rights every step of the way.",
-    service: "Family Law",
-  },
-  {
-    id: 3,
-    name: "Robert Chen",
-    location: "Brisbane",
-    image: "https://randomuser.me/api/portraits/men/64.jpg",
-    rating: 5,
-    text: "When I was facing criminal charges, I thought my future was over. Abu Legal not only provided excellent legal representation but also emotional support during this difficult time. The charges were reduced significantly.",
-    service: "Criminal Law",
-  },
-  {
-    id: 4,
-    name: "Sophia Patel",
-    location: "Perth",
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
-    rating: 5,
-    text: "I needed help with a complex business visa application. The team at Abu Legal guided me through every step, explaining the process clearly and preparing a strong application. I'm now successfully running my business in Australia.",
-    service: "Immigration Law",
-  },
-  {
-    id: 5,
-    name: "David Johnson",
-    location: "Adelaide",
-    image: "https://randomuser.me/api/portraits/men/22.jpg",
-    rating: 4,
-    text: "Abu Legal helped me secure custody of my children after a difficult separation. They were always available to answer my questions and provided sound advice throughout the process. I'm grateful for their support.",
-    service: "Family Law",
-  },
-  {
-    id: 6,
-    name: "Linda Williams",
-    location: "Canberra",
-    image: "https://randomuser.me/api/portraits/women/28.jpg",
-    rating: 5,
-    text: "After being wrongfully accused, I was terrified about my future. Abu Legal fought tirelessly for me, and all charges were eventually dropped. Their expertise in criminal law is unmatched.",
-    service: "Criminal Law",
-  },
-]
-
 // Custom arrow components for the carousel
 const PrevArrow = (props) => {
   const { className, style, onClick } = props
@@ -104,11 +47,16 @@ const NextArrow = (props) => {
   )
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ reviews = [] }) {
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
   const sliderRef = useRef(null)
   const [activeSlide, setActiveSlide] = useState(0)
+
+  // Filter reviews: skip those with long text (> 300 characters) and limit to max 10
+  const filteredReviews = reviews
+    .filter(review => review.text && review.text.length <= 300)
+    .slice(0, 10);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -205,63 +153,69 @@ export default function TestimonialsSection() {
         <div
           className={`mt-16 px-8 transition-all duration-1000 delay-300 transform ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
         >
-          <Slider ref={sliderRef} {...settings} className="testimonials-carousel">
-            {testimonials.map((testimonial, index) => (
-              <div key={testimonial.id} className="px-4 h-full">
-                <div
-                  className={`testimonial-card-wrapper transition-all duration-500 transform ${activeSlide === index ? "scale-100" : "scale-95 opacity-80"}`}
-                >
-                  <div className="testimonial-card-inner bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg h-full flex flex-col relative">
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full z-0"></div>
-                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-primary/5 rounded-full z-0"></div>
+          {filteredReviews.length > 0 ? (
+            <Slider ref={sliderRef} {...settings} className="testimonials-carousel">
+              {filteredReviews.map((testimonial, index) => (
+                <div key={testimonial.id || index} className="px-4 h-full">
+                  <div
+                    className={`testimonial-card-wrapper transition-all duration-500 transform ${activeSlide === index ? "scale-100" : "scale-95 opacity-80"}`}
+                  >
+                    <div className="testimonial-card-inner bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg h-full flex flex-col relative">
+                      {/* Decorative elements */}
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full z-0"></div>
+                      <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-primary/5 rounded-full z-0"></div>
 
-                    <div className="p-8 flex-grow relative z-10">
-                      {/* Quote icon */}
-                      <div className="absolute top-4 right-4 text-secondary/20">
-                        <Quote className="h-10 w-10 transform rotate-180" />
-                      </div>
-
-                      {/* Rating stars */}
-                      <div className="flex mb-4">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={cn(
-                              "h-5 w-5",
-                              i < testimonial.rating ? "text-secondary fill-secondary" : "text-gray-300",
-                            )}
-                          />
-                        ))}
-                      </div>
-
-                      {/* Testimonial text */}
-                      <p className="text-gray-700 dark:text-gray-300 mb-6 italic relative">"{testimonial.text}"</p>
-
-                      {/* Client info */}
-                      <div className="flex items-center mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
-                        <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4 border-2 border-secondary">
-                          <img
-                            src={testimonial.image}
-                            alt={testimonial.name}
-                            className="w-full h-full object-cover"
-                          />
+                      <div className="p-8 flex-grow relative z-10">
+                        {/* Quote icon */}
+                        <div className="absolute top-4 right-4 text-secondary/20">
+                          <Quote className="h-10 w-10 transform rotate-180" />
                         </div>
-                        <div>
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">{testimonial.name}</h4>
-                          <div className="flex items-center">
-                            <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.location}</p>
-                            {/*<span className="mx-2 text-gray-300 dark:text-gray-600">•</span>
-                            <p className="text-sm text-secondary font-medium">{testimonial.service}</p>*/}
+
+                        {/* Rating stars */}
+                        <div className="flex mb-4">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star
+                              key={i}
+                              className={cn(
+                                "h-5 w-5",
+                                i < (testimonial.rating || 5) ? "text-secondary fill-secondary" : "text-gray-300",
+                              )}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Testimonial text */}
+                        <p className="text-gray-700 dark:text-gray-300 mb-6 italic relative">"{testimonial.text}"</p>
+
+                        {/* Client info */}
+                        <div className="flex items-center mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                          <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4 border-2 border-secondary">
+                            <img
+                              src={testimonial.image || "https://randomuser.me/api/portraits/lego/1.jpg"}
+                              alt={testimonial.name || "Client"}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-gray-900 dark:text-gray-100">{testimonial.name || "Anonymous Client"}</h4>
+                            <div className="flex items-center">
+                              <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.location || "Australia"}</p>
+                              <span className="mx-2 text-gray-300 dark:text-gray-600">•</span>
+                              <p className="text-sm text-secondary font-medium">{testimonial.service || "Legal Services"}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </Slider>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600 dark:text-gray-300">No testimonials available at the moment.</p>
+            </div>
+          )}
         </div>
 
         <div

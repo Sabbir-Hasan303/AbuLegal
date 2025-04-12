@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use App\Models\Service;
 use App\Models\Faq;
 use App\Models\Attorney;
+use App\Models\Option;
 class HomeController extends Controller
 {
     public function index()
@@ -33,6 +34,9 @@ class HomeController extends Controller
 
         // dd($attorneys);
 
+        $googleReviews = Option::where('key', 'google_reviews')->first();
+        $reviews = $googleReviews ? json_decode($googleReviews->value, true) : [];
+
         return Inertia::render('Home', [
             // 'canLogin' => Route::has('login'),
             // 'canRegister' => Route::has('register'),
@@ -40,7 +44,8 @@ class HomeController extends Controller
             // 'phpVersion' => PHP_VERSION,
             'serviceCategories' => $categories,
             'faqs' => $faqs,
-            'attorneys' => $attorneys
+            'attorneys' => $attorneys,
+            'reviews' => $reviews,
         ]);
     }
 
