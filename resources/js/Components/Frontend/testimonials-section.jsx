@@ -55,7 +55,7 @@ export default function TestimonialsSection({ reviews = [] }) {
 
   // Filter reviews: skip those with long text (> 300 characters) and limit to max 10
   const filteredReviews = reviews
-    .filter(review => review.text && review.text.length <= 300)
+    .filter(review => review.text && review.text.length <= 340)
     .slice(0, 10);
 
   useEffect(() => {
@@ -165,7 +165,7 @@ export default function TestimonialsSection({ reviews = [] }) {
                       <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full z-0"></div>
                       <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-primary/5 rounded-full z-0"></div>
 
-                      <div className="p-8 flex-grow relative z-10">
+                      <div className="p-8 flex flex-col h-full relative z-10">
                         {/* Quote icon */}
                         <div className="absolute top-4 right-4 text-secondary/20">
                           <Quote className="h-10 w-10 transform rotate-180" />
@@ -185,23 +185,23 @@ export default function TestimonialsSection({ reviews = [] }) {
                         </div>
 
                         {/* Testimonial text */}
-                        <p className="text-gray-700 dark:text-gray-300 mb-6 italic relative">"{testimonial.text}"</p>
+                        <p className="text-gray-700 dark:text-gray-300 mb-6 italic relative flex-grow">"{testimonial.text}"</p>
 
                         {/* Client info */}
-                        <div className="flex items-center mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <div className="flex items-center pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
                           <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4 border-2 border-secondary">
                             <img
-                              src={testimonial.image || "https://randomuser.me/api/portraits/lego/1.jpg"}
-                              alt={testimonial.name || "Client"}
+                              src={testimonial.reviewerPhotoUrl}
+                              alt={testimonial.name}
                               className="w-full h-full object-cover"
                             />
                           </div>
                           <div>
                             <h4 className="font-medium text-gray-900 dark:text-gray-100">{testimonial.name || "Anonymous Client"}</h4>
-                            <div className="flex items-center">
+                            <div className="flex flex-col lg:flex-row lg:items-center">
                               <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.location || "Australia"}</p>
-                              <span className="mx-2 text-gray-300 dark:text-gray-600">•</span>
-                              <p className="text-sm text-secondary font-medium">{testimonial.service || "Legal Services"}</p>
+                              <span className="hidden lg:block mx-2 text-gray-300 dark:text-gray-600">•</span>
+                              <p className="text-sm text-secondary font-medium">{testimonial.categoryName}</p>
                             </div>
                           </div>
                         </div>
