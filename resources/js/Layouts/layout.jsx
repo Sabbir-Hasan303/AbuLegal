@@ -1,8 +1,8 @@
 import React from 'react'
-import Navbar from '@/Components/frontend/navbar'
-import Footer from '@/Components/frontend/footer'
-import GoToTop from '@/Components/frontend/go-to-top'
-import WhatsAppButton from '@/Components/frontend/whatsapp-button'
+import Navbar from '@/Components/Frontend/navbar'
+import Footer from '@/Components/Frontend/footer'
+import GoToTop from '@/Components/Frontend/go-to-top'
+import WhatsAppButton from '@/Components/Frontend/whatsapp-button'
 
 export default function RootLayout({ children }) {
     return (
