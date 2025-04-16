@@ -253,7 +253,7 @@ export default function ServicesListing({ services, categories }) {
                             Need a Custom Legal Solution?
                         </h3>
                         <p className='text-gray-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto'>
-                            Our team of experienced attorneys can provide
+                            Our team of experienced lawyers can provide
                             tailored legal services to address your specific
                             needs.
                         </p>

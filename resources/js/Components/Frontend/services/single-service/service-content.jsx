@@ -39,7 +39,7 @@ export default function ServiceContent ({ service }) {
                     Overview
                 </h2>
                 <div className='prose prose-lg max-w-none dark:prose-invert'>
-                    <p>{service.description}</p>
+                    <div dangerouslySetInnerHTML={{ __html: service.description }} />
                 </div>
             </section>
         </div>

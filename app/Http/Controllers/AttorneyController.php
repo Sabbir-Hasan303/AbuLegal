@@ -65,7 +65,7 @@ class AttorneyController extends Controller
 
             $attorney->save();
 
-            return redirect()->route('attorneys.list')->with('success', 'Attorney created successfully');
+            return redirect()->route('lawyers.list')->with('success', 'Attorney created successfully');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
@@ -132,7 +132,7 @@ class AttorneyController extends Controller
 
             $attorney->save();
 
-            return redirect()->route('attorneys.list')->with('success', 'Attorney updated successfully');
+            return redirect()->route('lawyers.list')->with('success', 'Attorney updated successfully');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
@@ -155,9 +155,9 @@ class AttorneyController extends Controller
                 }
             }
             $attorney->delete();
-            return redirect()->route('attorneys.list')->with('success', 'Attorney deleted successfully');
+            return redirect()->route('lawyers.list')->with('success', 'Attorney deleted successfully');
         } catch (\Exception $e) {
-            return redirect()->route('attorneys.list')->with('error', 'Failed to delete attorney');
+            return redirect()->route('lawyers.list')->with('error', 'Failed to delete lawyers');
         }
     }
 }

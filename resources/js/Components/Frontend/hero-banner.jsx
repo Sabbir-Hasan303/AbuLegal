@@ -46,7 +46,7 @@ export default function HeroBanner() {
             Expert Legal Representation Across Australia
           </h1>
           <h2 className="text-xl md:text-2xl text-secondary font-medium mb-6 max-w-3xl mx-auto">
-            Specializing in Immigration, Family, Criminal Law & Commercial Litigation
+            Specialising in Immigration, Family, Criminal Law & Commercial Litigation
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
             Abu Legal provides professional legal services with a focus on client success and satisfaction. Our

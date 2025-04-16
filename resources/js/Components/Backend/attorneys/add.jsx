@@ -90,9 +90,9 @@ export default function AddAttorneyPage() {
         data.social_media = socialMediaArray
 
         // Submit the form
-        post(route('attorneys.store'), {
+        post(route('lawyers.store'), {
             onSuccess: () => {
-                toast.success('Attorney added successfully')
+                toast.success('Lawyers added successfully')
                 setData({
                     name: '',
                     email: '',
@@ -140,17 +140,17 @@ export default function AddAttorneyPage() {
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-2">
-                <Link href="/dashboard/attorneys">
+                <Link href="/dashboard/lawyers">
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                         <ArrowLeft className="h-4 w-4" />
                     </Button>
                 </Link>
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">
-                        Add Attorney
+                        Add Lawyers
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Add a new attorney to your legal team
+                        Add a new lawyers to your legal team
                     </p>
                 </div>
             </div>
@@ -158,9 +158,9 @@ export default function AddAttorneyPage() {
             <Card>
                 <form onSubmit={handleSubmit}>
                     <CardHeader>
-                        <CardTitle>Attorney Information</CardTitle>
+                        <CardTitle>Lawyers Information</CardTitle>
                         <CardDescription>
-                            Enter the details for the new attorney
+                            Enter the details for the new lawyers
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
@@ -361,7 +361,7 @@ export default function AddAttorneyPage() {
                     </CardContent>
                     <CardFooter className="flex justify-between border-t p-6">
                         <Button type="submit" disabled={processing}>
-                            {processing ? 'Saving...' : 'Save Attorney'}
+                            {processing ? 'Saving...' : 'Save Lawyers'}
                         </Button>
                     </CardFooter>
                 </form>
