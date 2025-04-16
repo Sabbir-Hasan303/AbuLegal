@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '@/Layouts/layout'
-import ContactSection from '@/Components/frontend/contact-section'
+import ContactSection from '@/Components/Frontend/contact-section'
 import { Head } from '@inertiajs/react'
 
 export default function Contact() {

@@ -1,11 +1,11 @@
-import HeroBanner from '@/Components/frontend/hero-banner'
-import AboutSection from '@/Components/frontend/about-section'
-import ServicesSection from '@/Components/frontend/services-section'
-import AttorneysSection from '@/Components/frontend/attorneys-section'
-import SuccessStoriesSection from "@/Components/frontend/success-stories"
-import TestimonialsSection from '@/Components/frontend/testimonials-section'
-import FaqSection from '@/Components/frontend/faq-section'
-import CtaSection from '@/Components/frontend/cta-section'
+import HeroBanner from '@/Components/Frontend/hero-banner'
+import AboutSection from '@/Components/Frontend/about-section'
+import ServicesSection from '@/Components/Frontend/services-section'
+import AttorneysSection from '@/Components/Frontend/attorneys-section'
+import SuccessStoriesSection from "@/Components/Frontend/success-stories"
+import TestimonialsSection from '@/Components/Frontend/testimonials-section'
+import FaqSection from '@/Components/Frontend/faq-section'
+import CtaSection from '@/Components/Frontend/cta-section'
 import Layout from '@/Layouts/layout'
 import { Head } from '@inertiajs/react'
 
