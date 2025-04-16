@@ -38,7 +38,7 @@ export default function ServiceContent ({ service }) {
                 <h2 className='text-3xl font-bold text-primary font-serif mb-6'>
                     Overview
                 </h2>
-                <div className='prose prose-lg max-w-none dark:prose-invert'>
+                <div className='tinymce-content prose prose-lg max-w-none dark:prose-invert'>
                     <div dangerouslySetInnerHTML={{ __html: service.description }} />
                 </div>
             </section>
