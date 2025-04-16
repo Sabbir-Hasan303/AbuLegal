@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Label } from '@/components/ui/label'
+import { Label } from '@/Components/ui/label'
 import { Upload } from 'lucide-react'
 
 export default function ImageUpload({

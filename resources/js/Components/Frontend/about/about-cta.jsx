@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 import { ArrowRight, Phone, Calendar } from "lucide-react"
 
 export default function AboutCta() {

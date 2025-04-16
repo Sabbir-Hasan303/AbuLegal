@@ -18,9 +18,9 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/Components/ui/button"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/Components/ui/tooltip"
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,7 +28,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/Components/ui/dropdown-menu"
 
 const menuItems = [
   {
@@ -165,7 +165,7 @@ export default function Sidebar({ onCollapsedChange }) {
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-            <div
+          <div
             className={cn(
               "flex items-center h-16 px-4 border-b transition-all duration-300",
               collapsed ? "justify-center" : "justify-between",
@@ -177,9 +177,9 @@ export default function Sidebar({ onCollapsedChange }) {
                   <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
                 </div>
               )}
-            {collapsed && (
-              <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
-            )}
+              {collapsed && (
+                <img src="/images/logo/logo.png" alt="Abu Legal Logo" className="h-8 w-auto" />
+              )}
             </Link>
             <Button variant="ghost" size="icon" className="hidden lg:flex" onClick={handleCollapseToggle}>
               <ChevronRight

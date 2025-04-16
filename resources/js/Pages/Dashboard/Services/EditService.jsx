@@ -5,9 +5,9 @@ import EditServicePage from '@/Components/Backend/services/edit'
 export default function EditService({ service, categories }) {
   return (
     <AuthenticatedLayout>
-        <div>
-            <EditServicePage service={service} categories={categories} />
-        </div>
+      <div>
+        <EditServicePage service={service} categories={categories} />
+      </div>
     </AuthenticatedLayout>
   )
 }

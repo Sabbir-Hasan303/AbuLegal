@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, Phone, Mail, Clock } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/Components/ui/button'
 import { cn } from '@/lib/utils'
 import { usePage, Link } from '@inertiajs/react'
 
@@ -11,7 +11,7 @@ const navLinks = [
     { name: 'Contact', href: '/contact' }
 ]
 
-export default function Navbar () {
+export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
     const { url } = usePage()
@@ -90,8 +90,8 @@ export default function Navbar () {
                             ? 'bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]'
                             : 'bg-black/95 dark:bg-gray-900/95 translate-y-0'
                         : isScrolled
-                        ? 'bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]'
-                        : 'bg-transparent translate-y-0'
+                            ? 'bg-black/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md translate-y-0 md:translate-y-[48px]'
+                            : 'bg-transparent translate-y-0'
                 )}
             >
                 <div className='container mx-auto px-4'>

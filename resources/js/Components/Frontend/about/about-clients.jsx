@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 import { Building, Users, Globe, Briefcase } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/Components/ui/card"
 
 export default function AboutClients() {
   const sectionRef = useRef(null)

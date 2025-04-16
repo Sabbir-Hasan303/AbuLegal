@@ -1,11 +1,11 @@
 import React from 'react'
 import Layout from '@/Layouts/layout'
-import ServicesHero from '@/components/frontend/services/services-hero'
-import ServicesListing from '@/components/frontend/services/services-listing'
-import ServicesProcess from '@/components/frontend/services/services-process'
+import ServicesHero from '@/Components/frontend/services/services-hero'
+import ServicesListing from '@/Components/frontend/services/services-listing'
+import ServicesProcess from '@/Components/frontend/services/services-process'
 import { Head } from '@inertiajs/react'
 
-export default function Services ({ services, categories }) {
+export default function Services({ services, categories }) {
     return (
         <Layout>
             <Head title='Services' />

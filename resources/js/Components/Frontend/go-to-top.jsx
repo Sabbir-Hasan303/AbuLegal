@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { ChevronUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 import { cn } from "@/lib/utils"
 
 export default function GoToTop() {

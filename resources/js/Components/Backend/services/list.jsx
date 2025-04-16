@@ -1,10 +1,10 @@
 import { Link } from "@inertiajs/react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/ui/table"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select"
+import { Badge } from "@/Components/ui/badge"
 import { Plus, Search, Edit, Trash2, ArrowUpDown } from "lucide-react"
 import { router } from '@inertiajs/react'
 import { useState, useEffect } from 'react'
@@ -16,7 +16,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle
-} from "@/components/ui/dialog"
+} from "@/Components/ui/dialog"
 import Pagination from "@/Components/Backend/Pagination"
 
 export default function ServicesPage({ services, filters }) {
@@ -177,9 +177,9 @@ export default function ServicesPage({ services, filters }) {
                                                 <div className="flex items-center gap-3">
                                                     <img
                                                         src={`${domain}/${service.banner}`}
-                                                    alt={service.title}
-                                                    className="h-10 w-16 object-cover rounded-md"
-                                                />
+                                                        alt={service.title}
+                                                        className="h-10 w-16 object-cover rounded-md"
+                                                    />
                                                     <span className="font-medium">{service.title}</span>
                                                 </div>
                                             </Link>

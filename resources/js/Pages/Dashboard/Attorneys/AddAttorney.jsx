@@ -5,9 +5,9 @@ import AddAttorneyPage from '@/Components/Backend/attorneys/add'
 export default function AddAttorney() {
   return (
     <AuthenticatedLayout>
-        <div>
-            <AddAttorneyPage />
-        </div>
+      <div>
+        <AddAttorneyPage />
+      </div>
     </AuthenticatedLayout>
   )
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { Button } from '@/Components/ui/button'
+import { Badge } from '@/Components/ui/badge'
 import { Link } from '@inertiajs/react'
 
-export default function ServiceBanner ({ service }) {
+export default function ServiceBanner({ service }) {
     const [scrollY, setScrollY] = useState(0)
     const [fullUrl, setFullUrl] = useState('')
 

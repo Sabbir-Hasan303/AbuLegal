@@ -1,15 +1,15 @@
-import HeroBanner from '@/components/frontend/hero-banner'
-import AboutSection from '@/components/frontend/about-section'
-import ServicesSection from '@/components/frontend/services-section'
-import AttorneysSection from '@/components/frontend/attorneys-section'
-import SuccessStoriesSection from "@/components/frontend/success-stories"
-import TestimonialsSection from '@/components/frontend/testimonials-section'
-import FaqSection from '@/components/frontend/faq-section'
-import CtaSection from '@/components/frontend/cta-section'
+import HeroBanner from '@/Components/frontend/hero-banner'
+import AboutSection from '@/Components/frontend/about-section'
+import ServicesSection from '@/Components/frontend/services-section'
+import AttorneysSection from '@/Components/frontend/attorneys-section'
+import SuccessStoriesSection from "@/Components/frontend/success-stories"
+import TestimonialsSection from '@/Components/frontend/testimonials-section'
+import FaqSection from '@/Components/frontend/faq-section'
+import CtaSection from '@/Components/frontend/cta-section'
 import Layout from '@/Layouts/layout'
 import { Head } from '@inertiajs/react'
 
-export default function Home ({ faqs, attorneys, reviews }) {
+export default function Home({ faqs, attorneys, reviews }) {
     return (
         <Layout>
             <Head title='Home' />

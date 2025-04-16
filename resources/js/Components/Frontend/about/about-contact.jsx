@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 
 export default function AboutContact() {
   const sectionRef = useRef(null)

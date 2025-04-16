@@ -1,30 +1,30 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowRight } from "lucide-react"
 import { useForm } from "@inertiajs/react"
 import { toast } from "react-hot-toast"
 export default function Footer() {
 
-    // useForm
-    const { post, processing, errors, data, setData } = useForm({
-        email: ''
-    })
+  // useForm
+  const { post, processing, errors, data, setData } = useForm({
+    email: ''
+  })
 
-    const handleSubscribe = () => {
-        post(route('newsletter.store'), {
-            onSuccess: () => {
-                toast.success('You have successfully subscribed to our newsletter')
-                setData('email', '')
-            },
-            onError: (errors) => {
-                if (errors.error) {
-                    toast.error(errors.error)
-                } else {
-                    toast.error('Something went wrong')
-                }
-            }
-        })
-    }
+  const handleSubscribe = () => {
+    post(route('newsletter.store'), {
+      onSuccess: () => {
+        toast.success('You have successfully subscribed to our newsletter')
+        setData('email', '')
+      },
+      onError: (errors) => {
+        if (errors.error) {
+          toast.error(errors.error)
+        } else {
+          toast.error('Something went wrong')
+        }
+      }
+    })
+  }
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -143,19 +143,19 @@ export default function Footer() {
             <p className="text-primary-foreground/80 mb-4">Subscribe to our newsletter for legal updates, news, and insights.</p>
 
             <div className="flex space-x-2">
-                <div>
-              <Input
-                type="email"
-                value={data.email}
-                onChange={e => setData('email', e.target.value)}
-                placeholder="Your email"
-                className="bg-primary-foreground/10 border-primary-foreground/20 text-white placeholder:text-primary-foreground/50"
-                error={errors.email}
-                required
-              />
-              {errors.email && (
-                <p className="text-sm text-red-500">{errors.email}</p>
-              )}
+              <div>
+                <Input
+                  type="email"
+                  value={data.email}
+                  onChange={e => setData('email', e.target.value)}
+                  placeholder="Your email"
+                  className="bg-primary-foreground/10 border-primary-foreground/20 text-white placeholder:text-primary-foreground/50"
+                  error={errors.email}
+                  required
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email}</p>
+                )}
               </div>
               <Button
                 type="submit"
