@@ -4,10 +4,10 @@ import AddServicePage from '@/Components/Backend/services/add'
 
 export default function AddService() {
   return (
-        <AuthenticatedLayout>
-            <div>
-                <AddServicePage />
-            </div>
-        </AuthenticatedLayout>
+    <AuthenticatedLayout>
+      <div>
+        <AddServicePage />
+      </div>
+    </AuthenticatedLayout>
   )
 }

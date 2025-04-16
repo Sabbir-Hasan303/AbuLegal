@@ -25,9 +25,9 @@
 //     );
 // }
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-// import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card"
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs"
+// import { Button } from "@/Components/ui/button"
 import { FileText, Users, Briefcase, Calendar, Mail, MessageSquare, Newspaper, Settings } from "lucide-react"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { Link } from "@inertiajs/react"

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 
 export default function Pagination({ data, onPageChange }) {
     if (!data || !data.data || data.data.length === 0) {

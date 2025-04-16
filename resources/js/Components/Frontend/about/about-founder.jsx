@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react"
 import { GraduationCap, Briefcase, Award, MapPin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/Components/ui/button"
+import { Card, CardContent } from "@/Components/ui/card"
 
 export default function AboutFounder() {
   const sectionRef = useRef(null)

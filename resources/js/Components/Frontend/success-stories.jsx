@@ -1,9 +1,9 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
-// import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/Components/ui/button"
+// import { Card, CardContent } from "@/Components/ui/card"
+import { Badge } from "@/Components/ui/badge"
 import { ArrowLeft, ArrowRight, Calendar, CheckCircle2, Clock, Lightbulb, Scale, Target, Trophy } from "lucide-react"
 
 // Sample success stories data

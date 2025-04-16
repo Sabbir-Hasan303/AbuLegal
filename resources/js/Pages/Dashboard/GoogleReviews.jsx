@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Head, useForm, usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/Components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import { Star } from "lucide-react";
 
 export default function GoogleReviews({ reviews }) {
@@ -108,9 +108,8 @@ export default function GoogleReviews({ reviews }) {
                             {[...Array(5)].map((_, i) => (
                               <Star
                                 key={i}
-                                className={`h-4 w-4 ${
-                                  i < review.stars ? "text-yellow-400 fill-current" : "text-gray-300"
-                                }`}
+                                className={`h-4 w-4 ${i < review.stars ? "text-yellow-400 fill-current" : "text-gray-300"
+                                  }`}
                               />
                             ))}
                           </div>

@@ -5,9 +5,9 @@ import AttorneysPage from '@/Components/Backend/attorneys/list'
 export default function AttorneysList({ attorneys }) {
   return (
     <AuthenticatedLayout>
-        <div>
-            <AttorneysPage attorneys={attorneys} />
-        </div>
+      <div>
+        <AttorneysPage attorneys={attorneys} />
+      </div>
     </AuthenticatedLayout>
   )
 }

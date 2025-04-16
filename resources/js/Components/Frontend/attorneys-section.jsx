@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 import { Facebook, Twitter, Linkedin, ChevronLeft, ChevronRight, Instagram } from "lucide-react"
 import Slider from "react-slick"
 // import "slick-carousel/slick/slick.css"
@@ -140,43 +140,43 @@ export default function AttorneysSection({ attorneys }) {
         >
           <Slider ref={sliderRef} {...settings} className="attorneys-carousel">
             {attorneys && attorneys.length > 0 ?
-                (attorneys.map((attorney, index) => (
-              <div key={attorney.id} className="px-3 h-full">
-                <div
-                  className={`attorney-card-wrapper transition-all duration-500 transform ${activeSlide === index ? "scale-100" : "scale-95"}`}
-                >
-                  <div className="attorney-card-inner bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg h-full flex flex-col">
-                    <div className="relative overflow-hidden attorney-image-container">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
-                      <img
-                        src={attorney.image}
-                        alt={attorney.name}
-                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
-                        <h3 className="text-white text-xl font-bold">{attorney.name}</h3>
-                        <p className="text-secondary font-medium text-sm">{attorney.role}</p>
+              (attorneys.map((attorney, index) => (
+                <div key={attorney.id} className="px-3 h-full">
+                  <div
+                    className={`attorney-card-wrapper transition-all duration-500 transform ${activeSlide === index ? "scale-100" : "scale-95"}`}
+                  >
+                    <div className="attorney-card-inner bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg h-full flex flex-col">
+                      <div className="relative overflow-hidden attorney-image-container">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+                        <img
+                          src={attorney.image}
+                          alt={attorney.name}
+                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+                          <h3 className="text-white text-xl font-bold">{attorney.name}</h3>
+                          <p className="text-secondary font-medium text-sm">{attorney.role}</p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="p-5 flex-grow">
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">Specialties</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {attorney.specialties.map((specialty, i) => (
-                              <span key={i} className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                                {specialty}
-                              </span>
-                            ))}
+                      <div className="p-5 flex-grow">
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">Specialties</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {attorney.specialties.map((specialty, i) => (
+                                <span key={i} className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                                  {specialty}
+                                </span>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center bg-gray-50 dark:bg-gray-800">
-                      <div className="flex space-x-1">
-                        {attorney.social_media.map((social, i) => {
+                      <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center bg-gray-50 dark:bg-gray-800">
+                        <div className="flex space-x-1">
+                          {attorney.social_media.map((social, i) => {
                             if (social.platform === "linkedin") {
                               return (
                                 <a href={social.url} target="_blank">
@@ -185,8 +185,8 @@ export default function AttorneysSection({ attorneys }) {
                                     variant="ghost"
                                     size="icon"
                                     className="h-8 w-8 rounded-full text-gray-500 hover:text-secondary hover:bg-gray-100 dark:hover:bg-gray-700"
-                                >
-                                  <Linkedin className="h-4 w-4" />
+                                  >
+                                    <Linkedin className="h-4 w-4" />
                                     <span className="sr-only">LinkedIn</span>
                                   </Button>
                                 </a>
@@ -200,11 +200,11 @@ export default function AttorneysSection({ attorneys }) {
                                     variant="ghost"
                                     size="icon"
                                     className="h-8 w-8 rounded-full text-gray-500 hover:text-secondary hover:bg-gray-100 dark:hover:bg-gray-700"
-                                >
-                                  <Twitter className="h-4 w-4" />
-                                  <span className="sr-only">Twitter</span>
-                                </Button>
-                              </a>
+                                  >
+                                    <Twitter className="h-4 w-4" />
+                                    <span className="sr-only">Twitter</span>
+                                  </Button>
+                                </a>
                               );
                             }
                             if (social.platform === "facebook") {
@@ -215,10 +215,10 @@ export default function AttorneysSection({ attorneys }) {
                                     variant="ghost"
                                     size="icon"
                                     className="h-8 w-8 rounded-full text-gray-500 hover:text-secondary hover:bg-gray-100 dark:hover:bg-gray-700"
-                                >
-                                  <Facebook className="h-4 w-4" />
-                                  <span className="sr-only">Facebook</span>
-                                </Button>
+                                  >
+                                    <Facebook className="h-4 w-4" />
+                                    <span className="sr-only">Facebook</span>
+                                  </Button>
                                 </a>
                               );
                             }
@@ -231,25 +231,25 @@ export default function AttorneysSection({ attorneys }) {
                                     variant="ghost"
                                     size="icon"
                                     className="h-8 w-8 rounded-full text-gray-500 hover:text-secondary hover:bg-gray-100 dark:hover:bg-gray-700"
-                                >
-                                  <Instagram className="h-4 w-4" />
-                                  <span className="sr-only">Instagram</span>
-                                </Button>
+                                  >
+                                    <Instagram className="h-4 w-4" />
+                                    <span className="sr-only">Instagram</span>
+                                  </Button>
                                 </a>
                               );
                             }
                             return null;
-                        })}
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-                ))) : (
-              <div className="flex justify-center items-center h-full">
-                <p className="text-gray-500">No attorneys found</p>
-              </div>
-            )}
+              ))) : (
+                <div className="flex justify-center items-center h-full">
+                  <p className="text-gray-500">No attorneys found</p>
+                </div>
+              )}
           </Slider>
         </div>
       </div>

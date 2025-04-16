@@ -1,15 +1,15 @@
 import { useRef, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/Components/ui/button'
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger
-} from '@/components/ui/accordion'
+} from '@/Components/ui/accordion'
 import { Link } from '@inertiajs/react'
 
 
-export default function FaqSection ({ faqs }) {
+export default function FaqSection({ faqs }) {
     const sectionRef = useRef(null)
     const elementsRef = useRef([])
 

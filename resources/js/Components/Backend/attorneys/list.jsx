@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from '@inertiajs/react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/Components/ui/button'
 import {
   Table,
   TableBody,
@@ -8,11 +8,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+} from "@/Components/ui/table"
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Pencil, Trash2, Plus } from 'lucide-react'
 import { router } from '@inertiajs/react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/Components/ui/dialog"
 
 export default function AttorneysPage({ attorneys }) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
@@ -25,8 +25,8 @@ export default function AttorneysPage({ attorneys }) {
 
   const handleDeleteConfirm = () => {
     if (attorneyToDelete) {
-    router.delete(route('attorneys.destroy', attorneyToDelete.id), {
-      onSuccess: () => {
+      router.delete(route('attorneys.destroy', attorneyToDelete.id), {
+        onSuccess: () => {
           setDeleteDialogOpen(false)
           setAttorneyToDelete(null)
         }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Bell, Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +9,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import Sidebar from "@/components/Backend/sidebar"
+} from "@/Components/ui/dropdown-menu"
+import Sidebar from "@/Components/Backend/sidebar"
 import { cn } from "@/lib/utils"
 
 export default function AuthenticatedLayout({ children }) {
@@ -53,7 +53,7 @@ export default function AuthenticatedLayout({ children }) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className='relative opacity-50 cursor-not-allowed'
-                                    disabled>
+                  disabled>
                   <Bell className="h-4 w-4" />
                   <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
                     3

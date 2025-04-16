@@ -1,10 +1,10 @@
 import { useRef, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/Components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 import { Phone, Mail, Calendar, ArrowRight } from 'lucide-react'
 import { Link } from '@inertiajs/react'
 
-export default function ServiceSidebar ({ service, relatedServices }) {
+export default function ServiceSidebar({ service, relatedServices }) {
     const sidebarRef = useRef(null)
     const elementsRef = useRef([])
 

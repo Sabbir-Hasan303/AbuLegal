@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { Button } from '@/Components/ui/button'
+import { Badge } from '@/Components/ui/badge'
 import { cn } from '@/lib/utils'
 import {
     ArrowRight,
@@ -11,7 +11,7 @@ import {
     CheckCircle,
     Search
 } from 'lucide-react'
-import { Input } from '@/components/ui/input'
+import { Input } from '@/Components/ui/input'
 import { Link } from '@inertiajs/react'
 
 // Category colors and icons
@@ -46,7 +46,7 @@ const categoryStyles = {
     }
 }
 
-export default function ServicesListing ({ services, categories }) {
+export default function ServicesListing({ services, categories }) {
     const [selectedCategory, setSelectedCategory] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
     const [activeService, setActiveService] = useState(null)
@@ -140,11 +140,11 @@ export default function ServicesListing ({ services, categories }) {
                                             className={cn(
                                                 'cursor-pointer text-sm py-2 px-4 capitalize',
                                                 selectedCategory === category &&
-                                                    category !== 'all' &&
-                                                    categoryStyles[category]
-                                                        ?.color,
+                                                category !== 'all' &&
+                                                categoryStyles[category]
+                                                    ?.color,
                                                 selectedCategory !== category &&
-                                                    'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                'hover:bg-gray-100 dark:hover:bg-gray-700'
                                             )}
                                             onClick={() =>
                                                 setSelectedCategory(category)

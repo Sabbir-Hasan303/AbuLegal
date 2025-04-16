@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 import { CheckCircle, Award, Users, Scale } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 import { Link } from "@inertiajs/react"
 
 export default function AboutSection() {
@@ -62,7 +62,7 @@ export default function AboutSection() {
             </h3>
 
             <p className="text-gray-700 dark:text-gray-300">
-            ABU Legal Pty Ltd is an Australian-owned law firm delivering practical, client-focused legal solutions with integrity and professionalism. We offer tailored services across Immigration Law, Family Law, Commercial Litigation, and Criminal Law, as well as dispute resolution, employment law, and regulatory compliance. Our dedicated team is committed to building lasting client relationships and achieving the best possible outcomes through clear, strategic advice and strong representation.
+              ABU Legal Pty Ltd is an Australian-owned law firm delivering practical, client-focused legal solutions with integrity and professionalism. We offer tailored services across Immigration Law, Family Law, Commercial Litigation, and Criminal Law, as well as dispute resolution, employment law, and regulatory compliance. Our dedicated team is committed to building lasting client relationships and achieving the best possible outcomes through clear, strategic advice and strong representation.
             </p>
 
             <div className="grid grid-cols-2 gap-4 mt-6">

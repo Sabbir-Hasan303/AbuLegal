@@ -6,11 +6,11 @@ import {
     CardFooter,
     CardHeader,
     CardTitle
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/Components/ui/card'
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import { Label } from '@/Components/ui/label'
+import { Textarea } from '@/Components/ui/textarea'
 import TinyMCE from '@/Components/Backend/tinymce'
 import ImageUpload from '@/Components/Backend/ImageUpload'
 import {
@@ -19,12 +19,12 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue
-} from '@/components/ui/select'
+} from '@/Components/ui/select'
 import { ArrowLeft } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-export default function AddServicePage () {
+export default function AddServicePage() {
     const { categories } = usePage().props
     const [description, setDescription] = useState('')
     const [bannerImage, setBannerImage] = useState(null)

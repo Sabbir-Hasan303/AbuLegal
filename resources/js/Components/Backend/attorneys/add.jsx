@@ -7,11 +7,11 @@ import {
     CardFooter,
     CardHeader,
     CardTitle
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Badge } from "@/components/ui/badge"
+} from '@/Components/ui/card'
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import { Label } from '@/Components/ui/label'
+import { Badge } from "@/Components/ui/badge"
 import { ArrowLeft } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { toast } from 'react-hot-toast'
@@ -21,7 +21,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue
-} from '@/components/ui/select'
+} from '@/Components/ui/select'
 
 const roles = [
     "Immigration Law Specialist",
@@ -215,7 +215,7 @@ export default function AddAttorneyPage() {
                                     value={data.phone}
                                     onChange={e => setData('phone', e.target.value)}
                                     error={errors.phone}
-                                    // required
+                                // required
                                 />
                                 {errors.phone && (
                                     <p className="text-sm text-red-500">{errors.phone}</p>

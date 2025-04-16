@@ -5,11 +5,11 @@ import {
     CardDescription,
     CardHeader,
     CardTitle
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/Components/ui/card'
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import { Label } from '@/Components/ui/label'
+import { Textarea } from '@/Components/ui/textarea'
 import {
     Dialog,
     DialogContent,
@@ -18,20 +18,20 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger
-} from '@/components/ui/dialog'
+} from '@/Components/ui/dialog'
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger
-} from '@/components/ui/accordion'
+} from '@/Components/ui/accordion'
 import { Plus, Edit, Trash2, Search, AlertTriangle } from 'lucide-react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { useForm, router } from '@inertiajs/react'
 import { toast } from 'react-hot-toast'
 import debounce from 'lodash/debounce'
 
-export default function FaqPage ({ faqs, filters }) {
+export default function FaqPage({ faqs, filters }) {
     const [searchTerm, setSearchTerm] = useState(filters?.search || '')
     const [addDialogOpen, setAddDialogOpen] = useState(false)
     const [editingFaq, setEditingFaq] = useState(null)

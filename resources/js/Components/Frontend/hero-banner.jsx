@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 
 export default function HeroBanner() {
   const [scrollY, setScrollY] = useState(0)
