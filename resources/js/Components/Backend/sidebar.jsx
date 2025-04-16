@@ -54,18 +54,18 @@ const menuItems = [
     ],
   },
   {
-    title: "Attorneys",
+    title: "Lawyers",
     icon: Users,
-    href: "/dashboard/attorneys",
+    href: "/dashboard/lawyers",
     subItems: [
       {
-        title: "All Attorneys",
-        href: "/dashboard/attorneys",
+        title: "All Lawyers",
+        href: "/dashboard/lawyers",
         exact: true,
       },
       {
-        title: "Add Attorney",
-        href: "/dashboard/attorneys/add",
+        title: "Add Lawyers",
+        href: "/dashboard/lawyers/add",
       },
     ],
   },

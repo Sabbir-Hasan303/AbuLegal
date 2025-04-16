@@ -39,7 +39,7 @@ export default function Footer() {
               />
             </a>
             <p className="text-primary-foreground/80 mb-4">
-              A premier law firm providing exceptional legal services across Australia, specializing in immigration,
+              A premier law firm providing exceptional legal services across Australia, specialising in immigration,
               family, and criminal law.
             </p>
             <div className="flex space-x-3">

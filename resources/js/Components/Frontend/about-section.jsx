@@ -48,7 +48,7 @@ export default function AboutSection() {
               <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary rounded-br-lg z-0"></div>
               <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
                 <img
-                  src="https://abulegal.com/images/abusiddique.jpg"
+                  src="/images/others/abu_siddique.jpg"
                   alt="Abu Legal Office"
                   className="w-full h-auto object-cover"
                 />
