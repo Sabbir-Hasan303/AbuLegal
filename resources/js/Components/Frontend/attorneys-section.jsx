@@ -131,7 +131,7 @@ export default function AttorneysSection({ attorneys }) {
         <div
           className={`transition-all duration-1000 transform ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
         >
-          <h2 className="section-title">Meet Our Attorneys</h2>
+          <h2 className="section-title">Meet Our Lawyers</h2>
           <p className="section-subtitle">Meet our team of experienced legal professionals dedicated to your success</p>
         </div>
 
@@ -247,7 +247,7 @@ export default function AttorneysSection({ attorneys }) {
                 </div>
               ))) : (
                 <div className="flex justify-center items-center h-full">
-                  <p className="text-gray-500">No attorneys found</p>
+                  <p className="text-gray-500">No lawyers found</p>
                 </div>
               )}
           </Slider>

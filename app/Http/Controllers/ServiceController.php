@@ -35,6 +35,7 @@ class ServiceController extends Controller
 
         $services = Service::with('category')
             ->filter($filters)
+            ->where('status', 'active')
             ->get();
 
         $categories = Category::all();

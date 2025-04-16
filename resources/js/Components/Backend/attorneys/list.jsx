@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Pencil, Trash2, Plus } from 'lucide-react'
 import { router } from '@inertiajs/react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/Components/ui/dialog"
+import { toast } from 'react-hot-toast'
 
 export default function AttorneysPage({ attorneys }) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
@@ -25,8 +26,9 @@ export default function AttorneysPage({ attorneys }) {
 
   const handleDeleteConfirm = () => {
     if (attorneyToDelete) {
-      router.delete(route('attorneys.destroy', attorneyToDelete.id), {
+      router.delete(route('lawyers.destroy', attorneyToDelete.id), {
         onSuccess: () => {
+          toast.success('Lawyers deleted successfully')
           setDeleteDialogOpen(false)
           setAttorneyToDelete(null)
         }
@@ -38,21 +40,21 @@ export default function AttorneysPage({ attorneys }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Attorneys</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Lawyers</h1>
           <p className="text-muted-foreground mt-2">Manage your legal team members</p>
         </div>
 
-        <Link href={route('attorneys.add')}>
+        <Link href={route('lawyers.add')}>
           <Button className="gap-1">
             <Plus className="h-4 w-4" />
-            Add Attorney
+            Add Lawyers
           </Button>
         </Link>
       </div>
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle>All Attorneys</CardTitle>
+          <CardTitle>All Lawyers</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -75,7 +77,7 @@ export default function AttorneysPage({ attorneys }) {
                     <TableCell>{attorney.specialties.join(', ')}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
-                        <Link href={route('attorneys.edit', attorney.id)}>
+                        <Link href={route('lawyers.edit', attorney.id)}>
                           <Button variant="ghost" size="icon" className="h-8 w-8">
                             <Pencil className="h-4 w-4" />
                             <span className="sr-only">Edit</span>
@@ -92,7 +94,7 @@ export default function AttorneysPage({ attorneys }) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="text-center py-6">
-                    No attorneys found. Add your first attorney to get started.
+                    No lawyers found. Add your first attorney to get started.
                   </TableCell>
                 </TableRow>
               )}
@@ -105,7 +107,7 @@ export default function AttorneysPage({ attorneys }) {
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete Attorney</DialogTitle>
+            <DialogTitle>Delete Lawyers</DialogTitle>
             <DialogDescription>
               Are you sure you want to delete "{attorneyToDelete?.name}"? This action cannot be undone.
             </DialogDescription>

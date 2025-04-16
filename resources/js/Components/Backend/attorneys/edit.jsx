@@ -90,9 +90,9 @@ export default function EditAttorneyPage({ attorney }) {
         data.social_media = socialMediaArray
 
         // Submit the form
-        post(route('attorneys.update', attorney.id), {
+        post(route('lawyers.update', attorney.id), {
             onSuccess: () => {
-                toast.success('Attorney updated successfully')
+                toast.success('Lawyers updated successfully')
             },
             onError: (errors) => {
                 if (errors.error) {
@@ -127,17 +127,17 @@ export default function EditAttorneyPage({ attorney }) {
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-2">
-                <Link href="/dashboard/attorneys">
+                <Link href="/dashboard/lawyers">
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                         <ArrowLeft className="h-4 w-4" />
                     </Button>
                 </Link>
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">
-                        Edit Attorney
+                        Edit Lawyers
                     </h1>
                     <p className="text-muted-foreground mt-2">
-                        Update attorney information
+                        Update lawyers information
                     </p>
                 </div>
             </div>
@@ -145,9 +145,9 @@ export default function EditAttorneyPage({ attorney }) {
             <Card>
                 <form onSubmit={handleSubmit}>
                     <CardHeader>
-                        <CardTitle>Attorney Information</CardTitle>
+                        <CardTitle>Lawyers Information</CardTitle>
                         <CardDescription>
-                            Update the details for the attorney
+                            Update the details for the lawyers
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">

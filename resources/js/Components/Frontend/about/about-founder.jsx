@@ -47,7 +47,7 @@ export default function AboutFounder() {
                 <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary rounded-bl-lg z-0"></div>
                 <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
                   <img
-                    src="https://abulegal.com/images/abusiddique.jpg"
+                    src="/images/others/abu_siddique.jpg"
                     alt="Abu Siddique"
                     className="w-full h-auto object-cover"
                   />

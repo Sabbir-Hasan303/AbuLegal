@@ -62,13 +62,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/services/edit/{slug}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/dashboard/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
-    // attorneys
-    Route::get('/dashboard/attorneys', [AttorneyController::class, 'index'])->name('attorneys.list');
-    Route::get('/dashboard/attorneys/add', [AttorneyController::class, 'create'])->name('attorneys.add');
-    Route::post('/dashboard/attorneys/add', [AttorneyController::class, 'store'])->name('attorneys.store');
-    Route::get('/dashboard/attorneys/edit/{id}', [AttorneyController::class, 'edit'])->name('attorneys.edit');
-    Route::post('/dashboard/attorneys/edit/{id}', [AttorneyController::class, 'update'])->name('attorneys.update');
-    Route::delete('/dashboard/attorneys/{id}', [AttorneyController::class, 'destroy'])->name('attorneys.destroy');
+    // lawyers
+    Route::get('/dashboard/lawyers', [AttorneyController::class, 'index'])->name('lawyers.list');
+    Route::get('/dashboard/lawyers/add', [AttorneyController::class, 'create'])->name('lawyers.add');
+    Route::post('/dashboard/lawyers/add', [AttorneyController::class, 'store'])->name('lawyers.store');
+    Route::get('/dashboard/lawyers/edit/{id}', [AttorneyController::class, 'edit'])->name('lawyers.edit');
+    Route::post('/dashboard/lawyers/edit/{id}', [AttorneyController::class, 'update'])->name('lawyers.update');
+    Route::delete('/dashboard/lawyers/{id}', [AttorneyController::class, 'destroy'])->name('lawyers.destroy');
 
     // contacts
     Route::get('/dashboard/contact', [ContactController::class, 'getContacts'])->name('contact.list');

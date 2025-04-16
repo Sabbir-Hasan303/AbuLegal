@@ -65,7 +65,7 @@ export default function ServicesProcess () {
             id: 4,
             title: 'Legal Representation',
             description:
-                'Our experienced attorneys will represent you throughout the legal process.',
+                'Our experienced lawyers will represent you throughout the legal process.',
             icon: Scale,
             color: 'bg-red-600'
         },
