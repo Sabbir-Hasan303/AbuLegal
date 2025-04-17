@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
   <title>Contact Form Submission</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f8;">
@@ -57,14 +61,6 @@
               <p>Best regards,<br><strong>AbuLegal System</strong></p>
             </td>
           </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #f1f3f5; text-align: center; padding: 20px; font-size: 12px; color: #777;">
-              <p style="margin: 0;">This is an automated message. Please do not reply.</p>
-            </td>
-          </tr>
-
         </table>
       </td>
     </tr>
