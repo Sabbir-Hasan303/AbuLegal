@@ -12,4 +12,9 @@ class Category extends Model
     {
         return $this->hasMany(Service::class, 'category');
     }
+
+    public function successStories()
+    {
+        return $this->hasMany(SuccessStory::class, 'category');
+    }
 }

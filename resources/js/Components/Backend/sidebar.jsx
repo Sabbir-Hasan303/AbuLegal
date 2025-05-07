@@ -15,6 +15,7 @@ import {
   Mail,
   Users,
   Star,
+  Award,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -66,6 +67,22 @@ const menuItems = [
       {
         title: "Add Lawyers",
         href: "/dashboard/lawyers/add",
+      },
+    ],
+  },
+  {
+    title: "Success Stories",
+    icon: Award,
+    href: "/dashboard/success-stories",
+    subItems: [
+      {
+        title: "All Stories",
+        href: "/dashboard/success-stories",
+        exact: true,
+      },
+      {
+        title: "Add Story",
+        href: "/dashboard/success-stories/add",
       },
     ],
   },

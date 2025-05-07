@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\SuccessStoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -82,6 +83,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/faq', [FaqController::class, 'store'])->name('faq.store');
     Route::put('/dashboard/faq/{id}', [FaqController::class, 'update'])->name('faq.update');
     Route::delete('/dashboard/faq/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
+
+    // success stories
+    Route::get('/dashboard/success-stories', [SuccessStoryController::class, 'index'])->name('success-stories.list');
+    Route::get('/dashboard/success-stories/add', [SuccessStoryController::class, 'create'])->name('success-stories.add');
+    Route::post('/dashboard/success-stories/add', [SuccessStoryController::class, 'store'])->name('success-stories.store');
+    Route::get('/dashboard/success-stories/edit/{id}', [SuccessStoryController::class, 'edit'])->name('success-stories.edit');
+    Route::post('/dashboard/success-stories/edit/{id}', [SuccessStoryController::class, 'update'])->name('success-stories.update');
+    Route::delete('/dashboard/success-stories/{id}', [SuccessStoryController::class, 'destroy'])->name('success-stories.destroy');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

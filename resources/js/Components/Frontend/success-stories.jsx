@@ -1,116 +1,62 @@
-"use client"
-
-import { useRef, useState } from "react"
+import { useState, useCallback } from "react"
 import { Button } from "@/Components/ui/button"
 // import { Card, CardContent } from "@/Components/ui/card"
 import { Badge } from "@/Components/ui/badge"
 import { ArrowLeft, ArrowRight, Calendar, CheckCircle2, Clock, Lightbulb, Scale, Target, Trophy } from "lucide-react"
+import useEmblaCarousel from 'embla-carousel-react'
 
-// Sample success stories data
-const successStories = [
-  {
-    id: 1,
-    title: "Lorem ipsum dolor sit, amet consectetur adipisicing.",
-    category: "Immigration Law",
-    categoryColor: "bg-blue-600",
-    clientName: "Mr X & Mr Y.",
-    date: "March 2023",
-    image: "https://familyhubs.campaign.gov.uk/wp-content/uploads/sites/170/2023/12/6.8620_DfE_Family-Hubs-campaign_website_man-holding-a-child-looking-at-camera-900x600.jpg",
-    outcome:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ipsa corrupti dolore saepe, est laudantium.",
-    quote:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio debitis nesciunt doloribus itaque iste voluptatem vero sed earum fuga?",
-    keyMetric: "8 months",
-    keyMetricLabel: "Processing Time",
-    keyMetricIcon: Clock,
-  },
-  {
-    id: 2,
-    title: "Father Secures Equal Custody After Difficult Separation",
-    category: "Family Law",
-    categoryColor: "bg-emerald-600",
-    clientName: "David W.",
-    date: "January 2023",
-    image: "https://pa4law.com/wp-content/uploads/2019/10/father-custody-rights-1000x675.jpg",
-    outcome:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ipsa corrupti dolore saepe, est laudantium.",
-    quote:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio debitis nesciunt doloribus itaque iste voluptatem vero sed earum fuga?",
-    keyMetric: "50/50",
-    keyMetricLabel: "Custody Share",
-    keyMetricIcon: Scale,
-  },
-  {
-    id: 3,
-    title: "Serious Charges Dismissed Before Trial",
-    category: "Criminal Law",
-    categoryColor: "bg-red-600",
-    clientName: "Anonymous Client",
-    date: "November 2022",
-    image: "https://www.steindefense.com/wp-content/uploads/2025/02/SDF-Banner-Criminal-Case-Dismissed.jpg",
-    outcome:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ipsa corrupti dolore saepe, est laudantium.",
-    quote:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio debitis nesciunt doloribus itaque iste voluptatem vero sed earum fuga?",
-    keyMetric: "100%",
-    keyMetricLabel: "Case Dismissed",
-    keyMetricIcon: CheckCircle2,
-  },
-  {
-    id: 4,
-    title: "Skilled Professional Secures Permanent Residency",
-    category: "Immigration Law",
-    categoryColor: "bg-blue-600",
-    clientName: "Dr. Michael C.",
-    date: "October 2022",
-    image: "https://www.shutterstock.com/image-photo/concept-immigration-australia-virtual-button-260nw-1747153526.jpg",
-    outcome:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ipsa corrupti dolore saepe, est laudantium.",
-    quote:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio debitis nesciunt doloribus itaque iste voluptatem vero sed earum fuga?",
-    keyMetric: "PR",
-    keyMetricLabel: "Visa Type",
-    keyMetricIcon: Trophy,
-  },
-  {
-    id: 5,
-    title: "Complex Property Settlement Resolved Without Trial",
-    category: "Family Law",
-    categoryColor: "bg-emerald-600",
-    clientName: "Jennifer L.",
-    date: "September 2022",
-    image: "https://media.istockphoto.com/id/1208652540/photo/puzzle-house-is-divided-into-two-equal-parts-by-a-lawyer-in-a-divorce-process-protection-of.jpg?s=612x612&w=0&k=20&c=dMAUIpPngLtiSxMPU0ML63obeatMw-ztRRUrHHCaAGI=",
-    outcome:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ipsa corrupti dolore saepe, est laudantium.",
-    quote:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio debitis nesciunt doloribus itaque iste voluptatem vero sed earum fuga?",
-    keyMetric: "$4.2M",
-    keyMetricLabel: "Settlement",
-    keyMetricIcon: Target,
-  },
-  {
-    id: 6,
-    title: "Reduced Sentence in High-Profile Case",
-    category: "Criminal Law",
-    categoryColor: "bg-red-600",
-    clientName: "Protected Identity",
-    date: "August 2022",
-    image: "https://freedomhouse.org/sites/default/files/2021-09/FINAL_FOTN_2021_Cover_Illustration.jpg",
-    outcome:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ipsa corrupti dolore saepe, est laudantium.",
-    quote:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio debitis nesciunt doloribus itaque iste voluptatem vero sed earum fuga?",
-    keyMetric: "65%",
-    keyMetricLabel: "Reduction",
-    keyMetricIcon: Lightbulb,
-  },
-]
+// Icon mapping for key metrics
+const iconMap = {
+  Clock: Clock,
+  Scale: Scale,
+  CheckCircle2: CheckCircle2,
+  Trophy: Trophy,
+  Target: Target,
+  Lightbulb: Lightbulb,
+}
 
-function SuccessStoriesSection() {
-  const [selectedStory, setSelectedStory] = useState(successStories[0])
+// Category color mapping
+const categoryColors = {
+  "Migration Law": "bg-blue-600",
+  "Family Law": "bg-emerald-600",
+  "Criminal Law": "bg-red-600",
+  "Commertial Litigation": "bg-yellow-600",
+}
+
+function SuccessStoriesSection({ successStories = [] }) {
+  const [selectedStory, setSelectedStory] = useState(successStories[0] || null)
   const [visibleStories, setVisibleStories] = useState(4) // For mobile view "Load More" functionality
-  const timelineRef = useRef(null)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    containScroll: 'trimSnaps',
+    slidesToScroll: 1,
+  })
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
+
+  // If no stories are available, show a message
+  if (!successStories || successStories.length === 0) {
+    return (
+      <section id="success-stories" className="py-20 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-serif mb-4">Success Stories</h2>
+            <div className="w-20 h-1 bg-secondary mx-auto mb-6"></div>
+            <p className="text-lg text-muted-foreground">
+              No success stories available at the moment. Please check back later.
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   const handleStoryClick = (story) => {
     if (isAnimating || story.id === selectedStory.id) return
@@ -123,13 +69,6 @@ function SuccessStoriesSection() {
     }, 500)
   }
 
-  const handleScroll = (direction) => {
-    if (!timelineRef.current) return
-
-    const scrollAmount = direction === "left" ? -320 : 320
-    timelineRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
-  }
-
   const loadMoreStories = () => {
     setVisibleStories(successStories.length)
   }
@@ -137,6 +76,12 @@ function SuccessStoriesSection() {
   // Helper function to conditionally join class names
   const cn = (...classes) => {
     return classes.filter(Boolean).join(" ")
+  }
+
+  // Get the icon component based on the key_metric_icon string
+  const getIconComponent = (iconName) => {
+    const IconComponent = iconMap[iconName] || Clock
+    return <IconComponent className="h-10 w-10 mx-auto mb-2 text-secondary" />
   }
 
   return (
@@ -171,16 +116,16 @@ function SuccessStoriesSection() {
             <div className="relative">
               <div className="absolute inset-0 border-2 border-secondary/20 rounded-xl transform translate-x-4 translate-y-4 -z-10"></div>
               <div className="relative overflow-hidden rounded-xl shadow-xl">
-                <Badge className={cn("absolute top-4 left-4 z-10 text-white", selectedStory.categoryColor)}>
-                  {selectedStory.category}
+                <Badge className={cn("absolute top-4 left-4 z-10 text-white", categoryColors[selectedStory?.category?.name] || "bg-gray-600")}>
+                  {selectedStory?.category?.name}
                 </Badge>
                 <Badge className="absolute top-4 right-4 z-10 bg-white text-primary hover:text-white">
                   <Calendar className="h-3.5 w-3.5 mr-1" />
-                  {selectedStory.date}
+                  {new Date(selectedStory?.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </Badge>
                 <img
-                  src={selectedStory.image}
-                  alt={selectedStory.title}
+                  src={selectedStory?.image}
+                  alt={selectedStory?.title}
                   className="w-full h-auto object-cover transition-all duration-500 hover:scale-105"
                 />
               </div>
@@ -189,24 +134,24 @@ function SuccessStoriesSection() {
             {/* Content Side */}
             <div className="space-y-6">
               <div>
-                <Badge className={cn("mb-3 text-white hidden lg:inline-flex", selectedStory.categoryColor)}>
-                  {selectedStory.category}
+                <Badge className={cn("mb-3 text-white hidden lg:inline-flex", categoryColors[selectedStory?.category?.name] || "bg-gray-600")}>
+                  {selectedStory?.category?.name}
                 </Badge>
-                <h3 className="text-3xl font-bold text-primary font-serif mb-2">{selectedStory.title}</h3>
-                <p className="text-xl text-secondary">{selectedStory.clientName}</p>
+                <h3 className="text-3xl font-bold text-primary font-serif mb-2">{selectedStory?.title}</h3>
+                <p className="text-xl text-secondary">{selectedStory?.client_name}</p>
               </div>
 
               <div className="flex items-center justify-center bg-white dark:bg-gray-700 p-6 rounded-xl shadow-sm">
                 <div className="text-center">
-                  <selectedStory.keyMetricIcon className="h-10 w-10 mx-auto mb-2 text-secondary" />
-                  <span className="block text-3xl font-bold text-primary">{selectedStory.keyMetric}</span>
-                  <span className="text-sm text-muted-foreground">{selectedStory.keyMetricLabel}</span>
+                  {getIconComponent(selectedStory?.key_metric_icon)}
+                  <span className="block text-3xl font-bold text-primary">{selectedStory?.key_metric}</span>
+                  <span className="text-sm text-muted-foreground">{selectedStory?.key_metric_label}</span>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xl font-medium mb-2">The Outcome</h4>
-                <p className="text-gray-700 dark:text-gray-300">{selectedStory.outcome}</p>
+                <p className="text-gray-700 dark:text-gray-300">{selectedStory?.outcome}</p>
               </div>
 
               <div className="relative p-6 bg-white dark:bg-gray-700 rounded-xl border-l-4 border-secondary shadow-sm">
@@ -222,57 +167,53 @@ function SuccessStoriesSection() {
                     <path d="M11.9997 14H8.99973C8.99973 15.93 10.0697 16 10.9997 16C11.9997 16 11.9997 17 11.9997 17C9.49973 17 6.99973 15.94 6.99973 14V10H11.9997V14ZM17.9997 14H14.9997C14.9997 15.93 16.0697 16 16.9997 16C17.9997 16 17.9997 17 17.9997 17C15.4997 17 12.9997 15.94 12.9997 14V10H17.9997V14Z" />
                   </svg>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 italic relative z-10">{selectedStory.quote}</p>
+                <p className="text-gray-700 dark:text-gray-300 italic relative z-10">{selectedStory?.quote}</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Timeline Navigation (Desktop) */}
-        <div className=" relative mb-8 z-10">
+        <div className="relative mb-8 z-10">
           <div className="flex justify-end mb-2">
             <div className="flex space-x-2">
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => handleScroll("left")}
+                onClick={scrollPrev}
                 className="h-8 w-8 rounded-full"
               >
                 <ArrowLeft className="h-4 w-4" />
-                <span className="sr-only">Scroll left</span>
+                <span className="sr-only">Previous slide</span>
               </Button>
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => handleScroll("right")}
+                onClick={scrollNext}
                 className="h-8 w-8 rounded-full"
               >
                 <ArrowRight className="h-4 w-4" />
-                <span className="sr-only">Scroll right</span>
+                <span className="sr-only">Next slide</span>
               </Button>
             </div>
           </div>
 
-          <div
-            ref={timelineRef}
-            className="flex overflow-x-auto pb-4 scrollbar-hide"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            <div className="flex space-x-4">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
               {successStories.map((story) => (
                 <div
                   key={story.id}
                   onClick={() => handleStoryClick(story)}
                   className={cn(
-                    "flex-shrink-0 w-72 overflow-hidden rounded-xl shadow-sm cursor-pointer transition-all duration-300",
-                    selectedStory.id === story.id
+                    "flex-[0_0_288px] mx-2 overflow-hidden rounded-xl shadow-sm cursor-pointer transition-all duration-300",
+                    selectedStory?.id === story.id
                       ? "border-2 border-secondary transform -translate-y-1"
                       : "border border-gray-200 dark:border-gray-700 hover:-translate-y-1 hover:shadow-md",
                   )}
                 >
                   <div className="relative h-40">
-                    <Badge className={cn("absolute top-2 left-2 z-10 text-white", story.categoryColor)}>
-                      {story.category}
+                    <Badge className={cn("absolute top-2 left-2 z-10 text-white", categoryColors[story.category?.name] || "bg-gray-600")}>
+                      {story.category?.name}
                     </Badge>
                     <img
                       src={story.image}
@@ -282,7 +223,7 @@ function SuccessStoriesSection() {
                   </div>
                   <div className="p-4 bg-white dark:bg-gray-700">
                     <h4 className="font-medium line-clamp-1 mb-1">{story.title}</h4>
-                    <p className="text-sm text-muted-foreground">{story.clientName}</p>
+                    <p className="text-sm text-muted-foreground">{story.client_name}</p>
                   </div>
                 </div>
               ))}
