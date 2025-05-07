@@ -27,6 +27,7 @@ import { useState } from 'react'
 
 export default function SuccessStoryCreate ({ categories }) {
     const [image, setImage] = useState(null)
+    const [iconPreview, setIconPreview] = useState(null)
     const { data, setData, post, processing, errors } = useForm({
         title: '',
         category: '',
@@ -37,7 +38,7 @@ export default function SuccessStoryCreate ({ categories }) {
         quote: '',
         key_metric: '',
         key_metric_label: '',
-        key_metric_icon: ''
+        key_metric_icon: null,
     })
 
     const handleChange = e => {
@@ -66,6 +67,7 @@ export default function SuccessStoryCreate ({ categories }) {
         post(route('success-stories.store'), {
             onSuccess: () => {
                 toast.success('Success story created successfully')
+                setIconPreview(null)
             },
             onError: (errors) => {
                 if (errors.error) {
@@ -252,55 +254,35 @@ export default function SuccessStoryCreate ({ categories }) {
                                     {errors.key_metric_label && <p className="text-sm text-red-500">{errors.key_metric_label}</p>}
                                 </div>
 
-                                <div className='space-y-2'>
+                                <div className='md:col-span-2'>
                                     <Label htmlFor='key_metric_icon'>Key Metric Icon</Label>
-                                    <Select
-                                        value={data.key_metric_icon}
-                                        onValueChange={value => handleSelectChange('key_metric_icon', value)}
+                                    {iconPreview && (
+                                        <div className="mb-4">
+                                            <img
+                                                src={iconPreview}
+                                                alt="Icon Preview"
+                                                className="w-12 h-12 object-cover rounded-lg"
+                                            />
+                                        </div>
+                                    )}
+                                    <Input
+                                        id="key_metric_icon"
+                                        type="file"
+                                        onChange={e => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                setData('key_metric_icon', file);
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => {
+                                                    setIconPreview(reader.result);
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                        className={errors.key_metric_icon ? 'border-red-500' : ''}
+                                        accept="image/*"
                                         required
-                                    >
-                                        <SelectTrigger id='key_metric_icon'>
-                                            <SelectValue placeholder='Select an icon' />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value='Clock'>
-                                                <div className='flex items-center gap-2'>
-                                                    <Clock className='h-4 w-4' />
-                                                    <span>Clock</span>
-                                                </div>
-                                            </SelectItem>
-                                            <SelectItem value='Scale'>
-                                                <div className='flex items-center gap-2'>
-                                                    <Scale className='h-4 w-4' />
-                                                    <span>Scale</span>
-                                                </div>
-                                            </SelectItem>
-                                            <SelectItem value='CheckCircle2'>
-                                                <div className='flex items-center gap-2'>
-                                                    <CheckCircle2 className='h-4 w-4' />
-                                                    <span>Check Circle</span>
-                                                </div>
-                                            </SelectItem>
-                                            <SelectItem value='Trophy'>
-                                                <div className='flex items-center gap-2'>
-                                                    <Trophy className='h-4 w-4' />
-                                                    <span>Trophy</span>
-                                                </div>
-                                            </SelectItem>
-                                            <SelectItem value='Target'>
-                                                <div className='flex items-center gap-2'>
-                                                    <Target className='h-4 w-4' />
-                                                    <span>Target</span>
-                                                </div>
-                                            </SelectItem>
-                                            <SelectItem value='Lightbulb'>
-                                                <div className='flex items-center gap-2'>
-                                                    <Lightbulb className='h-4 w-4' />
-                                                    <span>Lightbulb</span>
-                                                </div>
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    />
                                     {errors.key_metric_icon && <p className="text-sm text-red-500">{errors.key_metric_icon}</p>}
                                 </div>
                             </div>

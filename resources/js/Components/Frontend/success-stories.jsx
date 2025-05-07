@@ -2,18 +2,9 @@ import { useState, useCallback } from "react"
 import { Button } from "@/Components/ui/button"
 // import { Card, CardContent } from "@/Components/ui/card"
 import { Badge } from "@/Components/ui/badge"
-import { ArrowLeft, ArrowRight, Calendar, CheckCircle2, Clock, Lightbulb, Scale, Target, Trophy } from "lucide-react"
+import { ArrowLeft, ArrowRight, Calendar } from "lucide-react"
 import useEmblaCarousel from 'embla-carousel-react'
 
-// Icon mapping for key metrics
-const iconMap = {
-  Clock: Clock,
-  Scale: Scale,
-  CheckCircle2: CheckCircle2,
-  Trophy: Trophy,
-  Target: Target,
-  Lightbulb: Lightbulb,
-}
 
 // Category color mapping
 const categoryColors = {
@@ -73,15 +64,20 @@ function SuccessStoriesSection({ successStories = [] }) {
     setVisibleStories(successStories.length)
   }
 
-  // Helper function to conditionally join class names
   const cn = (...classes) => {
     return classes.filter(Boolean).join(" ")
   }
 
-  // Get the icon component based on the key_metric_icon string
-  const getIconComponent = (iconName) => {
-    const IconComponent = iconMap[iconName] || Clock
-    return <IconComponent className="h-10 w-10 mx-auto mb-2 text-secondary" />
+  const renderKeyMetricIcon = (iconPath) => {
+    if (!iconPath) return null;
+
+    return (
+      <img
+        src={iconPath}
+        alt="Key Metric Icon"
+        className="h-10 w-10 mx-auto mb-2 object-contain"
+      />
+    )
   }
 
   return (
@@ -143,7 +139,7 @@ function SuccessStoriesSection({ successStories = [] }) {
 
               <div className="flex items-center justify-center bg-white dark:bg-gray-700 p-6 rounded-xl shadow-sm">
                 <div className="text-center">
-                  {getIconComponent(selectedStory?.key_metric_icon)}
+                  {renderKeyMetricIcon(selectedStory?.key_metric_icon)}
                   <span className="block text-3xl font-bold text-primary">{selectedStory?.key_metric}</span>
                   <span className="text-sm text-muted-foreground">{selectedStory?.key_metric_label}</span>
                 </div>

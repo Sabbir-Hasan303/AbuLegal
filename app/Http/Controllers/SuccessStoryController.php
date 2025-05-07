@@ -41,7 +41,7 @@ class SuccessStoryController extends Controller
     {
         // dd($request->all());
         try {
-            $validated = $request->validate([
+            $validated = Validator::make($request->all(), [
                 'title' => 'required|string|max:255',
                 'category' => 'required|exists:categories,id',
                 'client_name' => 'required|string|max:255',
@@ -51,8 +51,12 @@ class SuccessStoryController extends Controller
                 'quote' => 'required|string',
                 'key_metric' => 'required|string|max:255',
                 'key_metric_label' => 'required|string|max:255',
-                'key_metric_icon' => 'required|string|max:255',
+                'key_metric_icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
+            if ($validated->fails()) {
+                return redirect()->route('success-stories.create')->with('error', 'Failed to create success story.');
+            }
 
             $successStory = new SuccessStory();
 
@@ -64,6 +68,14 @@ class SuccessStoryController extends Controller
                 $successStory->image = $imageLink;
             }
 
+            if ($request->hasFile('key_metric_icon')) {
+                $keyMetricIcon = $request->file('key_metric_icon');
+                $keyMetricIconFilename = time() . '_' . $keyMetricIcon->getClientOriginalName();
+                Storage::disk('public')->put('success-stories/' . $keyMetricIconFilename, file_get_contents($keyMetricIcon));
+                $keyMetricIconLink = 'storage/success-stories/' . $keyMetricIconFilename;
+                $successStory->key_metric_icon = $keyMetricIconLink;
+            }
+
             $successStory->title = $request->title;
             $successStory->category = $request->category;
             $successStory->client_name = $request->client_name;
@@ -72,7 +84,6 @@ class SuccessStoryController extends Controller
             $successStory->quote = $request->quote;
             $successStory->key_metric = $request->key_metric;
             $successStory->key_metric_label = $request->key_metric_label;
-            $successStory->key_metric_icon = $request->key_metric_icon;
 
             $successStory->save();
 
@@ -120,7 +131,7 @@ class SuccessStoryController extends Controller
                 'quote' => 'required|string',
                 'key_metric' => 'required|string|max:255',
                 'key_metric_label' => 'required|string|max:255',
-                'key_metric_icon' => 'required|string|max:255',
+                'key_metric_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             // if validation fails, return to the edit page with the errors
@@ -132,7 +143,7 @@ class SuccessStoryController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $oldPath = str_replace('/storage/', '', $successStory->image);
+                $oldPath = str_replace('storage/', '', $successStory->image);
                 if (Storage::disk('public')->exists($oldPath)) {
                     Storage::disk('public')->delete($oldPath);
                 }
@@ -140,6 +151,18 @@ class SuccessStoryController extends Controller
                 Storage::disk('public')->put('success-stories/' . $filename, file_get_contents($image));
                 $imageLink = 'storage/success-stories/' . $filename;
                 $successStory->image = $imageLink;
+            }
+
+            if ($request->hasFile('key_metric_icon')) {
+                $keyMetricIcon = $request->file('key_metric_icon');
+                $oldPath = str_replace('storage/', '', $successStory->key_metric_icon);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $keyMetricIconFilename = time() . '_' . $keyMetricIcon->getClientOriginalName();
+                Storage::disk('public')->put('success-stories/' . $keyMetricIconFilename, file_get_contents($keyMetricIcon));
+                $keyMetricIconLink = 'storage/success-stories/' . $keyMetricIconFilename;
+                $successStory->key_metric_icon = $keyMetricIconLink;
             }
 
             $successStory->title = $request->title;
@@ -150,7 +173,6 @@ class SuccessStoryController extends Controller
             $successStory->quote = $request->quote;
             $successStory->key_metric = $request->key_metric;
             $successStory->key_metric_label = $request->key_metric_label;
-            $successStory->key_metric_icon = $request->key_metric_icon;
 
             $successStory->save();
 
@@ -168,7 +190,14 @@ class SuccessStoryController extends Controller
         $successStory = SuccessStory::find($id);
         // Delete image
         if ($successStory->image) {
-            $oldPath = str_replace('/storage/', '', $successStory->image);
+            $oldPath = str_replace('storage/', '', $successStory->image);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
+            }
+        }
+
+        if ($successStory->key_metric_icon) {
+            $oldPath = str_replace('storage/', '', $successStory->key_metric_icon);
             if (Storage::disk('public')->exists($oldPath)) {
                 Storage::disk('public')->delete($oldPath);
             }

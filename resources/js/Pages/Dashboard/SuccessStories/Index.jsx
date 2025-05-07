@@ -11,6 +11,7 @@ import { Clock, Scale, CheckCircle2, Trophy, Target, Lightbulb } from 'lucide-re
 
 export default function SuccessStoriesIndex({ successStories }) {
   const [isDeleting, setIsDeleting] = useState(false)
+  const domain = window.location.origin
 
   const handleDelete = (id) => {
     setIsDeleting(true)
@@ -92,13 +93,7 @@ export default function SuccessStoriesIndex({ successStories }) {
                       <TableCell>{story.key_metric}</TableCell>
                       <TableCell>{story.key_metric_label}</TableCell>
                       <TableCell>
-                            {/* CHECK THE ICONS AND SHOW THE ICON */}
-                            {story.key_metric_icon === 'Clock' && <Clock className="h-4 w-4" />}
-                            {story.key_metric_icon === 'Scale' && <Scale className="h-4 w-4" />}
-                            {story.key_metric_icon === 'CheckCircle2' && <CheckCircle2 className="h-4 w-4" />}
-                            {story.key_metric_icon === 'Trophy' && <Trophy className="h-4 w-4" />}
-                            {story.key_metric_icon === 'Target' && <Target className="h-4 w-4" />}
-                            {story.key_metric_icon === 'Lightbulb' && <Lightbulb className="h-4 w-4" />}
+                        <img src={`${domain}/${story.key_metric_icon}`} alt="Key Metric Icon" className="h-6 w-6" />
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">

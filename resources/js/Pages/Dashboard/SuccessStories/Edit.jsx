@@ -9,9 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from 'react-hot-toast'
 import ImageUpload from "@/Components/Backend/ImageUpload"
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { useState } from 'react'
 
 export default function SuccessStoryEdit({ successStory, categories }) {
-
+  const [iconPreview, setIconPreview] = useState(null)
   const domain = window.location.origin
 
   const { data, setData, post, processing, errors } = useForm({
@@ -24,7 +25,7 @@ export default function SuccessStoryEdit({ successStory, categories }) {
     quote: successStory.quote,
     key_metric: successStory.key_metric,
     key_metric_label: successStory.key_metric_label,
-    key_metric_icon: successStory.key_metric_icon
+    key_metric_icon: null
   })
 
   const handleImageChange = (file) => {
@@ -210,56 +211,38 @@ export default function SuccessStoryEdit({ successStory, categories }) {
                   {errors.key_metric_label && <p className="text-sm text-red-500">{errors.key_metric_label}</p>}
                 </div>
 
-                <div className="space-y-2">
+                <div className="md:col-span-2">
                   <Label htmlFor="key_metric_icon">Key Metric Icon</Label>
-                  <Select
-                    value={data.key_metric_icon}
-                    onValueChange={(value) => setData('key_metric_icon', value)}
-                    required
-                  >
-                    <SelectTrigger id="key_metric_icon" className={errors.key_metric_icon ? 'border-red-500' : ''}>
-                      <SelectValue placeholder="Select an icon" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Clock">
-                        <div className="flex items-center gap-2">
-                          <Clock className="h-4 w-4" />
-                          <span>Clock</span>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="Scale">
-                        <div className="flex items-center gap-2">
-                          <Scale className="h-4 w-4" />
-                          <span>Scale</span>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="CheckCircle2">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="h-4 w-4" />
-                          <span>Check Circle</span>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="Trophy">
-                        <div className="flex items-center gap-2">
-                          <Trophy className="h-4 w-4" />
-                          <span>Trophy</span>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="Target">
-                        <div className="flex items-center gap-2">
-                          <Target className="h-4 w-4" />
-                          <span>Target</span>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="Lightbulb">
-                        <div className="flex items-center gap-2">
-                          <Lightbulb className="h-4 w-4" />
-                          <span>Lightbulb</span>
-                        </div>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  {(iconPreview || successStory.key_metric_icon) && (
+                    <div className="mb-4">
+                      <img
+                        src={iconPreview || (domain + '/' + successStory.key_metric_icon)}
+                        alt="Icon Preview"
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
+                    </div>
+                  )}
+                  <Input
+                    id="key_metric_icon"
+                    type="file"
+                    onChange={e => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        setData('key_metric_icon', file);
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setIconPreview(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    className={errors.key_metric_icon ? 'border-red-500' : ''}
+                    accept="image/*"
+                  />
                   {errors.key_metric_icon && <p className="text-sm text-red-500">{errors.key_metric_icon}</p>}
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Leave empty to keep the current icon
+                  </p>
                 </div>
               </div>
 
