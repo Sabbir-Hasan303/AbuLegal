@@ -12,6 +12,8 @@ use App\Models\Service;
 use App\Models\Faq;
 use App\Models\Attorney;
 use App\Models\Option;
+use App\Models\SuccessStory;
+
 class HomeController extends Controller
 {
     public function index()
@@ -36,6 +38,7 @@ class HomeController extends Controller
 
         $googleReviews = Option::where('key', 'google_reviews')->first();
         $reviews = $googleReviews ? json_decode($googleReviews->value, true) : [];
+        $successStories = SuccessStory::with('category')->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Home', [
             // 'canLogin' => Route::has('login'),
@@ -46,6 +49,7 @@ class HomeController extends Controller
             'faqs' => $faqs,
             'attorneys' => $attorneys,
             'reviews' => $reviews,
+            'successStories' => $successStories,
         ]);
     }
 
