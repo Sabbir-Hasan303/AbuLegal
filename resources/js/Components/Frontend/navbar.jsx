@@ -65,10 +65,10 @@ export default function Navbar() {
                         <div className='flex items-center'>
                             <Mail className='h-5 w-5 mr-2 text-secondary' />
                             <a
-                                href='mailto:abu@abuleagal.com'
+                                href='mailto:abu@abulegal.com'
                                 className='text-base font-medium'
                             >
-                                abu@abuleagal.com
+                                abu@abulegal.com
                             </a>
                         </div>
                         <div className='flex items-center'>
