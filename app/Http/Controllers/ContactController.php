@@ -76,7 +76,7 @@ class ContactController extends Controller
             $contact->save();
 
             // Send notification email to admin
-            Mail::to('abu@abuleagal.com')->send(new ContactFormNotification($contact));
+            Mail::to('abu@abulegal.com')->send(new ContactFormNotification($contact));
 
             return redirect()->route('contact.index')->with('success', 'Message sent successfully');
         } catch (\Exception $e) {
