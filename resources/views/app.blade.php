@@ -28,6 +28,26 @@
         rel="stylesheet"
       />
 
+        <!-- Google tag (gtag.js) -->
+        {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-FE5WMP6DCS"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-FE5WMP6DCS');
+        </script> --}}
+
+        <!-- Google tag (staging) (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTVZGJ74P5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-RTVZGJ74P5');
+        </script>
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh
