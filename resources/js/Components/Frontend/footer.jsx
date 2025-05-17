@@ -43,14 +43,16 @@ export default function Footer() {
               family, and criminal law.
             </p>
             <div className="flex space-x-3">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-9 w-9 rounded-full text-primary-foreground/80 hover:text-white hover:bg-primary-foreground/10"
-              >
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </Button>
+              <a href="https://www.facebook.com/people/ABU-Legal/100094264995789/" target="_blank" rel="noopener noreferrer">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9 rounded-full text-primary-foreground/80 hover:text-white hover:bg-primary-foreground/10"
+                >
+                    <Facebook className="h-5 w-5" />
+                    <span className="sr-only">Facebook</span>
+                </Button>
+              </a>
               <Button
                 variant="ghost"
                 size="icon"
@@ -67,14 +69,16 @@ export default function Footer() {
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-9 w-9 rounded-full text-primary-foreground/80 hover:text-white hover:bg-primary-foreground/10"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Button>
+              <a href="https://www.linkedin.com/in/abu-siddque-663b918a/?originalSubdomain=au" target="_blank" rel="noopener noreferrer">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9 rounded-full text-primary-foreground/80 hover:text-white hover:bg-primary-foreground/10"
+                >
+                    <Linkedin className="h-5 w-5" />
+                    <span className="sr-only">LinkedIn</span>
+                </Button>
+              </a>
               <Button
                 variant="ghost"
                 size="icon"
@@ -95,17 +99,17 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-primary-foreground/80 hover:text-white transition-colors">
+                <a href="/about" className="text-primary-foreground/80 hover:text-white transition-colors">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-primary-foreground/80 hover:text-white transition-colors">
+                <a href="/services" className="text-primary-foreground/80 hover:text-white transition-colors">
                   Services
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-primary-foreground/80 hover:text-white transition-colors">
+                <a href="/contact" className="text-primary-foreground/80 hover:text-white transition-colors">
                   Contact Us
                 </a>
               </li>
